@@ -1,0 +1,1 @@
+"..\..\Libraries\YX23F01CB_TouchUartDebug_Lib_V1.00\YX23F01CB_TouchUartDebug_Lib_CFG.c" OMF2 OPTIMIZE (8,SPEED) BROWSE INCDIR(..\..\Application;..\..\User\INC;..\..\Libraries;..\..\User\pt_os) DEBUG PRINT(.\List\YX23F01CB_TouchUartDebug_Lib_CFG.lst) TABS (2) OBJECT(.\Output\YX23F01CB_TouchUartDebug_Lib_CFG.obj)

@@ -1,0 +1,20 @@
+SET C51INC=F:\Keil\C51\Inc;F:\Keil\C51\Inc\YX-LINK
+SET C51LIB=F:\Keil\C51\Lib
+SET CPU_TYPE=YX23F01C
+SET CPU_VENDOR=YX-LINK
+SET UV2_TARGET=YX23F01CB_Touch_Library_Code
+SET CPU_XTAL=0x01E84800
+"F:\Keil\C51\BIN\AX51.EXE" @".\Output\STARTUP._ia"
+"F:\Keil\C51\BIN\C51.EXE" @".\Output\Main.__i"
+"F:\Keil\C51\BIN\C51.EXE" @".\Output\delay.__i"
+"F:\Keil\C51\BIN\C51.EXE" @".\Output\printf_c.__i"
+"F:\Keil\C51\BIN\C51.EXE" @".\Output\YX23F01CB_GeneralKey_Touch_Lib_CFG.__i"
+"F:\Keil\C51\BIN\C51.EXE" @".\Output\YX23F01CB_GeneralKey_Touch_Filter.__i"
+"F:\Keil\C51\BIN\C51.EXE" @".\Output\YX23F01CB_GeneralKey_Touch_Multibutton.__i"
+"F:\Keil\C51\BIN\C51.EXE" @".\Output\YX23F01CB_TouchUartDebug_Lib_CFG.__i"
+"F:\Keil\C51\BIN\C51.EXE" @".\Output\YX23F01CB_IO_INIT.__i"
+"F:\Keil\C51\BIN\C51.EXE" @".\Output\YX23F01CB_ISR.__i"
+"F:\Keil\C51\BIN\C51.EXE" @".\Output\YX23F01CB_PORT_MAP.__i"
+"F:\Keil\C51\BIN\C51.EXE" @".\Output\YX23F01CB_SYS.__i"
+"F:\Keil\C51\BIN\LX51.EXE" @".\Output\HT1021-≈Ø≤À≈Ã.lnp"
+"F:\Keil\C51\BIN\OHX51.EXE" ".\Output\HT1021-≈Ø≤À≈Ã" HEX

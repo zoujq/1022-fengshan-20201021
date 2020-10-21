@@ -1,0 +1,1 @@
+"..\..\User\C\printf.c" OMF2 OPTIMIZE (8,SPEED) BROWSE INCDIR(..\..\Application;..\..\User\INC;..\..\Libraries) DEBUG PRINT(.\List\printf.lst) TABS (2) OBJECT(.\Output\printf.obj)

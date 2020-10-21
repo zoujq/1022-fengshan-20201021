@@ -1,0 +1,1 @@
+"..\..\User\C\YX23F01CB_PORT_MAP.c" OMF2 OPTIMIZE (8,SPEED) BROWSE INCDIR(..\..\Application;..\..\User\INC;..\..\Libraries;..\..\User\pt_os) DEBUG PRINT(.\List\YX23F01CB_PORT_MAP.lst) TABS (2) OBJECT(.\Output\YX23F01CB_PORT_MAP.obj)

@@ -1,0 +1,213 @@
+C51 COMPILER V9.56.0.0   YX23F01CB_GENERALKEY_TOUCH_LIB_CFG                                10/21/2020 20:02:05 PAGE 1   
+
+
+C51 COMPILER V9.56.0.0, COMPILATION OF MODULE YX23F01CB_GENERALKEY_TOUCH_LIB_CFG
+OBJECT MODULE PLACED IN .\Output\YX23F01CB_GeneralKey_Touch_Lib_CFG.obj
+COMPILER INVOKED BY: F:\Keil\C51\BIN\C51.EXE ..\..\Libraries\YX23F01CB_GeneralKey_Touch_Lib_V1.04\YX23F01CB_GeneralKey_T
+                    -ouch_Lib_CFG.c OMF2 OPTIMIZE(8,SPEED) BROWSE INCDIR(..\..\Application;..\..\User\INC;..\..\Libraries;..\..\User\pt_os) D
+                    -EBUG PRINT(.\List\YX23F01CB_GeneralKey_Touch_Lib_CFG.lst) TABS(2) OBJECT(.\Output\YX23F01CB_GeneralKey_Touch_Lib_CFG.obj
+                    -)
+
+line level    source
+
+   1          
+   2          /********************************************************************************
+   3          
+   4          注：本文件不建议用户自行修改！
+   5          
+   6          *******************************************************************************/
+   7          //===================================================================================================
+   8          #include "YX_DEFINE.H"
+   9          #include "YX23F01CB_GeneralKey_Touch_Lib_V1.04\YX23F01CB_GeneralKey_Touch_Lib_CFG.h"
+  10          #include "YX23F01CB_GeneralKey_Touch_Lib_V1.04\YX23F01CB_GeneralKey_Touch_Filter.h"
+  11          #include "YX23F01CB_GeneralKey_Touch_Lib_V1.04\YX23F01CB_GeneralKey_Touch_Multibutton.h"
+  12          
+  13          //===================================================================================================
+  14          #define HexadecimalToBinary(a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p)  \
+  15          (                               \
+  16            (a<<15)+(b<<14)+(c<<13)+(d<<12)+              \
+  17            (e<<11)+(f<<10)+(g<<9)+(h<<8)+                \
+  18            (i<<7)+(j<<6)+(k<<5)+(l<<4)+                \
+  19            (m<<3)+(n<<2)+(o<<1)+(p<<0)                 \
+  20          )
+  21          #define TKBIN HexadecimalToBinary
+  22          
+  23          //===================================================================================================
+  24          #if (YXTouchLib_IC_BODY == IC_BODY_SOP16)
+              #pragma message "IC Body: YX23F01CB-SOP16"
+              #define TK_CH_MAX     7
+              uc8 CODE_INTERNAL_INDEX[TK_CH_MAX] = {2, 7, 11, 12, 13, 14, 15};
+              
+              #elif (YXTouchLib_IC_BODY == IC_BODY_SOP20_DIP20)
+              #pragma message "IC Body: YX23F01CB-SOP20/DIP20"
+              #define TK_CH_MAX     10
+              uc8 CODE_INTERNAL_INDEX[TK_CH_MAX] = {2, 3, 7, 9, 10, 11, 12, 13, 14, 15};
+              
+              #elif (YXTouchLib_IC_BODY == IC_BODY_SOP24)
+              #pragma message "IC Body: YX23F01CB-SOP24"
+              #define TK_CH_MAX     12
+              uc8 CODE_INTERNAL_INDEX[TK_CH_MAX] = {0, 1, 2, 3, 7, 9, 10, 11, 12, 13, 14, 15};
+              
+              #elif (YXTouchLib_IC_BODY == IC_BODY_SOP28)
+  40          #pragma message "IC Body: YX23F01CB-SOP28"
+*** MESSAGE C286 IN LINE 40 OF ..\..\Libraries\YX23F01CB_GeneralKey_Touch_Lib_V1.04\YX23F01CB_GeneralKey_Touch_Lib_CFG.c
+             -: IC Body: YX23F01CB-SOP28
+  41          #define TK_CH_MAX     16
+  42          uc8 CODE_INTERNAL_INDEX[TK_CH_MAX] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
+  43          
+  44          #else
+              #define TK_CH_MAX     1
+              uc8 CODE_INTERNAL_INDEX[TK_CH_MAX] = {0};
+              #error "No IC Body,Please reconfigure YXTouchLib_IC_BODY"
+              #endif
+  49          
+  50          //===================================================================================================
+C51 COMPILER V9.56.0.0   YX23F01CB_GENERALKEY_TOUCH_LIB_CFG                                10/21/2020 20:02:05 PAGE 2   
+
+  51          #include "YX23F01CB_GeneralKey_Touch_Lib_V1.04\YX23F01CB_GeneralKey_Touch_Lib_Build_Message.h"
+*** MESSAGE C286 IN LINE 199 OF ..\..\Libraries\YX23F01CB_GeneralKey_Touch_Lib_V1.04\YX23F01CB_GeneralKey_Touch_Lib_Buil
+             -d_Message.h: TK11：Enable
+*** MESSAGE C286 IN LINE 202 OF ..\..\Libraries\YX23F01CB_GeneralKey_Touch_Lib_V1.04\YX23F01CB_GeneralKey_Touch_Lib_Buil
+             -d_Message.h: TK12：Enable
+*** MESSAGE C286 IN LINE 205 OF ..\..\Libraries\YX23F01CB_GeneralKey_Touch_Lib_V1.04\YX23F01CB_GeneralKey_Touch_Lib_Buil
+             -d_Message.h: TK13：Enable
+*** MESSAGE C286 IN LINE 208 OF ..\..\Libraries\YX23F01CB_GeneralKey_Touch_Lib_V1.04\YX23F01CB_GeneralKey_Touch_Lib_Buil
+             -d_Message.h: TK14：Enable
+*** MESSAGE C286 IN LINE 211 OF ..\..\Libraries\YX23F01CB_GeneralKey_Touch_Lib_V1.04\YX23F01CB_GeneralKey_Touch_Lib_Buil
+             -d_Message.h: TK15：Enable
+*** MESSAGE C286 IN LINE 223 OF ..\..\Libraries\YX23F01CB_GeneralKey_Touch_Lib_V1.04\YX23F01CB_GeneralKey_Touch_Lib_Buil
+             -d_Message.h: CTK采样频率：Fosc/2
+*** MESSAGE C286 IN LINE 232 OF ..\..\Libraries\YX23F01CB_GeneralKey_Touch_Lib_V1.04\YX23F01CB_GeneralKey_Touch_Lib_Buil
+             -d_Message.h: CTK充放电频率：Fosc/8
+*** MESSAGE C286 IN LINE 244 OF ..\..\Libraries\YX23F01CB_GeneralKey_Touch_Lib_V1.04\YX23F01CB_GeneralKey_Touch_Lib_Buil
+             -d_Message.h: CTK充电电源电压：3V
+*** MESSAGE C286 IN LINE 250 OF ..\..\Libraries\YX23F01CB_GeneralKey_Touch_Lib_V1.04\YX23F01CB_GeneralKey_Touch_Lib_Buil
+             -d_Message.h: CTK充放电伪随机：打开
+*** MESSAGE C286 IN LINE 253 OF ..\..\Libraries\YX23F01CB_GeneralKey_Touch_Lib_V1.04\YX23F01CB_GeneralKey_Touch_Lib_Buil
+             -d_Message.h: CTK参考电压：0.60V
+*** MESSAGE C286 IN LINE 271 OF ..\..\Libraries\YX23F01CB_GeneralKey_Touch_Lib_V1.04\YX23F01CB_GeneralKey_Touch_Lib_Buil
+             -d_Message.h: CTK放电电阻：32
+*** MESSAGE C286 IN LINE 277 OF ..\..\Libraries\YX23F01CB_GeneralKey_Touch_Lib_V1.04\YX23F01CB_GeneralKey_Touch_Lib_Buil
+             -d_Message.h: CTK调制电容：内置电容
+*** MESSAGE C286 IN LINE 280 OF ..\..\Libraries\YX23F01CB_GeneralKey_Touch_Lib_V1.04\YX23F01CB_GeneralKey_Touch_Lib_Buil
+             -d_Message.h: CTK连续扫描模式：打开
+*** MESSAGE C286 IN LINE 283 OF ..\..\Libraries\YX23F01CB_GeneralKey_Touch_Lib_V1.04\YX23F01CB_GeneralKey_Touch_Lib_Buil
+             -d_Message.h: CTK扫描补偿：关闭
+*** MESSAGE C286 IN LINE 323 OF ..\..\Libraries\YX23F01CB_GeneralKey_Touch_Lib_V1.04\YX23F01CB_GeneralKey_Touch_Lib_Buil
+             -d_Message.h: CTK低基准线复位: 打开
+*** MESSAGE C286 IN LINE 332 OF ..\..\Libraries\YX23F01CB_GeneralKey_Touch_Lib_V1.04\YX23F01CB_GeneralKey_Touch_Lib_Buil
+             -d_Message.h: CTK通道校准: 关闭
+*** MESSAGE C286 IN LINE 338 OF ..\..\Libraries\YX23F01CB_GeneralKey_Touch_Lib_V1.04\YX23F01CB_GeneralKey_Touch_Lib_Buil
+             -d_Message.h: CTK RawData递推中位值平均滤波: 关闭
+*** MESSAGE C286 IN LINE 347 OF ..\..\Libraries\YX23F01CB_GeneralKey_Touch_Lib_V1.04\YX23F01CB_GeneralKey_Touch_Lib_Buil
+             -d_Message.h: CTK 最强按键: 关闭
+  52          
+  53          //===================================================================================================
+  54          #if ((YXTouchLib_TK_CH_MASK & (0xFFFF >> (16 - TK_CH_MAX))) == 0)
+              #error "No channel is enabled,Please reconfigure YXTouchLib_TK_CH_MASK"
+              #endif
+  57          
+  58          //===================================================================================================
+  59          //开启的检测通道个数
+  60          #define YXTouchLib_OPENED_TK_AMOUNT \
+  61          ((YXTouchLib_TK_CH_MASK>> 0 & 0x01L)+(YXTouchLib_TK_CH_MASK>> 1 & 0x01L)+(YXTouchLib_TK_CH_MASK>> 2 & 0x01
+             -L)+(YXTouchLib_TK_CH_MASK>> 3 & 0x01L)+\
+  62           (YXTouchLib_TK_CH_MASK>> 4 & 0x01L)+(YXTouchLib_TK_CH_MASK>> 5 & 0x01L)+(YXTouchLib_TK_CH_MASK>> 6 & 0x01
+             -L)+(YXTouchLib_TK_CH_MASK>> 7 & 0x01L)+\
+  63           (YXTouchLib_TK_CH_MASK>> 8 & 0x01L)+(YXTouchLib_TK_CH_MASK>> 9 & 0x01L)+(YXTouchLib_TK_CH_MASK>>10 & 0x01
+             -L)+(YXTouchLib_TK_CH_MASK>>11 & 0x01L)+\
+  64           (YXTouchLib_TK_CH_MASK>>12 & 0x01L)+(YXTouchLib_TK_CH_MASK>>13 & 0x01L)+(YXTouchLib_TK_CH_MASK>>14 & 0x01
+             -L)+(YXTouchLib_TK_CH_MASK>>15 & 0x01L))
+  65          
+  66          #define  USERDATA  YXTouchLib_OPENED_TK_AMOUNT 
+  67          
+  68          //===================================================================================================
+  69          #define YXTouchLib_NOISE_THRESHOLD { \
+  70           YXTouchLib_SET0_N_THRESHOLD,  YXTouchLib_SET1_N_THRESHOLD,  YXTouchLib_SET2_N_THRESHOLD,  YXTouchLib_SET3
+             -_N_THRESHOLD,  \
+  71           YXTouchLib_SET4_N_THRESHOLD,  YXTouchLib_SET5_N_THRESHOLD,  YXTouchLib_SET6_N_THRESHOLD,  YXTouchLib_SET7
+C51 COMPILER V9.56.0.0   YX23F01CB_GENERALKEY_TOUCH_LIB_CFG                                10/21/2020 20:02:05 PAGE 3   
+
+             -_N_THRESHOLD,  \
+  72           YXTouchLib_SET8_N_THRESHOLD,  YXTouchLib_SET9_N_THRESHOLD,  YXTouchLib_SET10_N_THRESHOLD, YXTouchLib_SET1
+             -1_N_THRESHOLD, \
+  73           YXTouchLib_SET12_N_THRESHOLD, YXTouchLib_SET13_N_THRESHOLD, YXTouchLib_SET14_N_THRESHOLD, YXTouchLib_SET1
+             -5_N_THRESHOLD  \
+  74          }
+  75          
+  76          #define YXTouchLib_FINGER_THRESHOLD { \
+  77           YXTouchLib_SET0_F_THRESHOLD,  YXTouchLib_SET1_F_THRESHOLD,  YXTouchLib_SET2_F_THRESHOLD,  YXTouchLib_SET3
+             -_F_THRESHOLD,  \
+  78           YXTouchLib_SET4_F_THRESHOLD,  YXTouchLib_SET5_F_THRESHOLD,  YXTouchLib_SET6_F_THRESHOLD,  YXTouchLib_SET7
+             -_F_THRESHOLD,  \
+  79           YXTouchLib_SET8_F_THRESHOLD,  YXTouchLib_SET9_F_THRESHOLD,  YXTouchLib_SET10_F_THRESHOLD, YXTouchLib_SET1
+             -1_F_THRESHOLD, \
+  80           YXTouchLib_SET12_F_THRESHOLD, YXTouchLib_SET13_F_THRESHOLD, YXTouchLib_SET14_F_THRESHOLD, YXTouchLib_SET1
+             -5_F_THRESHOLD  \
+  81          }
+  82          
+  83          //===================================================================================================
+  84          uc16  CODE_TK_CH_MASK                 = YXTouchLib_TK_CH_MASK;
+  85          uc8   CODE_CHANNEL_CALIBRATE_SW       = 0;
+  86          uc8   CODE_CALIBRATE_DEFLECTED_AREA   = 20;
+  87          uc8   CODE_CALIBRATE_TARGET_LINE      = 0;
+  88          uc8   CODE_DSCR                       = YXTouchLib_DSCR;
+  89          uc8   CODE_CTKDS_PRSDIV               = (0 << 4) | (1 << 3) | YXTouchLib_PRSDIV;
+  90          uc8   CODE_VD_RV                      = (YXTouchLib_VD << 4) | 0;
+  91          uc8   CODE_RBS                        = (0 << 7) | YXTouchLib_RBS;
+  92          uc8   CODE_Continue_Scan_SW           = 1;
+  93          uc8   CODE_OFFSET_SW                  = 0;
+  94          uc16  CODE_OVERHIGH_TIME              = YXTouchLib_OVERHIGH_TIME;
+  95          uc16  CODE_OVERLOW_TIME               = YXTouchLib_OVERLOW_TIME;
+  96          uc8   CODE_CONFIRM_TOUCH_TIME         = YXTouchLib_CONFIRM_TOUCH_TIME;
+  97          uc8   CODE_CONFIRM_NOTOUCH_TIME       = YXTouchLib_CONFIRM_NOTOUCH_TIME;
+  98          uc8   CODE_LIMIT_FACTOR               = YXTouchLib_LIMIT_FACTOR;
+  99          uc8   CODE_BARREL_CAPACITY            = YXTouchLib_NOISE_BARREL_CAPACITY;
+ 100          uc16  CODE_NOISE_THRESHOLD[16]        = YXTouchLib_NOISE_THRESHOLD;
+ 101          uc16  CODE_FINGER_THRESHOLD[16]       = YXTouchLib_FINGER_THRESHOLD;
+ 102          uc8   CODE_OPENED_TK_AMOUNT           = YXTouchLib_OPENED_TK_AMOUNT;
+ 103          uc8   CODE_Hysteresis         = YXTouchLib_Hysteresis;
+ 104          uc8   CODE_TK_CH_MAX                  = TK_CH_MAX;
+ 105          uc8   CODE_FILTER_DEPTH       = YXTouchLib_FILTER_DEPTH;
+ 106          
+ 107          //===================================================================================================
+ 108          ux16  XDATA_RawData    [YXTouchLib_OPENED_TK_AMOUNT];
+ 109          ux16  XDATA_RawDataBuf [YXTouchLib_OPENED_TK_AMOUNT];
+ 110          sx16  XDATA_BaseLine   [YXTouchLib_OPENED_TK_AMOUNT];
+ 111          ux16  XDATA_OverLowCnt [YXTouchLib_OPENED_TK_AMOUNT];
+ 112          ux16  XDATA_OverHighCnt[YXTouchLib_OPENED_TK_AMOUNT];
+ 113          ux8   XDATA_TouchCnt   [YXTouchLib_OPENED_TK_AMOUNT];
+ 114          ux8   XDATA_NoTouchCnt [YXTouchLib_OPENED_TK_AMOUNT];
+ 115          sx16  XDATA_DifferAccum[YXTouchLib_OPENED_TK_AMOUNT];
+ 116          ux16  XDATA_LongRstCnt [YXTouchLib_OPENED_TK_AMOUNT];
+ 117          ux16  XDATA_THRNoiseCnt[YXTouchLib_OPENED_TK_AMOUNT];
+ 118          ux8   XDATA_AccessIndex[TK_CH_MAX];
+ 119          ux16  XDATA_CONFIRM_LONGTOUCH_TIME  = YXTouchLib_CONFIRM_LONGTOUCH_TIME;
+ 120          ux16  XDATA_THRESHOLD_NOISE_TIME    = YXTouchLib_CONFIRM_LONGTOUCH_TIME;
+ 121          ux8   XDATA_THRESHOLD_RATIO     = 10;
+ 122          ux8   XDATA_FineTuning        = 2;
+ 123          
+ 124          /******************************************************************************************************
+ 125          
+ 126           ******************************************************************************************************/
+C51 COMPILER V9.56.0.0   YX23F01CB_GENERALKEY_TOUCH_LIB_CFG                                10/21/2020 20:02:05 PAGE 4   
+
+ 127           
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =   ----    ----
+   CONSTANT SIZE    =    103    ----
+   XDATA SIZE       =    112    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+   EDATA SIZE       =   ----    ----
+   HDATA SIZE       =   ----    ----
+   XDATA CONST SIZE =   ----    ----
+   FAR CONST SIZE   =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

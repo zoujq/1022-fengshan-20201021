@@ -1,0 +1,19 @@
+".\Output\STARTUP.obj",
+".\Output\Main.obj",
+".\Output\delay.obj",
+".\Output\printf_c.obj",
+".\Output\YX23F01CB_GeneralKey_Touch_Lib_CFG.obj",
+".\Output\YX23F01CB_GeneralKey_Touch_Filter.obj",
+".\Output\YX23F01CB_GeneralKey_Touch_Multibutton.obj",
+"..\..\Libraries\YX23F01CB_GeneralKey_Touch_Lib_V1.04\YX23F01CB_GeneralKey_Touch_Lib_V1.04.LIB",
+".\Output\YX23F01CB_TouchUartDebug_Lib_CFG.obj",
+"..\..\Libraries\YX23F01CB_TouchUartDebug_Lib_V1.00\YX23F01CB_TouchUartDebug_Lib_V1.00.LIB",
+".\Output\YX23F01CB_IO_INIT.obj",
+".\Output\YX23F01CB_ISR.obj",
+".\Output\YX23F01CB_PORT_MAP.obj",
+".\Output\YX23F01CB_SYS.obj" 
+TO ".\Output\YX23F01CB_Touch_Library_Code" 
+
+PRINT(".\List\YX23F01CB_Touch_Library_Code.map") DISABLEWARNING (16,57) 
+CLASSES (XDATA (X:0x0-X:0x1FF), HDATA (X:0x0-X:0x1FF), CODE (C:0x0-C:0x3FFF), CONST (C:0x0-C:0x3FFF), 
+ECODE (C:0x0-C:0x3FFF), HCONST (C:0x0-C:0x3FFF)) 
