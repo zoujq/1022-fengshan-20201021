@@ -478,15 +478,15 @@ void main()
 	
 	SystemInit();						//
 	init_printf();
-	init_ntc_adc();
-	init_display();
-  init_TIMER0();
+//	init_ntc_adc();
+//	init_display();
+//  init_TIMER0();
 	EA = 1;
 	CTK_Init();	
 							
 
 	//printf("start\n\r");	
-	buzzer();
+//	buzzer();
 	while(1)
 	{
 
@@ -499,8 +499,8 @@ void main()
 
 		}
 		
-		key_check();
-		hot_check();		
+//		key_check();
+//		hot_check();		
 		Delay_ms(1);
 		counter++;
 
