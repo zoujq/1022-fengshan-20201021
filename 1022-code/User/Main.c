@@ -31,51 +31,38 @@ void key_check();
 char display_buff[4]={0,0,0,0};
 char display_point=0;
 u32 yuyue_counter=0;
-u32 dingshi_counter=0;
+
 u32 counter=0;
-char work_mode=0;
+
 int set_temp=90;
 char display_mode=0;
 char yuyue_start=0;
-char dingshi_start=0;
+
 char kid_lock=0;
 char led_buff=0;
 u16 current_temp=0;
 char err_code=0;
 char start_work=0;
+
+char dingshi_start=0;
+u32 dingshi_counter=0;
+char work_mode=0;
+
+char uv_start=0;
+u32 uv_counter=20*60*1000;
+char last_work_mode=0;
+u32 count0=0;
 //================================================================================
-void set_temp_plus()
-{
-	set_temp+=5;
-	if(set_temp>=125)
-	{
-		set_temp=40;
-	}
-}
-void set_yuyue_time_plus()
-{
-	yuyue_counter+=3600000;
-	if(yuyue_counter>12*3600000)
-	{
-		yuyue_counter=0;
-	}
-}
+
 void set_dingshi_time_plus()
 {
-	dingshi_counter+=3600000;
-	if(dingshi_counter>12*3600000)
+	dingshi_counter+=0.5*3600000;
+	if(dingshi_counter>6*3600000)
 	{
-		dingshi_counter=0;
+		dingshi_counter=0.5*3600000;
 	}
 }
-void display_yuyue_set()
-{
-	display_buff[0]=(yuyue_counter/3600000)%10;
-	display_buff[1]=(yuyue_counter/3600000)/10;
-	display_buff[2]='+';
-	display_buff[3]='+';
-	display_point=0;
-}
+
 void display_dingshi_set()
 {
 	display_buff[0]=(dingshi_counter/3600000)%10;
@@ -84,22 +71,7 @@ void display_dingshi_set()
 	display_buff[3]='+';
 	display_point=0;
 }
-void display_yuyue_time()
-{
-	display_buff[0]=(((yuyue_counter+60000)%3600000)/60000)%10;
-	display_buff[1]=(((yuyue_counter+60000)%3600000)/60000)/10;
-	display_buff[2]=((yuyue_counter+60000)/3600000)%10;
-	display_buff[3]=((yuyue_counter+60000)/3600000)/10;
-	display_point=1;
-}
-void display_yuyue_time_no_point()
-{
-	display_buff[0]=(((yuyue_counter+60000)%3600000)/60000)%10;
-	display_buff[1]=(((yuyue_counter+60000)%3600000)/60000)/10;
-	display_buff[2]=((yuyue_counter+60000)/3600000)%10;
-	display_buff[3]=((yuyue_counter+60000)/3600000)/10;
-	display_point=0;
-}
+
 
 void display_dingshi_time()
 {
@@ -126,23 +98,7 @@ void display_off()
 	display_buff[3]=8;
 	display_point=1;
 }
-void display_set_temp()
-{
-	display_buff[0]=set_temp%10;
-	display_buff[1]=(set_temp%100)/10;
-	if(set_temp>99)
-	{
-		display_buff[2]=1;
-	}
-	else
-	{
-		display_buff[2]='+';
-	}
-	
-	display_buff[3]='+';
-	display_point=0;
 
-}
 void display_none()
 {
 	display_buff[0]='+';
@@ -154,7 +110,6 @@ void display_none()
 void key_check()
 {
 	static u16 last_TK=0;
-	static u32 count0=0;
 	static u16 i3=0;
 	if(err_code)
 	{
@@ -171,115 +126,30 @@ void key_check()
 		{
 			last_TK=TouchKeyFlag;
 
-			if(kid_lock==0)
+			if(work_mode==0)
 			{
-				if(TouchKeyFlag == TK1)
-				{
-					 buzzer();
-					 if(work_mode==0)
-					 {
-					 	work_mode=1;
-					 	display_set_temp();
-					 	led_buff=0x03;
-					 	count0=0;
-					 }
-					 else
-					 {
-					 	work_mode=0;
-					 	display_mode=0;
-					 	dingshi_start=0;
-					 	yuyue_start=0;
-					 	yuyue_counter=0;
-					 	dingshi_counter=0;
-					 	set_temp=90;
-
-					 }
-				}
-				if(work_mode==1)
-				{
-					if(TouchKeyFlag == TK2)
-					{
-						 buzzer();
-						 set_temp_plus();
-						 display_set_temp();
-						 count0=0;
-						 display_mode=0;
-					}
-					else if(TouchKeyFlag == TK3)
-					{	
-						buzzer();
-						if(yuyue_start==1)
-						{
-							yuyue_start=0;							
-							display_set_temp();
-							yuyue_counter=0;
-							led_buff&=~0x04;		
-							display_mode=0;
-
-						}
-						else
-						{
-							set_yuyue_time_plus();
-							display_yuyue_set();
-							count0=0;
-							display_mode=1;
-							led_buff|=0x04;
-						}
-						
-
-					}
-					else if(TouchKeyFlag == TK4)
-					{
-						 buzzer();
-						 if(dingshi_start==1)
-						 {
-						 	dingshi_start=0;
-							dingshi_counter=0;
-							display_yuyue_set();
-							led_buff&=~0x08;
-							display_mode=0;							
-						 }
-						 else
-						 {								 
-						 	display_mode=2;
-						 	set_dingshi_time_plus();
-							display_dingshi_set();
-							count0=0;
-							led_buff|=0x08;
-						 }
-					}
-					
-				}
+				work_mode=1;
+				dingshi_counter=1.5*3600*1000;
 
 			}
-		
-			
-		}
-		else if(TouchKeyFlag == TK5 && work_mode==1)
-		{
-			
-			i3++;
-			if(i3==1200)
+			else
 			{
-			 	buzzer();
-			 	if(kid_lock==0)
-			 	{
-			 		kid_lock=1;
-			 		led_buff|=0x10;
-			 	}
-			 	else
-			 	{
-			 		kid_lock=0;
-			 		led_buff&=~0x10;
-			 	}
+				if(dingshi_start==1)
+				{
+					work_mode=0;
+					dingshi_counter=0;
+					dingshi_start=0;
+					uv_start=0;
+					uv_counter=0;
+
+				}
+				else
+				{
+					set_dingshi_time_plus();					
+				}
 			}
 		}
-		
-		
-	}
-	else{
-		last_TK=0;
-		i3=0;
+		count0=0;
 	}
 
 	if(work_mode==0)
@@ -302,30 +172,16 @@ void key_check()
 		i5++;
 	}
 	else
-	{		
+	{
 		if(count0<2100)
 		{
-			start_work=0;
 			count0++;
 			if(count0%350==0)
 			{
 				static char i=0;
 				if(i==0)
 				{
-					if(display_mode==0)
-					{
-						display_set_temp();	
-					}
-					else if(display_mode==1)
-					{
-						display_yuyue_set();
-					}
-					else if(display_mode==2)
-					{
-						display_dingshi_set();
-					}
-
-					
+					display_dingshi_set();					
 					i=1;
 				}
 				else
@@ -339,165 +195,253 @@ void key_check()
 		}
 		else
 		{
-			start_work=1;
-			if(display_mode==0)
+			if(dingshi_counter>0)
 			{
-				display_set_temp();
-				if(yuyue_counter>0)
-				{
-					display_mode=1;
-				}
-				else if(dingshi_counter>0)
-				{
-					display_mode=2;
-				}
-			}
-			if(display_mode==1)
-			{	
-				if(yuyue_counter>0)
-				{
-					static u16 i1=0;
-					yuyue_start=1;				
-					if(i1==1)
-					{
-						display_yuyue_time();
-					} 
-					else if(i1==500)
-					{
-						display_yuyue_time_no_point();
-					}
-					else if(i1==1000)
-					{
-						i1=0;
-					}
-					i1++;
-				}
-				else
-				{
-					if(dingshi_counter==0)
-					{
-						display_mode=0;
-					}
-					else
-					{
-						display_mode=2;
-					}					
-					led_buff&=~0x04;
-
-				}
-						
-
-			}
-			if(display_mode==2)
-			{	
 				dingshi_start=1;
-				if(yuyue_counter==0)
+			}
+			else 
+			{
+				dingshi_start=0;
+				if(uv_start==0)
 				{
-					if(dingshi_counter>0)
-					{
-						static u16 i2=0;
-						static char rr=0;
-						
-						if(i2++<4000)
-						{
-							if(i2%500==0)
-							{
-								if(rr==0)
-								{
-									display_dingshi_time();
-									rr=1;
-								}
-								else
-								{
-									display_dingshi_time_no_point();
-									rr=0;
-								}
-								
-							}
-						}
-						else if(i2<7000)
-						{
-							display_set_temp();
-						}
-						else
-						{
-							i2=0;
-						}
-							
-						
-					}
-					else
-					{
-						display_mode=0;
-						led_buff&=~0x08;
-						work_mode=0;
-						kid_lock=0;
-					}	
+					uv_start=1;
+					uv_counter=20*60*1000;
 				}
-				else
+				else if(uv_counter==0)
 				{
-					display_mode=1;
-				}				
-							
+					uv_start=0;
+					work_mode=0;
 
+				}
+				
+				
 			}
 		}
-		
-
 
 	}
+	
+
 }
-void hot_check()
+void work_check()
 {
 	static char inited=0;
-	current_temp=get_temp();
+	static u16 count02=0;
 	if(inited==0)
 	{
-		P1M1=GPIO_Out_PP;//hot
+		P1M3=GPIO_Out_PP;//fan
+		P0M7=GPIO_Out_PP;//vu
+		P1M4=GPIO_Out_PP;//vu_notice
+		P1M6=GPIO_Out_PP;//jiare
 		inited=1;
 	}
-	if(work_mode==1 && yuyue_counter==0 && start_work==1)
+	if(work_mode==1 )
 	{
-		if(set_temp>current_temp)
+		if(dingshi_start==1)
 		{
-			P1_1=1;
+			P1_3=1;
+			P1_6=1;
 		}
 		else
 		{
-			P1_1=0;
+			P1_3=0;
+			P1_6=0;
+		}
+		if(uv_start==1)
+		{
+			P0_7=1;
+			P1_4=1;
+		}
+		else
+		{
+			P0_7=0;
+			P1_4=0;
 		}
 	}
 	else
 	{
-		P1_1=0;
+		P1_3=0;
+		P0_7=0;
+		P1_4=0;
+		P1_6=0;
 	}
+
+	if(last_work_mode!=work_mode)
+	{
+		
+		if(last_work_mode==1 && work_mode==0)
+		{
+			count02++;
+			if(count02<60000)
+			{
+				P1_6=1;
+			}
+			else
+			{
+				count02=0;
+				P1_6=0;
+				last_work_mode=work_mode;
+			}
+		}
+		else
+		{
+			last_work_mode=work_mode;
+		}
+	}
+	else
+	{
+		count02=0;
+	}
+
 }
+/***********************************按键处理**************************************/
+void on_off()
+{
+
+}
+
+/***********************************红外解码**************************************/
 u8 c_timer=0; 
-u8
+u8 c_end_flag=0;
+u8 c_start_flag=0;
+u8 nec_buff[34];
+u8 nec_index=0;
+u8 nec_data[4];
 void init_timer1()
 {
 	TCON1 = 0x00;						//
 	TMOD = 0x00;						//
-	
-	TH0 = 0xFA;
-	TL0 = 0xCB;							//
+	// (65536-x)/(16000000/12)=0.05
+	// x=65536-0.0001*16000000/12      100uS
+
+	TH0 = 0xFF;
+	TL0 = 0x7B;							//100us
 	IE |= 0x08;							//打开T1中断
 	TCON |= 0x40;						//使能T1
 }
 void ISR_Timer1(void)     interrupt TIMER1_VECTOR
 {
-  c_timer++;
-}
+  	c_timer++;
+  	if(c_timer>150)
+  	{
+  		c_end_flag=1;
+  		c_timer=0;
+  	}
+}	
 void init_exti0()
 {
-	P0M0 = 0x69;			        	//P00设置为带SMT上拉输入
+	P1M7 = 0x69;			        	//P00设置为带SMT上拉输入
 	PITS0 |= 0x01;						//INT0下降沿
 	IE |= 0x01;							//打开INT0中断
 }
 void ISR_INT0(void) interrupt INT0_VECTOR
 {
-  while(1);
+  	if(c_start_flag)
+  	{
+  		if(c_timer>135)
+  		{
+  			nec_index=0;
+  		}
+  		nec_buff[nec_index]=c_timer;
+  		c_timer=0;
+  		nec_index++;
+  		if(nec_index>33)
+  		{
+  			nec_index=0;
+  		}
+  		c_end_flag=0;
+  	}
+  	else
+  	{
+  		c_start_flag=1;
+  		c_timer=0;
+  	}
 }
+void check_nec()
+{
+	if(nec_data[3]==1)
+	{
+		if(work_mode==0)
+		{
+			work_mode=1;
+			dingshi_counter=1.5*3600*1000;
+		}
+		else
+		{
+			work_mode=0;
+			dingshi_counter=0;
+			dingshi_start=0;
+			uv_start=0;
+			uv_counter=0;
+		}
+	}
+	else if(work_mode==1)
+	{
+		if(nec_data[3]==2)//定时
+		{
+			set_dingshi_time_plus()；
+			count0=0；
+		}
+		else if(nec_data[3]==3)//uv
+		{
+			if(uv_start==0)
+			{
+				uv_start=1;
+				uv_counter=20*60*1000;
+			}
+			else
+			{
+				uv_start=0;
+				uv_counter=0;
+			}
+			
+		}
+	}
+}
+void decode_nec()
+{
+	if(nec_index && c_end_flag)
+	{
+		nec_data[0]=(nec_buff[1]<12 ? 0 : 1)<<0 |
+					(nec_buff[2]<12 ? 0 : 1)<<1 |
+					(nec_buff[3]<12 ? 0 : 1)<<2 |
+					(nec_buff[4]<12 ? 0 : 1)<<3 |
+					(nec_buff[5]<12 ? 0 : 1)<<4 |
+					(nec_buff[6]<12 ? 0 : 1)<<5 |
+					(nec_buff[7]<12 ? 0 : 1)<<6 |
+					(nec_buff[8]<12 ? 0 : 1)<<7 ;
+		nec_data[1]=(nec_buff[9]<12 ? 0 : 1)<<0 |
+					(nec_buff[10]<12 ? 0 : 1)<<1 |
+					(nec_buff[11]<12 ? 0 : 1)<<2 |
+					(nec_buff[12]<12 ? 0 : 1)<<3 |
+					(nec_buff[13]<12 ? 0 : 1)<<4 |
+					(nec_buff[14]<12 ? 0 : 1)<<5 |
+					(nec_buff[15]<12 ? 0 : 1)<<6 |
+					(nec_buff[16]<12 ? 0 : 1)<<7 ;
+		nec_data[2]=(nec_buff[17]<12 ? 0 : 1)<<0 |
+					(nec_buff[18]<12 ? 0 : 1)<<1 |
+					(nec_buff[19]<12 ? 0 : 1)<<2 |
+					(nec_buff[20]<12 ? 0 : 1)<<3 |
+					(nec_buff[21]<12 ? 0 : 1)<<4 |
+					(nec_buff[22]<12 ? 0 : 1)<<5 |
+					(nec_buff[23]<12 ? 0 : 1)<<6 |
+					(nec_buff[24]<12 ? 0 : 1)<<7 ;
+		nec_data[3]=(nec_buff[25]<12 ? 0 : 1)<<0 |
+					(nec_buff[26]<12 ? 0 : 1)<<1 |
+					(nec_buff[27]<12 ? 0 : 1)<<2 |
+					(nec_buff[28]<12 ? 0 : 1)<<3 |
+					(nec_buff[29]<12 ? 0 : 1)<<4 |
+					(nec_buff[30]<12 ? 0 : 1)<<5 |
+					(nec_buff[31]<12 ? 0 : 1)<<6 |
+					(nec_buff[32]<12 ? 0 : 1)<<7 ;
+		nec_index=0;
+		check_nec()；
+		nec_data[0]=0；
+		nec_data[1]=0；
+		nec_data[2]=0；
+		nec_data[3]=0；
+	}
+}
+
 
 void main()
 {
@@ -525,8 +469,8 @@ void main()
 
 		}
 		
-//		key_check();
-//		hot_check();		
+		key_check();
+		work_check();
 		Delay_ms(1);
 		counter++;
 
@@ -595,39 +539,30 @@ u16 get_temp()
 
 /***************************************************************************/
 //
-#define DISPLAY_A P2_6
-#define DISPLAY_B P2_4
-#define DISPLAY_C P3_4
-#define DISPLAY_D P2_2
-#define DISPLAY_E P2_1
-#define DISPLAY_F P2_5
-#define DISPLAY_G P3_5
-#define DISPLAY_H P2_3
-//
-#define DISPLAY_COM1 P0_7
-#define DISPLAY_COM2 P0_1
-#define DISPLAY_COM3 P0_0
-#define DISPLAY_COM4 P2_7
+#define DISPLAY_A P2_0
+#define DISPLAY_B P2_1
+#define DISPLAY_C P2_2
+#define DISPLAY_D P2_3
 
-#define DISPLAY_LED P1_2
+//
+#define DISPLAY_COM1 P3_4
+#define DISPLAY_COM2 P3_5
+#define DISPLAY_COM3 P2_4
+#define DISPLAY_COM4 P0_2
+
 
 void init_display()
 {
-	P2M6=GPIO_Out_PP;
-	P2M4=GPIO_Out_PP;
-	P3M4=GPIO_Out_PP;
-	P2M2=GPIO_Out_PP;
+	P2M0=GPIO_Out_PP;
 	P2M1=GPIO_Out_PP;
-	P2M5=GPIO_Out_PP;
-	P3M5=GPIO_Out_PP;
+	P2M2=GPIO_Out_PP;
 	P2M3=GPIO_Out_PP;
 	
-	P0M7=GPIO_Out_PP;
-	P0M1=GPIO_Out_PP;
-	P0M0=GPIO_Out_PP;
-	P2M7=GPIO_Out_PP;
+	P3M4=GPIO_Out_PP;
+	P3M5=GPIO_Out_PP;
+	P2M4=GPIO_Out_PP;
+	P0M2=GPIO_Out_PP;
 
-	P1M2=GPIO_Out_PP;//KEY LEDS
 	display_off();
 }
 
@@ -639,8 +574,7 @@ void display_flash()
 	DISPLAY_COM2=1;
 	DISPLAY_COM3=1;
 	DISPLAY_COM4=1;
-	DISPLAY_LED=1;
-	if(position<4)
+	if(position<3)
 	{
 		switch(display_buff[position])
 		{
@@ -689,28 +623,19 @@ void display_flash()
 	}
 	else
 	{
-		DISPLAY_A=(led_buff & 1)? 1:0; 
-		DISPLAY_B=(led_buff & 0x02)? 1:0; 
-		DISPLAY_E=(led_buff & 0x04)? 1:0; 
-		DISPLAY_D=(led_buff & 0x08)? 1:0; 
-		DISPLAY_C=(led_buff & 0x10)? 1:0; 
+		// DISPLAY_A=(led_buff & 1)? 1:0; 
+		// DISPLAY_B=(led_buff & 0x02)? 1:0; 
+		// DISPLAY_E=(led_buff & 0x04)? 1:0; 
+		// DISPLAY_D=(led_buff & 0x08)? 1:0; 
+		// DISPLAY_C=(led_buff & 0x10)? 1:0; 
 	}
 	
-	if(display_point)
-	{
-		DISPLAY_H=1;
-	}
-	else
-	{
-		DISPLAY_H=0;
-	}
 	if(position==0)
 	{		
 		DISPLAY_COM1=0;
 		DISPLAY_COM2=1;
 		DISPLAY_COM3=1;
 		DISPLAY_COM4=1;
-		DISPLAY_LED=1;
 
 	}
 	else if(position==1) 
@@ -719,7 +644,6 @@ void display_flash()
 		DISPLAY_COM2=0;
 		DISPLAY_COM3=1;
 		DISPLAY_COM4=1;
-		DISPLAY_LED=1;
 	}
 	else if(position==2)
 	{
@@ -727,7 +651,6 @@ void display_flash()
 		DISPLAY_COM2=1;
 		DISPLAY_COM3=0;
 		DISPLAY_COM4=1;
-		DISPLAY_LED=1;
 	}
 	else if(position==3)
 	{
@@ -735,18 +658,10 @@ void display_flash()
 		DISPLAY_COM2=1;
 		DISPLAY_COM3=1;
 		DISPLAY_COM4=0;
-		DISPLAY_LED=1;
 	}
-	else if(position==4)
-	{
-		DISPLAY_COM1=1;
-		DISPLAY_COM2=1;
-		DISPLAY_COM3=1;
-		DISPLAY_COM4=1;
-		DISPLAY_LED=0;
-	}
+
 	position++;
-	if(position>4)
+	if(position>3)
 	{
 		position=0;
 	}
@@ -787,21 +702,20 @@ void TIMER0_Rpt(void) interrupt TIMER0_VECTOR
 {
 	// P0_3 =~ P0_3;
 	display_flash();						//P03
-	if(yuyue_counter>0)
-	{
-		if(yuyue_start==1)
-		{
-			yuyue_counter--;
-		}
-		
-	}
-	else if(dingshi_counter>0)
+	if(dingshi_counter>0)
 	{
 		if(dingshi_start==1)
 		{
 			dingshi_counter--;			
 		}
 		
+	}
+	if(uv_counter>0)
+	{
+		if(uv_start==1)
+		{
+			uv_counter--;
+		}
 	}	
 }
 //void init
