@@ -472,32 +472,6 @@ void hot_check()
 		P1_1=0;
 	}
 }
-u8 c_timer=0; 
-u8
-void init_timer1()
-{
-	TCON1 = 0x00;						//
-	TMOD = 0x00;						//
-	
-	TH0 = 0xFA;
-	TL0 = 0xCB;							//
-	IE |= 0x08;							//打开T1中断
-	TCON |= 0x40;						//使能T1
-}
-void ISR_Timer1(void)     interrupt TIMER1_VECTOR
-{
-  c_timer++;
-}
-void init_exti0()
-{
-	P0M0 = 0x69;			        	//P00设置为带SMT上拉输入
-	PITS0 |= 0x01;						//INT0下降沿
-	IE |= 0x01;							//打开INT0中断
-}
-void ISR_INT0(void) interrupt INT0_VECTOR
-{
-  while(1);
-}
 
 void main()
 {
