@@ -26,10 +26,13 @@ void  buzzer();
 u16 get_temp();
 void init_TIMER0();
 void key_check();
+void display_flash();
 //================================================================================
 
-char display_buff[4]={0,0,0,0};
+char display_buff[2]={0,0};
 char display_point=0;
+char display_uv=0;
+char display_touch_led=0;
 u32 yuyue_counter=0;
 
 u32 counter=0;
@@ -303,38 +306,57 @@ void on_off()
 u8 c_timer=0; 
 u8 c_end_flag=0;
 u8 c_start_flag=0;
-u8 nec_buff[34];
+xdata u8 nec_buff[34];
 u8 nec_index=0;
-u8 nec_data[4];
-void init_timer1()
+xdata u8 nec_data[4];
+void init_TIMER0()
 {
 	TCON1 = 0x00;						//
 	TMOD = 0x00;						//
-	// (65536-x)/(16000000/12)=0.05
-	// x=65536-0.0001*16000000/12      100uS
-
+	
 	TH0 = 0xFF;
 	TL0 = 0x7B;							//100us
-	IE |= 0x08;							//打开T1中断
-	TCON |= 0x40;						//使能T1
+	IE |= 0x02;							//
+	TCON |= 0x10;						//
+    
 }
-void ISR_Timer1(void)     interrupt TIMER1_VECTOR
+
+void TIMER0_Rpt(void) interrupt TIMER0_VECTOR  //时基100us
 {
-  	c_timer++;
+
+	c_timer++;
   	if(c_timer>150)
   	{
   		c_end_flag=1;
   		c_timer=0;
   	}
+  	
+	//display_flash();						//P03
+	if(dingshi_counter>0)
+	{
+		if(dingshi_start==1)
+		{
+			dingshi_counter--;			
+		}
+		
+	}
+	if(uv_counter>0)
+	{
+		if(uv_start==1)
+		{
+			uv_counter--;
+		}
+	}	
 }	
 void init_exti0()
 {
-	P1M7 = 0x69;			        	//P00设置为带SMT上拉输入
-	PITS0 |= 0x01;						//INT0下降沿
+	P0M2 = 0x69;			      //P02设置为带SMT上拉输入
+	PITS0 |= 0x01;					//INT0下降沿
 	IE |= 0x01;							//打开INT0中断
 }
 void ISR_INT0(void) interrupt INT0_VECTOR
 {
+	P2_3=~P2_3;
   	if(c_start_flag)
   	{
   		if(c_timer>135)
@@ -376,10 +398,10 @@ void check_nec()
 	}
 	else if(work_mode==1)
 	{
-		if(nec_data[3]==2)//定时
+		if(nec_data[3]==2)//
 		{
-			set_dingshi_time_plus()；
-			count0=0；
+			set_dingshi_time_plus();
+			count0=0;
 		}
 		else if(nec_data[3]==3)//uv
 		{
@@ -434,11 +456,13 @@ void decode_nec()
 					(nec_buff[31]<12 ? 0 : 1)<<6 |
 					(nec_buff[32]<12 ? 0 : 1)<<7 ;
 		nec_index=0;
-		check_nec()；
-		nec_data[0]=0；
-		nec_data[1]=0；
-		nec_data[2]=0；
-		nec_data[3]=0；
+		check_nec();
+		printf("NEC:%d,%d,%d,%d,\n\r",nec_data[0],nec_data[1],nec_data[2],nec_data[3]);	
+
+		nec_data[0]=0;
+		nec_data[1]=0;
+		nec_data[2]=0;
+		nec_data[3]=0;
 	}
 }
 
@@ -449,8 +473,9 @@ void main()
 	SystemInit();						//
 	init_printf();
 //	init_ntc_adc();
-//	init_display();
-//  init_TIMER0();
+	init_display();
+ 	init_TIMER0();
+ 	init_exti0();
 	EA = 1;
 	CTK_Init();	
 							
@@ -469,10 +494,11 @@ void main()
 
 		}
 		
-		key_check();
-		work_check();
+		// key_check();
+		// work_check();
 		Delay_ms(1);
 		counter++;
+		//display_flash();
 
 	}	
 }
@@ -483,14 +509,8 @@ void main()
 
 /*************************************ADC************************************************/
 //0~119℃
-u16 code Temp_Table[120]={
-	3783,3768,3752,3736,3720,3702,3684,3666,3647,3627,3607,3586,3564,3542,3519,3495,3471,
-	3446,3421,3395,3368,3340,3312,3284,3255,3225,3194,3163,3132,3100,3067,3034,3000,2966,
-	2932,2897,2861,2825,2789,2753,2716,2679,2641,2604,2566,2528,2490,2452,2414,2375,2337,
-	2298,2260,2222,2183,2145,2107,2069,2032,1994,1957,1920,1883,1847,1811,1775,1740,1705,
-	1670,1636,1602,1568,1535,1502,1470,1439,1407,1377,1346,1317,1287,1259,1230,1202,1175,
-	1148,1122,1096,1071,1046,1022,998,975,952,930,908,886,865,845,825,805,786,767,749,731,
-	714,696,680,664,648,632,617,602,588,574,560,547,534,521,508
+u16 code Temp_Table[1]={1
+
 };
 
 void init_ntc_adc()
@@ -546,9 +566,10 @@ u16 get_temp()
 
 //
 #define DISPLAY_COM1 P3_4
-#define DISPLAY_COM2 P3_5
 #define DISPLAY_COM3 P2_4
-#define DISPLAY_COM4 P0_2
+#define DISPLAY_COM2 P1_4
+#define DISPLAY_COM4 P1_5
+#define DISPLAY_COM5 P1_6
 
 
 void init_display()
@@ -559,112 +580,481 @@ void init_display()
 	P2M3=GPIO_Out_PP;
 	
 	P3M4=GPIO_Out_PP;
-	P3M5=GPIO_Out_PP;
 	P2M4=GPIO_Out_PP;
-	P0M2=GPIO_Out_PP;
+	P1M4=GPIO_Out_PP;
+	P1M5=GPIO_Out_PP;
+	P1M6=GPIO_Out_PP;
 
-	display_off();
-}
+	//display_off();
+	DISPLAY_A=1;
+	DISPLAY_B=1;
+	DISPLAY_C=1;
+	DISPLAY_D=0;
 
-void display_flash()
-{
-	static char position=0;
-	
 	DISPLAY_COM1=1;
 	DISPLAY_COM2=1;
 	DISPLAY_COM3=1;
 	DISPLAY_COM4=1;
-	if(position<3)
+	DISPLAY_COM5=1;
+}
+void display_close()
+{
+	DISPLAY_COM1=1;
+	DISPLAY_COM2=1;
+	DISPLAY_COM3=1;
+	DISPLAY_COM4=1;
+	DISPLAY_COM5=1;
+}
+void display_1(char c)
+{
+	switch(c)
 	{
-		switch(display_buff[position])
-		{
-			case 0:		
-				DISPLAY_A=1;DISPLAY_B=1;DISPLAY_C=1;DISPLAY_D=1;DISPLAY_E=1;DISPLAY_F=1;DISPLAY_G=0;		
-		
-				break;
-			case 1:
-				DISPLAY_A=0;DISPLAY_B=1;DISPLAY_C=1;DISPLAY_D=0;DISPLAY_E=0;DISPLAY_F=0;DISPLAY_G=0;
-				break;
-			case 2:
-				DISPLAY_A=1;DISPLAY_B=1;DISPLAY_C=0;DISPLAY_D=1;DISPLAY_E=1;DISPLAY_F=0;DISPLAY_G=1;
-				break;
-			case 3:
-				DISPLAY_A=1;DISPLAY_B=1;DISPLAY_C=1;DISPLAY_D=1;DISPLAY_E=0;DISPLAY_F=0;DISPLAY_G=1;
-				break;
-			case 4:
-				DISPLAY_A=0;DISPLAY_B=1;DISPLAY_C=1;DISPLAY_D=0;DISPLAY_E=0;DISPLAY_F=1;DISPLAY_G=1;	
-				break;
-			case 5:
-				DISPLAY_A=1;DISPLAY_B=0;DISPLAY_C=1;DISPLAY_D=1;DISPLAY_E=0;DISPLAY_F=1;DISPLAY_G=1;	
-				break;
-			case 6:
-				DISPLAY_A=1;DISPLAY_B=0;DISPLAY_C=1;DISPLAY_D=1;DISPLAY_E=1;DISPLAY_F=1;DISPLAY_G=1;	
-				break;
-			case 7:
-				DISPLAY_A=1;DISPLAY_B=1;DISPLAY_C=1;DISPLAY_D=0;DISPLAY_E=0;DISPLAY_F=0;DISPLAY_G=0;	
-				break;
-			case 8:
-				DISPLAY_A=1;DISPLAY_B=1;DISPLAY_C=1;DISPLAY_D=1;DISPLAY_E=1;DISPLAY_F=1;DISPLAY_G=1;	
-				break;
-			case 9:
-				DISPLAY_A=1;DISPLAY_B=1;DISPLAY_C=1;DISPLAY_D=1;DISPLAY_E=0;DISPLAY_F=1;DISPLAY_G=1;
-				break;
-			case 'E':
-				DISPLAY_A=1;DISPLAY_B=0;DISPLAY_C=0;DISPLAY_D=1;DISPLAY_E=1;DISPLAY_F=1;DISPLAY_G=1;	
-				break;		
-			case '+':
-				DISPLAY_A=0;DISPLAY_B=0;DISPLAY_C=0;DISPLAY_D=0;DISPLAY_E=0;DISPLAY_F=0;DISPLAY_G=0;	
-				break;	
-			default:
-				
-				break;
-		
-		}
+		case 0:
+			display_close();
+			DISPLAY_A=1;
+			DISPLAY_B=1;
+			DISPLAY_C=1;
+			DISPLAY_D=1;
+
+			DISPLAY_COM1=0;;
+			Delay_ms(1);
+			display_close();
+			DISPLAY_A=1;
+			DISPLAY_B=1;
+			DISPLAY_C=0;
+			DISPLAY_D=0;
+
+			DISPLAY_COM5=0;
+			Delay_ms(1);
+			break;
+		case 1:
+			display_close();
+			DISPLAY_A=0;
+			DISPLAY_B=1;
+			DISPLAY_C=1;
+			DISPLAY_D=0;
+
+			DISPLAY_COM1=0;
+
+			Delay_ms(1);
+			display_close();
+			DISPLAY_A=0;
+			DISPLAY_B=0;
+			DISPLAY_C=0;
+			DISPLAY_D=0;
+
+			DISPLAY_COM5=0;
+			Delay_ms(1);
+			break;
+		case 2:
+			display_close();
+			DISPLAY_A=1;
+			DISPLAY_B=1;
+			DISPLAY_C=0;
+			DISPLAY_D=1;
+
+			DISPLAY_COM1=0;
+
+			Delay_ms(1);
+			display_close();
+			DISPLAY_A=1;
+			DISPLAY_B=0;
+			DISPLAY_C=1;
+			DISPLAY_D=0;
+
+			DISPLAY_COM5=0;
+			Delay_ms(1);
+			break;
+		case 3:
+			display_close();
+			DISPLAY_A=1;
+			DISPLAY_B=1;
+			DISPLAY_C=1;
+			DISPLAY_D=1;
+
+			DISPLAY_COM1=0;
+
+			Delay_ms(1);
+			display_close();
+			DISPLAY_A=0;
+			DISPLAY_B=0;
+			DISPLAY_C=1;
+			DISPLAY_D=0;
+
+			DISPLAY_COM5=0;
+			Delay_ms(1);
+			break;
+		case 4:
+			display_close();
+			DISPLAY_A=0;
+			DISPLAY_B=1;
+			DISPLAY_C=1;
+			DISPLAY_D=0;
+
+			DISPLAY_COM1=0;
+
+			Delay_ms(1);
+			display_close();
+			DISPLAY_A=0;
+			DISPLAY_B=1;
+			DISPLAY_C=1;
+			DISPLAY_D=0;
+
+			DISPLAY_COM5=0;
+			Delay_ms(1);
+			break;
+		case 5:
+			display_close();
+			DISPLAY_A=1;
+			DISPLAY_B=0;
+			DISPLAY_C=1;
+			DISPLAY_D=1;
+
+			DISPLAY_COM1=0;
+
+			Delay_ms(1);
+			display_close();
+			DISPLAY_A=0;
+			DISPLAY_B=1;
+			DISPLAY_C=1;
+			DISPLAY_D=0;
+
+			DISPLAY_COM5=0;
+			Delay_ms(1);
+			break;
+		case 6:
+			display_close();
+			DISPLAY_A=1;
+			DISPLAY_B=0;
+			DISPLAY_C=1;
+			DISPLAY_D=1;
+
+			DISPLAY_COM1=0;
+
+			Delay_ms(1);
+			display_close();
+			DISPLAY_A=1;
+			DISPLAY_B=1;
+			DISPLAY_C=1;
+			DISPLAY_D=0;
+
+			DISPLAY_COM5=0;
+			Delay_ms(1);
+			break;
+		case 7:
+			display_close();
+			DISPLAY_A=1;
+			DISPLAY_B=1;
+			DISPLAY_C=1;
+			DISPLAY_D=0;
+
+			DISPLAY_COM1=0;
+
+			Delay_ms(1);
+			display_close();
+			DISPLAY_A=0;
+			DISPLAY_B=0;
+			DISPLAY_C=0;
+			DISPLAY_D=0;
+
+			DISPLAY_COM5=0;
+			Delay_ms(1);
+			break;
+		case 8:
+			display_close();
+			DISPLAY_A=1;
+			DISPLAY_B=1;
+			DISPLAY_C=1;
+			DISPLAY_D=0;
+
+			DISPLAY_COM1=0;
+
+			Delay_ms(1);
+			display_close();
+			DISPLAY_A=1;
+			DISPLAY_B=1;
+			DISPLAY_C=0;
+			DISPLAY_D=0;
+
+			DISPLAY_COM5=0;
+			Delay_ms(1);
+			break;
+		case 9:
+			display_close();
+			DISPLAY_A=1;
+			DISPLAY_B=1;
+			DISPLAY_C=1;
+			DISPLAY_D=1;
+
+			DISPLAY_COM1=0;
+
+			Delay_ms(1);
+			display_close();
+			DISPLAY_A=0;
+			DISPLAY_B=1;
+			DISPLAY_C=1;
+			DISPLAY_D=0;
+
+			DISPLAY_COM5=0;
+			Delay_ms(1);
+		break;
+
+		default:
+			display_close();
+		break;
+	}
+}
+void display_2(char c)
+{
+	switch(c)
+	{
+		case 0:
+			display_close();
+			DISPLAY_A=1;
+			DISPLAY_B=1;
+			DISPLAY_C=1;
+			DISPLAY_D=1;
+
+			DISPLAY_COM3=0;
+			Delay_ms(1);
+			display_close();
+			DISPLAY_A=1;
+			DISPLAY_B=1;
+			DISPLAY_C=0;
+			DISPLAY_D=0;
+
+			DISPLAY_COM4=0;
+			Delay_ms(1);
+			break;
+		case 1:
+			display_close();
+			DISPLAY_A=0;
+			DISPLAY_B=1;
+			DISPLAY_C=1;
+			DISPLAY_D=0;
+
+			DISPLAY_COM3=0;
+
+			Delay_ms(1);
+			display_close();
+			DISPLAY_A=0;
+			DISPLAY_B=0;
+			DISPLAY_C=0;
+			DISPLAY_D=0;
+
+			DISPLAY_COM4=0;
+			Delay_ms(1);
+			break;
+		case 2:
+			display_close();
+			DISPLAY_A=1;
+			DISPLAY_B=1;
+			DISPLAY_C=0;
+			DISPLAY_D=1;
+
+			DISPLAY_COM3=0;
+
+			Delay_ms(1);
+			display_close();
+			DISPLAY_A=1;
+			DISPLAY_B=0;
+			DISPLAY_C=1;
+			DISPLAY_D=0;
+
+			DISPLAY_COM4=0;
+			Delay_ms(1);
+			break;
+		case 3:
+			display_close();
+			DISPLAY_A=1;
+			DISPLAY_B=1;
+			DISPLAY_C=1;
+			DISPLAY_D=1;
+
+			DISPLAY_COM3=0;
+
+			Delay_ms(1);
+			display_close();
+			DISPLAY_A=0;
+			DISPLAY_B=0;
+			DISPLAY_C=1;
+			DISPLAY_D=0;
+
+			DISPLAY_COM4=0;
+			Delay_ms(1);
+			break;
+		case 4:
+			display_close();
+			DISPLAY_A=0;
+			DISPLAY_B=1;
+			DISPLAY_C=1;
+			DISPLAY_D=0;
+
+			DISPLAY_COM3=0;
+
+			Delay_ms(1);
+			display_close();
+			DISPLAY_A=0;
+			DISPLAY_B=1;
+			DISPLAY_C=1;
+			DISPLAY_D=0;
+
+			DISPLAY_COM4=0;
+			Delay_ms(1);
+			break;
+		case 5:
+			display_close();
+			DISPLAY_A=1;
+			DISPLAY_B=0;
+			DISPLAY_C=1;
+			DISPLAY_D=1;
+
+			DISPLAY_COM3=0;
+
+			Delay_ms(1);
+			display_close();
+			DISPLAY_A=0;
+			DISPLAY_B=1;
+			DISPLAY_C=1;
+			DISPLAY_D=0;
+
+			DISPLAY_COM4=0;
+			Delay_ms(1);
+			break;
+		case 6:
+			display_close();
+			DISPLAY_A=1;
+			DISPLAY_B=0;
+			DISPLAY_C=1;
+			DISPLAY_D=1;
+
+			DISPLAY_COM3=0;
+
+			Delay_ms(1);
+			display_close();
+			DISPLAY_A=1;
+			DISPLAY_B=1;
+			DISPLAY_C=1;
+			DISPLAY_D=0;
+
+			DISPLAY_COM4=0;
+			Delay_ms(1);
+			break;
+		case 7:
+			display_close();
+			DISPLAY_A=1;
+			DISPLAY_B=1;
+			DISPLAY_C=1;
+			DISPLAY_D=0;
+
+			DISPLAY_COM3=0;
+
+			Delay_ms(1);
+			display_close();
+			DISPLAY_A=0;
+			DISPLAY_B=0;
+			DISPLAY_C=0;
+			DISPLAY_D=0;
+
+			DISPLAY_COM4=0;
+			Delay_ms(1);
+			break;
+		case 8:
+			display_close();
+			DISPLAY_A=1;
+			DISPLAY_B=1;
+			DISPLAY_C=1;
+			DISPLAY_D=1;
+
+			DISPLAY_COM3=0;
+
+			Delay_ms(1);
+			display_close();
+			DISPLAY_A=1;
+			DISPLAY_B=1;
+			DISPLAY_C=0;
+			DISPLAY_D=0;
+
+			DISPLAY_COM4=0;
+			Delay_ms(1);
+			break;
+		case 9:
+			display_close();
+			DISPLAY_A=1;
+			DISPLAY_B=1;
+			DISPLAY_C=1;
+			DISPLAY_D=1;
+
+			DISPLAY_COM3=0;
+
+			Delay_ms(1);
+			display_close();
+			DISPLAY_A=0;
+			DISPLAY_B=1;
+			DISPLAY_C=1;
+			DISPLAY_D=0;
+
+			DISPLAY_COM4=0;
+			Delay_ms(1);
+		break;
+
+		default:
+			display_close();
+		break;
+	}
+}
+void display_p(char c)
+{
+	if(c)
+	{
+		display_close();
+		DISPLAY_D=1;
+		DISPLAY_COM5=0;
+		Delay_ms(1);
 	}
 	else
 	{
-		// DISPLAY_A=(led_buff & 1)? 1:0; 
-		// DISPLAY_B=(led_buff & 0x02)? 1:0; 
-		// DISPLAY_E=(led_buff & 0x04)? 1:0; 
-		// DISPLAY_D=(led_buff & 0x08)? 1:0; 
-		// DISPLAY_C=(led_buff & 0x10)? 1:0; 
+		display_close();
+		Delay_ms(1);
 	}
-	
-	if(position==0)
-	{		
-		DISPLAY_COM1=0;
-		DISPLAY_COM2=1;
-		DISPLAY_COM3=1;
-		DISPLAY_COM4=1;
-
-	}
-	else if(position==1) 
+}
+void display_u(char c)
+{
+	if(c)
 	{
-		DISPLAY_COM1=1;
+		display_close();
+		DISPLAY_A=1;
 		DISPLAY_COM2=0;
-		DISPLAY_COM3=1;
-		DISPLAY_COM4=1;
+		Delay_ms(1);
 	}
-	else if(position==2)
+	else
 	{
-		DISPLAY_COM1=1;
-		DISPLAY_COM2=1;
-		DISPLAY_COM3=0;
-		DISPLAY_COM4=1;
+		display_close();
+		Delay_ms(1);
 	}
-	else if(position==3)
+}
+void display_t(char c)
+{
+	if(c)
 	{
-		DISPLAY_COM1=1;
-		DISPLAY_COM2=1;
-		DISPLAY_COM3=1;
+		display_close();
+		DISPLAY_D=1;
 		DISPLAY_COM4=0;
+		Delay_ms(1);
 	}
-
-	position++;
-	if(position>3)
+	else
 	{
-		position=0;
+		display_close();
+		Delay_ms(1);
 	}
+}
+void display_flash()
+{
+	display_1(5);
+	display_2(6);
+	display_p(0);
+	display_u(0);
+	display_t(1);
 }
 
 void  buzzer()
@@ -686,38 +1076,7 @@ void  buzzer()
 	
 	
 }
-void init_TIMER0()
-{
-	TCON1 = 0x00;						//
-	TMOD = 0x00;						//
-	
-	TH0 = 0xFA;
-	TL0 = 0xCB;							//
-	IE |= 0x02;							//
-	TCON |= 0x10;						//
-    
-}
 
-void TIMER0_Rpt(void) interrupt TIMER0_VECTOR
-{
-	// P0_3 =~ P0_3;
-	display_flash();						//P03
-	if(dingshi_counter>0)
-	{
-		if(dingshi_start==1)
-		{
-			dingshi_counter--;			
-		}
-		
-	}
-	if(uv_counter>0)
-	{
-		if(uv_start==1)
-		{
-			uv_counter--;
-		}
-	}	
-}
 //void init
 /*********************************END OF FILE************************************/
 
