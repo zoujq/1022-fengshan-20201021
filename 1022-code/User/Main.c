@@ -237,7 +237,7 @@ void work_check()
 	{
 		P1M3=GPIO_Out_PP;//fan
 		P0M7=GPIO_Out_PP;//vu
-		P1M6=GPIO_Out_PP;//jiare
+		P2M0=GPIO_Out_PP;//jiare
 		inited=1;
 	}
 	
