@@ -12,10 +12,10 @@ extern void CTK_ISR_Handle(void);
 * Output         : None
 * Return         : None
 ****************************************************************************/
-//void ISR_INT0(void)      interrupt INT0_VECTOR
-//{
-//  while(1);
-//}
+void ISR_INT0(void)      interrupt INT0_VECTOR
+{
+  while(1);
+}
 
 /****************************************************************************
 * Function Name  : ISR_Timer0
@@ -157,10 +157,10 @@ void ISR_ADC(void)      interrupt ADC_VECTOR
 * Output         : None
 * Return         : None
 ****************************************************************************/
-void ISR_INT16_17(void)  interrupt INT16_17_VECTOR
-{
-  while(1);
-}
+//void ISR_INT16_17(void)  interrupt INT16_17_VECTOR
+//{
+//  while(1);
+//}
 
 /*********************************END OF FILE************************************/
 

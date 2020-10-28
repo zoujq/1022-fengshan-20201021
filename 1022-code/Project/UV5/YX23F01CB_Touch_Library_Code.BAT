@@ -16,5 +16,5 @@ SET CPU_XTAL=0x01E84800
 "F:\Keil\C51\BIN\C51.EXE" @".\Output\YX23F01CB_ISR.__i"
 "F:\Keil\C51\BIN\C51.EXE" @".\Output\YX23F01CB_PORT_MAP.__i"
 "F:\Keil\C51\BIN\C51.EXE" @".\Output\YX23F01CB_SYS.__i"
-"F:\Keil\C51\BIN\LX51.EXE" @".\Output\HT1021-暖菜盘.lnp"
-"F:\Keil\C51\BIN\OHX51.EXE" ".\Output\HT1021-暖菜盘" HEX
+"F:\Keil\C51\BIN\LX51.EXE" @".\Output\HT1022-干衣机.lnp"
+"F:\Keil\C51\BIN\OHX51.EXE" ".\Output\HT1022-干衣机" HEX

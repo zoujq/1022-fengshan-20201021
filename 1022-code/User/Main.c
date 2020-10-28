@@ -29,7 +29,8 @@ void key_check();
 void display_flash();
 //================================================================================
 
-char display_buff[2]={0,0};
+char display_data1=0;
+char display_data2=0;
 char display_point=0;
 char display_uv=0;
 char display_touch_led=0;
@@ -52,87 +53,79 @@ u32 dingshi_counter=0;
 char work_mode=0;
 
 char uv_start=0;
-u32 uv_counter=20*60*1000;
+u32 uv_counter=20;
 char last_work_mode=0;
 u32 count0=0;
+u32 jian_ge=0;
 //================================================================================
 
 void set_dingshi_time_plus()
 {
-	dingshi_counter+=0.5*3600000;
-	if(dingshi_counter>6*3600000)
+	dingshi_counter+=30;
+	if(dingshi_counter>6*60)
 	{
-		dingshi_counter=0.5*3600000;
+		dingshi_counter=30;
+	}
+}
+
+void set_dingshi_time_add()
+{
+	dingshi_counter+=30;
+	if(dingshi_counter>6*60)
+	{
+		dingshi_counter=6*60;
+	}
+}
+void set_dingshi_time_red()
+{
+	dingshi_counter-=30;
+	if(dingshi_counter<30)
+	{
+		dingshi_counter=30;
 	}
 }
 
 void display_dingshi_set()
 {
-	display_buff[0]=(dingshi_counter/3600000)%10;
-	display_buff[1]=(dingshi_counter/3600000)/10;
-	display_buff[2]='+';
-	display_buff[3]='+';
-	display_point=0;
+	display_data1=dingshi_counter/60;
+	display_data2=(dingshi_counter%60)/6;
+	display_point=1;
 }
 
 
 void display_dingshi_time()
 {
-	display_buff[0]=(((dingshi_counter+60000)%3600000)/60000)%10;
-	display_buff[1]=(((dingshi_counter+60000)%3600000)/60000)/10;
-	display_buff[2]=((dingshi_counter+60000)/3600000)%10;
-	display_buff[3]=((dingshi_counter+60000)/3600000)/10;
+	display_data1=dingshi_counter/60;
+	display_data2=(dingshi_counter%60)/6;
 	display_point=1;
-}
-void display_dingshi_time_no_point()
-{
-	display_buff[0]=(((dingshi_counter+60000)%3600000)/60000)%10;
-	display_buff[1]=(((dingshi_counter+60000)%3600000)/60000)/10;
-	display_buff[2]=((dingshi_counter+60000)/3600000)%10;
-	display_buff[3]=((dingshi_counter+60000)/3600000)/10;
-	display_point=0;
 }
 
 void display_off()
 {
-	display_buff[0]=8;
-	display_buff[1]=8;
-	display_buff[2]=8;
-	display_buff[3]=8;
-	display_point=1;
+	display_data1=0;
+	display_data2=0;
+	display_point=0;
 }
 
 void display_none()
 {
-	display_buff[0]='+';
-	display_buff[1]='+';
-	display_buff[2]='+';
-	display_buff[3]='+';
+	display_data1='+';
+	display_data2='+';
 	display_point=0;
 }
 void key_check()
 {
-	static u16 last_TK=0;
+	static u16 ON_TK=0;
 	static u16 i3=0;
-	if(err_code)
-	{
-		display_buff[0]='+';
-		display_buff[1]=err_code;
-		display_buff[2]='E';
-		display_buff[3]='+';
-		display_point=0;
-		return;
-	}
 	if(TouchKeyFlag )
 	{		
-		if(last_TK!=TouchKeyFlag)
+		if(ON_TK==0)
 		{
-			last_TK=TouchKeyFlag;
-
+			ON_TK=1;
 			if(work_mode==0)
 			{
 				work_mode=1;
-				dingshi_counter=1.5*3600*1000;
+				dingshi_counter=90;
 
 			}
 			else
@@ -148,27 +141,33 @@ void key_check()
 				}
 				else
 				{
-					set_dingshi_time_plus();					
+					set_dingshi_time_plus();	
+					display_dingshi_set();					
 				}
 			}
+			count0=0;
 		}
-		count0=0;
+		
+	}
+	else
+	{
+		ON_TK=0;
 	}
 
 	if(work_mode==0)
 	{
 		static u16 i5=0;
-		display_off();
-		count0=0;		
+		count0=0;	
+		display_off();		
 		if(i5==1)
 		{
-			led_buff=0x01;
+			display_touch_led=0x01;
 		} 
-		else if(i5==400)
+		else if(i5==60)
 		{					
-			led_buff=0x00;					
+			display_touch_led=0x00;					
 		}
-		else if(i5==800)
+		else if(i5==120)
 		{
 			i5=0;
 		}
@@ -176,10 +175,11 @@ void key_check()
 	}
 	else
 	{
-		if(count0<2100)
+		display_touch_led=1;
+		if(count0<340)
 		{
 			count0++;
-			if(count0%350==0)
+			if(count0%50==0)
 			{
 				static char i=0;
 				if(i==0)
@@ -198,6 +198,7 @@ void key_check()
 		}
 		else
 		{
+			display_dingshi_time();
 			if(dingshi_counter>0)
 			{
 				dingshi_start=1;
@@ -208,7 +209,7 @@ void key_check()
 				if(uv_start==0)
 				{
 					uv_start=1;
-					uv_counter=20*60*1000;
+					uv_counter=20;
 				}
 				else if(uv_counter==0)
 				{
@@ -217,7 +218,6 @@ void key_check()
 
 				}
 				
-				
 			}
 		}
 
@@ -225,6 +225,10 @@ void key_check()
 	
 
 }
+#define FAN P1_3
+#define UV P0_7
+#define JIARE P2_0
+
 void work_check()
 {
 	static char inited=0;
@@ -233,39 +237,40 @@ void work_check()
 	{
 		P1M3=GPIO_Out_PP;//fan
 		P0M7=GPIO_Out_PP;//vu
-		P1M4=GPIO_Out_PP;//vu_notice
 		P1M6=GPIO_Out_PP;//jiare
 		inited=1;
 	}
+	
 	if(work_mode==1 )
 	{
 		if(dingshi_start==1)
 		{
-			P1_3=1;
-			P1_6=1;
+			FAN=1;
+			JIARE=1;
 		}
 		else
 		{
-			P1_3=0;
-			P1_6=0;
+			FAN=0;
+			JIARE=0;
 		}
-		if(uv_start==1)
+		if(uv_start==1 && uv_counter>0)
 		{
-			P0_7=1;
-			P1_4=1;
+			UV=1;
+			display_uv=1;
 		}
 		else
 		{
-			P0_7=0;
-			P1_4=0;
+			UV=0;
+			display_uv=0;
 		}
 	}
 	else
 	{
-		P1_3=0;
-		P0_7=0;
-		P1_4=0;
-		P1_6=0;
+		FAN=0;
+		JIARE=0;
+		UV=0;
+		display_uv=0;
+		display_off();
 	}
 
 	if(last_work_mode!=work_mode)
@@ -274,14 +279,14 @@ void work_check()
 		if(last_work_mode==1 && work_mode==0)
 		{
 			count02++;
-			if(count02<60000)
+			if(count02<10000)
 			{
-				P1_6=1;
+				FAN=1;
 			}
 			else
 			{
 				count02=0;
-				P1_6=0;
+				FAN=0;
 				last_work_mode=work_mode;
 			}
 		}
@@ -294,13 +299,11 @@ void work_check()
 	{
 		count02=0;
 	}
+	
+
 
 }
-/***********************************按键处理**************************************/
-void on_off()
-{
 
-}
 
 /***********************************红外解码**************************************/
 u8 c_timer=0; 
@@ -323,142 +326,168 @@ void init_TIMER0()
 
 void TIMER0_Rpt(void) interrupt TIMER0_VECTOR  //时基100us
 {
+	static u32 tt=0;
 
 	c_timer++;
-  	if(c_timer>150)
-  	{
-  		c_end_flag=1;
-  		c_timer=0;
-  	}
-  	
-	//display_flash();						//P03
-	if(dingshi_counter>0)
+	if(c_timer>150)
 	{
-		if(dingshi_start==1)
-		{
-			dingshi_counter--;			
-		}
-		
+		c_end_flag=1;
+		c_timer=0;
 	}
-	if(uv_counter>0)
+  if(tt++>600000)
 	{
-		if(uv_start==1)
+		tt=0;
+		if(dingshi_counter>0)
 		{
-			uv_counter--;
-		}
-	}	
-}	
-void init_exti0()
-{
-	P0M2 = 0x69;			      //P02设置为带SMT上拉输入
-	PITS0 |= 0x01;					//INT0下降沿
-	IE |= 0x01;							//打开INT0中断
-}
-void ISR_INT0(void) interrupt INT0_VECTOR
-{
-	P2_3=~P2_3;
-  	if(c_start_flag)
-  	{
-  		if(c_timer>135)
-  		{
-  			nec_index=0;
-  		}
-  		nec_buff[nec_index]=c_timer;
-  		c_timer=0;
-  		nec_index++;
-  		if(nec_index>33)
-  		{
-  			nec_index=0;
-  		}
-  		c_end_flag=0;
-  	}
-  	else
-  	{
-  		c_start_flag=1;
-  		c_timer=0;
-  	}
-}
-void check_nec()
-{
-	if(nec_data[3]==1)
-	{
-		if(work_mode==0)
-		{
-			work_mode=1;
-			dingshi_counter=1.5*3600*1000;
-		}
-		else
-		{
-			work_mode=0;
-			dingshi_counter=0;
-			dingshi_start=0;
-			uv_start=0;
-			uv_counter=0;
-		}
-	}
-	else if(work_mode==1)
-	{
-		if(nec_data[3]==2)//
-		{
-			set_dingshi_time_plus();
-			count0=0;
-		}
-		else if(nec_data[3]==3)//uv
-		{
-			if(uv_start==0)
+			if(dingshi_start==1)
 			{
-				uv_start=1;
-				uv_counter=20*60*1000;
-			}
-			else
-			{
-				uv_start=0;
-				uv_counter=0;
+				dingshi_counter--;			
 			}
 			
 		}
+		if(uv_counter>0)
+		{
+			if(uv_start==1)
+			{
+				uv_counter--;
+			}
+		}	
+	}
+	jian_ge++;
+}	
+void init_exti0()
+{
+	P3M5 = 0x69;			      //P35设置为带SMT上拉输入
+	PITS4 |= 0x04;					//INT17下降沿	
+	PINTE2 = 0x02;
+	IE2 |= 0x01;							//打开INT17中断
+	
+}
+
+void ISR_INT16_17(void)  interrupt INT16_17_VECTOR
+{
+	PINTF2 &=~ 0x02;				//清除INT17中断标志位		
+	if(c_start_flag)
+	{
+		if(c_timer>105)
+		{
+			nec_index=0;
+		}
+		nec_buff[nec_index]=c_timer;
+		c_timer=0;
+		nec_index++;
+		if(nec_index>33)
+		{
+			nec_index=0;
+		}
+		c_end_flag=0;
+	}
+	else
+	{
+		c_start_flag=1;
+		c_timer=0;
 	}
 }
+void chu_li_nec()
+{
+	if(nec_data[0]==0 && nec_data[1]==0xff)
+	{
+		if(jian_ge<10000)
+		{
+			return;
+		}
+		jian_ge=0;
+		if(nec_data[2]==0)
+		{
+			if(work_mode==0)
+			{
+				work_mode=1;
+				dingshi_counter=90;
+			}
+			else
+			{
+				work_mode=0;
+				dingshi_counter=0;
+				dingshi_start=0;
+				uv_start=0;
+				uv_counter=0;
+			}
+		}
+		else if(work_mode==1)
+		{
+			if(nec_data[2]==0x08)//
+			{
+				set_dingshi_time_add();
+				count0=0;
+			}
+			else if(nec_data[2]==0x0A)//
+			{
+				set_dingshi_time_red();
+				count0=0;
+			}
+			else if(nec_data[2]==0x02)//uv
+			{
+				if(uv_start==0)
+				{
+					uv_start=1;
+					uv_counter=20;
+				}
+				else
+				{
+					uv_start=0;
+					uv_counter=0;
+				}
+				
+			}
+		}
+	}
+	
+}
+extern char putchar (char c);
 void decode_nec()
 {
 	if(nec_index && c_end_flag)
 	{
-		nec_data[0]=(nec_buff[1]<12 ? 0 : 1)<<0 |
-					(nec_buff[2]<12 ? 0 : 1)<<1 |
-					(nec_buff[3]<12 ? 0 : 1)<<2 |
-					(nec_buff[4]<12 ? 0 : 1)<<3 |
-					(nec_buff[5]<12 ? 0 : 1)<<4 |
-					(nec_buff[6]<12 ? 0 : 1)<<5 |
-					(nec_buff[7]<12 ? 0 : 1)<<6 |
-					(nec_buff[8]<12 ? 0 : 1)<<7 ;
-		nec_data[1]=(nec_buff[9]<12 ? 0 : 1)<<0 |
-					(nec_buff[10]<12 ? 0 : 1)<<1 |
-					(nec_buff[11]<12 ? 0 : 1)<<2 |
-					(nec_buff[12]<12 ? 0 : 1)<<3 |
-					(nec_buff[13]<12 ? 0 : 1)<<4 |
-					(nec_buff[14]<12 ? 0 : 1)<<5 |
-					(nec_buff[15]<12 ? 0 : 1)<<6 |
-					(nec_buff[16]<12 ? 0 : 1)<<7 ;
-		nec_data[2]=(nec_buff[17]<12 ? 0 : 1)<<0 |
-					(nec_buff[18]<12 ? 0 : 1)<<1 |
-					(nec_buff[19]<12 ? 0 : 1)<<2 |
-					(nec_buff[20]<12 ? 0 : 1)<<3 |
-					(nec_buff[21]<12 ? 0 : 1)<<4 |
-					(nec_buff[22]<12 ? 0 : 1)<<5 |
-					(nec_buff[23]<12 ? 0 : 1)<<6 |
-					(nec_buff[24]<12 ? 0 : 1)<<7 ;
-		nec_data[3]=(nec_buff[25]<12 ? 0 : 1)<<0 |
-					(nec_buff[26]<12 ? 0 : 1)<<1 |
-					(nec_buff[27]<12 ? 0 : 1)<<2 |
-					(nec_buff[28]<12 ? 0 : 1)<<3 |
-					(nec_buff[29]<12 ? 0 : 1)<<4 |
-					(nec_buff[30]<12 ? 0 : 1)<<5 |
-					(nec_buff[31]<12 ? 0 : 1)<<6 |
-					(nec_buff[32]<12 ? 0 : 1)<<7 ;
+		nec_data[0]=(nec_buff[1]<0x0F ? 0 : 1)<<0 |
+					(nec_buff[2]<0x0F ? 0 : 1)<<1 |
+					(nec_buff[3]<0x0F ? 0 : 1)<<2 |
+					(nec_buff[4]<0x0F ? 0 : 1)<<3 |
+					(nec_buff[5]<0x0F ? 0 : 1)<<4 |
+					(nec_buff[6]<0x0F ? 0 : 1)<<5 |
+					(nec_buff[7]<0x0F ? 0 : 1)<<6 |
+					(nec_buff[8]<0x0F ? 0 : 1)<<7 ;
+		nec_data[1]=(nec_buff[9]<0x0F ? 0 : 1)<<0 |
+					(nec_buff[10]<0x0F ? 0 : 1)<<1 |
+					(nec_buff[11]<0x0F ? 0 : 1)<<2 |
+					(nec_buff[12]<0x0F ? 0 : 1)<<3 |
+					(nec_buff[13]<0x0F ? 0 : 1)<<4 |
+					(nec_buff[14]<0x0F ? 0 : 1)<<5 |
+					(nec_buff[15]<0x0F ? 0 : 1)<<6 |
+					(nec_buff[16]<0x0F ? 0 : 1)<<7 ;
+		nec_data[2]=(nec_buff[17]<0x0F ? 0 : 1)<<0 |
+					(nec_buff[18]<0x0F ? 0 : 1)<<1 |
+					(nec_buff[19]<0x0F ? 0 : 1)<<2 |
+					(nec_buff[20]<0x0F ? 0 : 1)<<3 |
+					(nec_buff[21]<0x0F ? 0 : 1)<<4 |
+					(nec_buff[22]<0x0F ? 0 : 1)<<5 |
+					(nec_buff[23]<0x0F ? 0 : 1)<<6 |
+					(nec_buff[24]<0x0F ? 0 : 1)<<7 ;
+		nec_data[3]=(nec_buff[25]<0x0F ? 0 : 1)<<0 |
+					(nec_buff[26]<0x0F ? 0 : 1)<<1 |
+					(nec_buff[27]<0x0F ? 0 : 1)<<2 |
+					(nec_buff[28]<0x0F ? 0 : 1)<<3 |
+					(nec_buff[29]<0x0F ? 0 : 1)<<4 |
+					(nec_buff[30]<0x0F ? 0 : 1)<<5 |
+					(nec_buff[31]<0x0F ? 0 : 1)<<6 |
+					(nec_buff[32]<0x0F ? 0 : 1)<<7 ;
 		nec_index=0;
-		check_nec();
-		printf("NEC:%d,%d,%d,%d,\n\r",nec_data[0],nec_data[1],nec_data[2],nec_data[3]);	
-
+		chu_li_nec();
+		
+//		putchar(nec_data[0]);
+//		putchar(nec_data[1]);
+//		putchar(nec_data[2]);
+//		putchar(nec_data[3]);
+		
 		nec_data[0]=0;
 		nec_data[1]=0;
 		nec_data[2]=0;
@@ -471,8 +500,7 @@ void main()
 {
 	
 	SystemInit();						//
-	init_printf();
-//	init_ntc_adc();
+	//init_printf();
 	init_display();
  	init_TIMER0();
  	init_exti0();
@@ -481,7 +509,6 @@ void main()
 							
 
 	//printf("start\n\r");	
-//	buzzer();
 	while(1)
 	{
 
@@ -494,11 +521,12 @@ void main()
 
 		}
 		
-		// key_check();
-		// work_check();
+	  key_check();
+		decode_nec();
 		Delay_ms(1);
 		counter++;
-		//display_flash();
+		display_flash();
+		work_check();
 
 	}	
 }
@@ -586,9 +614,9 @@ void init_display()
 	P1M6=GPIO_Out_PP;
 
 	//display_off();
-	DISPLAY_A=1;
-	DISPLAY_B=1;
-	DISPLAY_C=1;
+	DISPLAY_A=0;
+	DISPLAY_B=0;
+	DISPLAY_C=0;
 	DISPLAY_D=0;
 
 	DISPLAY_COM1=1;
@@ -599,6 +627,10 @@ void init_display()
 }
 void display_close()
 {
+	DISPLAY_A=0;
+	DISPLAY_B=0;
+	DISPLAY_C=0;
+	DISPLAY_D=0;
 	DISPLAY_COM1=1;
 	DISPLAY_COM2=1;
 	DISPLAY_COM3=1;
@@ -765,7 +797,7 @@ void display_1(char c)
 			DISPLAY_A=1;
 			DISPLAY_B=1;
 			DISPLAY_C=1;
-			DISPLAY_D=0;
+			DISPLAY_D=1;
 
 			DISPLAY_COM1=0;
 
@@ -773,7 +805,7 @@ void display_1(char c)
 			display_close();
 			DISPLAY_A=1;
 			DISPLAY_B=1;
-			DISPLAY_C=0;
+			DISPLAY_C=1;
 			DISPLAY_D=0;
 
 			DISPLAY_COM5=0;
@@ -801,6 +833,7 @@ void display_1(char c)
 
 		default:
 			display_close();
+			Delay_ms(2);
 		break;
 	}
 }
@@ -972,7 +1005,7 @@ void display_2(char c)
 			display_close();
 			DISPLAY_A=1;
 			DISPLAY_B=1;
-			DISPLAY_C=0;
+			DISPLAY_C=1;
 			DISPLAY_D=0;
 
 			DISPLAY_COM4=0;
@@ -1000,10 +1033,11 @@ void display_2(char c)
 
 		default:
 			display_close();
+			Delay_ms(2);
 		break;
 	}
 }
-void display_p(char c)
+void display_point_(char c)
 {
 	if(c)
 	{
@@ -1011,6 +1045,7 @@ void display_p(char c)
 		DISPLAY_D=1;
 		DISPLAY_COM5=0;
 		Delay_ms(1);
+		display_close();
 	}
 	else
 	{
@@ -1018,7 +1053,7 @@ void display_p(char c)
 		Delay_ms(1);
 	}
 }
-void display_u(char c)
+void display_uv_(char c)
 {
 	if(c)
 	{
@@ -1026,6 +1061,7 @@ void display_u(char c)
 		DISPLAY_A=1;
 		DISPLAY_COM2=0;
 		Delay_ms(1);
+		display_close();
 	}
 	else
 	{
@@ -1033,7 +1069,7 @@ void display_u(char c)
 		Delay_ms(1);
 	}
 }
-void display_t(char c)
+void display_touch_(char c)
 {
 	if(c)
 	{
@@ -1041,6 +1077,7 @@ void display_t(char c)
 		DISPLAY_D=1;
 		DISPLAY_COM4=0;
 		Delay_ms(1);
+		display_close();
 	}
 	else
 	{
@@ -1050,11 +1087,11 @@ void display_t(char c)
 }
 void display_flash()
 {
-	display_1(5);
-	display_2(6);
-	display_p(0);
-	display_u(0);
-	display_t(1);
+	display_1(display_data1);
+	display_2(display_data2);
+	display_point_(display_point);
+	display_uv_(display_uv);
+	display_touch_(display_touch_led);
 }
 
 void  buzzer()
