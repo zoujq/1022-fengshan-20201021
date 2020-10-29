@@ -227,7 +227,7 @@ void key_check()
 }
 #define FAN P1_3
 #define UV P0_7
-#define JIARE P2_0
+#define JIARE P0_2
 
 void work_check()
 {
@@ -237,7 +237,7 @@ void work_check()
 	{
 		P1M3=GPIO_Out_PP;//fan
 		P0M7=GPIO_Out_PP;//vu
-		P2M0=GPIO_Out_PP;//jiare
+		P0M2=GPIO_Out_PP;//jiare
 		inited=1;
 	}
 	
