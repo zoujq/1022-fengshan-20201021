@@ -1,4 +1,4 @@
-C51 COMPILER V9.56.0.0   MAIN                                                              10/28/2020 23:19:56 PAGE 1   
+C51 COMPILER V9.56.0.0   MAIN                                                              10/29/2020 20:54:42 PAGE 1   
 
 
 C51 COMPILER V9.56.0.0, COMPILATION OF MODULE MAIN
@@ -62,7 +62,7 @@ line level    source
   52          u32 dingshi_counter=0;
   53          char work_mode=0;
   54          
-C51 COMPILER V9.56.0.0   MAIN                                                              10/28/2020 23:19:56 PAGE 2   
+C51 COMPILER V9.56.0.0   MAIN                                                              10/29/2020 20:54:42 PAGE 2   
 
   55          char uv_start=0;
   56          u32 uv_counter=20;
@@ -90,1105 +90,1105 @@ line level    source
   78   1      }
   79          void set_dingshi_time_red()
   80          {
-  81   1        dingshi_counter-=30;
-  82   1        if(dingshi_counter<30)
-  83   1        {
-  84   2          dingshi_counter=30;
-  85   2        }
-  86   1      }
-  87          
-  88          void display_dingshi_set()
-  89          {
-  90   1        display_data1=dingshi_counter/60;
-  91   1        display_data2=(dingshi_counter%60)/6;
-  92   1        display_point=1;
-  93   1      }
+  81   1        if(dingshi_counter>30)
+  82   1        {
+  83   2          dingshi_counter-=30;
+  84   2        }
+  85   1      }
+  86          
+  87          void display_dingshi_set()
+  88          {
+  89   1        display_data1=dingshi_counter/60;
+  90   1        display_data2=(dingshi_counter%60)/6;
+  91   1        display_point=1;
+  92   1      }
+  93          
   94          
-  95          
-  96          void display_dingshi_time()
-  97          {
-  98   1        display_data1=dingshi_counter/60;
-  99   1        display_data2=(dingshi_counter%60)/6;
- 100   1        display_point=1;
- 101   1      }
- 102          
- 103          void display_off()
- 104          {
- 105   1        display_data1=0;
- 106   1        display_data2=0;
- 107   1        display_point=0;
- 108   1      }
- 109          
- 110          void display_none()
- 111          {
- 112   1        display_data1='+';
- 113   1        display_data2='+';
- 114   1        display_point=0;
- 115   1      }
- 116          void key_check()
-C51 COMPILER V9.56.0.0   MAIN                                                              10/28/2020 23:19:56 PAGE 3   
+  95          void display_dingshi_time()
+  96          {
+  97   1        display_data1=dingshi_counter/60;
+  98   1        display_data2=(dingshi_counter%60)/6;
+  99   1        display_point=1;
+ 100   1      }
+ 101          void display_uv_time()
+ 102          {
+ 103   1        display_data1=uv_counter/10;
+ 104   1        display_data2=uv_counter%10;
+ 105   1        display_point=0;
+ 106   1      }
+ 107          
+ 108          void display_off()
+ 109          {
+ 110   1        display_data1=8;
+ 111   1        display_data2=8;
+ 112   1        display_point=0;
+ 113   1      }
+ 114          
+ 115          void display_none()
+ 116          {
+C51 COMPILER V9.56.0.0   MAIN                                                              10/29/2020 20:54:42 PAGE 3   
 
- 117          {
- 118   1        static u16 ON_TK=0;
- 119   1        static u16 i3=0;
- 120   1        if(TouchKeyFlag )
- 121   1        {   
- 122   2          if(ON_TK==0)
- 123   2          {
- 124   3            ON_TK=1;
- 125   3            if(work_mode==0)
- 126   3            {
- 127   4              work_mode=1;
- 128   4              dingshi_counter=90;
- 129   4      
- 130   4            }
- 131   3            else
- 132   3            {
- 133   4              if(dingshi_start==1)
- 134   4              {
- 135   5                work_mode=0;
- 136   5                dingshi_counter=0;
- 137   5                dingshi_start=0;
- 138   5                uv_start=0;
- 139   5                uv_counter=0;
- 140   5      
- 141   5              }
- 142   4              else
- 143   4              {
- 144   5                set_dingshi_time_plus();  
- 145   5                display_dingshi_set();          
+ 117   1        display_data1='+';
+ 118   1        display_data2='+';
+ 119   1        display_point=0;
+ 120   1      }
+ 121          void key_check()
+ 122          {
+ 123   1        static u16 ON_TK=0;
+ 124   1        static u16 i3=0;
+ 125   1        if(TouchKeyFlag )
+ 126   1        {   
+ 127   2          if(ON_TK==0)
+ 128   2          {
+ 129   3            ON_TK=1;
+ 130   3            if(work_mode==0)
+ 131   3            {
+ 132   4              work_mode=1;
+ 133   4              dingshi_counter=90;
+ 134   4      
+ 135   4            }
+ 136   3            else
+ 137   3            {
+ 138   4              if(dingshi_start==1)
+ 139   4              {
+ 140   5                work_mode=0;
+ 141   5                dingshi_counter=0;
+ 142   5                dingshi_start=0;
+ 143   5                uv_start=0;
+ 144   5                uv_counter=0;
+ 145   5      
  146   5              }
- 147   4            }
- 148   3            count0=0;
- 149   3          }
- 150   2          
- 151   2        }
- 152   1        else
- 153   1        {
- 154   2          ON_TK=0;
- 155   2        }
- 156   1      
- 157   1        if(work_mode==0)
+ 147   4              else
+ 148   4              {
+ 149   5                set_dingshi_time_plus();  
+ 150   5                display_dingshi_set();          
+ 151   5              }
+ 152   4            }
+ 153   3            count0=0;
+ 154   3          }
+ 155   2          
+ 156   2        }
+ 157   1        else
  158   1        {
- 159   2          static u16 i5=0;
- 160   2          count0=0; 
- 161   2          display_off();    
- 162   2          if(i5==1)
- 163   2          {
- 164   3            display_touch_led=0x01;
- 165   3          } 
- 166   2          else if(i5==60)
- 167   2          {         
- 168   3            display_touch_led=0x00;         
- 169   3          }
- 170   2          else if(i5==120)
- 171   2          {
- 172   3            i5=0;
- 173   3          }
- 174   2          i5++;
- 175   2        }
- 176   1        else
- 177   1        {
- 178   2          display_touch_led=1;
-C51 COMPILER V9.56.0.0   MAIN                                                              10/28/2020 23:19:56 PAGE 4   
+ 159   2          ON_TK=0;
+ 160   2        }
+ 161   1      
+ 162   1        if(work_mode==0)
+ 163   1        {
+ 164   2          static u16 i5=0;
+ 165   2          count0=0; 
+ 166   2          display_off();    
+ 167   2          if(i5==1)
+ 168   2          {
+ 169   3            display_touch_led=0x01;
+ 170   3          } 
+ 171   2          else if(i5==60)
+ 172   2          {         
+ 173   3            display_touch_led=0x00;         
+ 174   3          }
+ 175   2          else if(i5==120)
+ 176   2          {
+ 177   3            i5=0;
+ 178   3          }
+C51 COMPILER V9.56.0.0   MAIN                                                              10/29/2020 20:54:42 PAGE 4   
 
- 179   2          if(count0<340)
- 180   2          {
- 181   3            count0++;
- 182   3            if(count0%50==0)
- 183   3            {
- 184   4              static char i=0;
- 185   4              if(i==0)
- 186   4              {
- 187   5                display_dingshi_set();          
- 188   5                i=1;
- 189   5              }
- 190   4              else
+ 179   2          i5++;
+ 180   2        }
+ 181   1        else
+ 182   1        {
+ 183   2          display_touch_led=1;
+ 184   2          if(count0<340)
+ 185   2          {
+ 186   3            count0++;
+ 187   3            if(count0%50==0)
+ 188   3            {
+ 189   4              static char i=0;
+ 190   4              if(i==0)
  191   4              {
- 192   5                display_none();
- 193   5                i=0;
+ 192   5                display_dingshi_set();          
+ 193   5                i=1;
  194   5              }
- 195   4              
- 196   4            }
- 197   3      
- 198   3          }
- 199   2          else
- 200   2          {
- 201   3            display_dingshi_time();
- 202   3            if(dingshi_counter>0)
- 203   3            {
- 204   4              dingshi_start=1;
- 205   4            }
- 206   3            else 
- 207   3            {
- 208   4              dingshi_start=0;
- 209   4              if(uv_start==0)
- 210   4              {
- 211   5                uv_start=1;
- 212   5                uv_counter=20;
- 213   5              }
- 214   4              else if(uv_counter==0)
- 215   4              {
- 216   5                uv_start=0;
- 217   5                work_mode=0;
- 218   5      
+ 195   4              else
+ 196   4              {
+ 197   5                display_none();
+ 198   5                i=0;
+ 199   5              }
+ 200   4              
+ 201   4            }
+ 202   3      
+ 203   3          }
+ 204   2          else
+ 205   2          {
+ 206   3            
+ 207   3            if(dingshi_counter>0)
+ 208   3            {
+ 209   4              dingshi_start=1;
+ 210   4              display_dingshi_time();
+ 211   4            }
+ 212   3            else 
+ 213   3            {
+ 214   4              dingshi_start=0;
+ 215   4              if(uv_start==0)
+ 216   4              {
+ 217   5                uv_start=1;
+ 218   5                uv_counter=20;
  219   5              }
- 220   4              
- 221   4            }
- 222   3          }
- 223   2      
- 224   2        }
- 225   1        
- 226   1      
- 227   1      }
-*** WARNING C280 IN LINE 119 OF ..\..\User\Main.c: 'i3': unreferenced local variable
- 228          #define FAN P1_3
- 229          #define UV P0_7
- 230          #define JIARE P2_0
- 231          
- 232          void work_check()
- 233          {
- 234   1        static char inited=0;
- 235   1        static u16 count02=0;
- 236   1        if(inited==0)
- 237   1        {
- 238   2          P1M3=GPIO_Out_PP;//fan
- 239   2          P0M7=GPIO_Out_PP;//vu
-C51 COMPILER V9.56.0.0   MAIN                                                              10/28/2020 23:19:56 PAGE 5   
+ 220   4              else if(uv_counter==0)
+ 221   4              {
+ 222   5                uv_start=0;
+ 223   5                work_mode=0;
+ 224   5                
+ 225   5              }
+ 226   4              else if(uv_counter>0)
+ 227   4              {
+ 228   5                display_uv_time();
+ 229   5              }
+ 230   4              
+ 231   4            }
+ 232   3          }
+ 233   2      
+ 234   2        }
+ 235   1        
+ 236   1      
+ 237   1      }
+*** WARNING C280 IN LINE 124 OF ..\..\User\Main.c: 'i3': unreferenced local variable
+ 238          #define FAN P1_3
+ 239          #define UV P0_7
+C51 COMPILER V9.56.0.0   MAIN                                                              10/29/2020 20:54:42 PAGE 5   
 
- 240   2          P2M0=GPIO_Out_PP;//jiare
- 241   2          inited=1;
- 242   2        }
- 243   1        
- 244   1        if(work_mode==1 )
- 245   1        {
- 246   2          if(dingshi_start==1)
- 247   2          {
- 248   3            FAN=1;
- 249   3            JIARE=1;
- 250   3          }
- 251   2          else
- 252   2          {
- 253   3            FAN=0;
- 254   3            JIARE=0;
- 255   3          }
- 256   2          if(uv_start==1 && uv_counter>0)
+ 240          #define JIARE P0_2
+ 241          
+ 242          void work_check()
+ 243          {
+ 244   1        static char inited=0;
+ 245   1        static u16 count02=0;
+ 246   1        if(inited==0)
+ 247   1        {
+ 248   2          P1M3=GPIO_Out_PP;//fan
+ 249   2          P0M7=GPIO_Out_PP;//vu
+ 250   2          P0M2=GPIO_Out_PP;//jiare
+ 251   2          inited=1;
+ 252   2        }
+ 253   1        
+ 254   1        if(work_mode==1 )
+ 255   1        {
+ 256   2          if(dingshi_start==1)
  257   2          {
- 258   3            UV=1;
- 259   3            display_uv=1;
+ 258   3            FAN=1;
+ 259   3            JIARE=1;
  260   3          }
  261   2          else
  262   2          {
- 263   3            UV=0;
- 264   3            display_uv=0;
+ 263   3            FAN=0;
+ 264   3            JIARE=0;
  265   3          }
- 266   2        }
- 267   1        else
- 268   1        {
- 269   2          FAN=0;
- 270   2          JIARE=0;
- 271   2          UV=0;
- 272   2          display_uv=0;
- 273   2          display_off();
- 274   2        }
- 275   1      
- 276   1        if(last_work_mode!=work_mode)
- 277   1        {
- 278   2          
- 279   2          if(last_work_mode==1 && work_mode==0)
- 280   2          {
- 281   3            count02++;
- 282   3            if(count02<10000)
- 283   3            {
- 284   4              FAN=1;
- 285   4            }
- 286   3            else
- 287   3            {
- 288   4              count02=0;
- 289   4              FAN=0;
- 290   4              last_work_mode=work_mode;
- 291   4            }
- 292   3          }
- 293   2          else
- 294   2          {
- 295   3            last_work_mode=work_mode;
- 296   3          }
- 297   2        }
- 298   1        else
- 299   1        {
- 300   2          count02=0;
- 301   2        }
-C51 COMPILER V9.56.0.0   MAIN                                                              10/28/2020 23:19:56 PAGE 6   
+ 266   2          if(uv_start==1 && uv_counter>0)
+ 267   2          {
+ 268   3            if(count02>0)
+ 269   3            {
+ 270   4              UV=0;
+ 271   4            }
+ 272   3            else
+ 273   3            {
+ 274   4              UV=1;
+ 275   4            }
+ 276   3            display_uv=1;
+ 277   3          }
+ 278   2          else
+ 279   2          {
+ 280   3            UV=0;
+ 281   3            display_uv=0;
+ 282   3          }
+ 283   2        }
+ 284   1        else
+ 285   1        {
+ 286   2          FAN=0;
+ 287   2          JIARE=0;
+ 288   2          UV=0;
+ 289   2          display_uv=0;
+ 290   2          display_off();
+ 291   2        }
+ 292   1      
+ 293   1        if(last_work_mode!=dingshi_start)
+ 294   1        {
+ 295   2          
+ 296   2          if(last_work_mode==1 && dingshi_start==0)
+ 297   2          {
+ 298   3            count02++;
+ 299   3            if(count02<1000)
+ 300   3            {
+ 301   4              FAN=1;
+C51 COMPILER V9.56.0.0   MAIN                                                              10/29/2020 20:54:42 PAGE 6   
 
- 302   1        
- 303   1      
- 304   1      
- 305   1      }
- 306          
- 307          
- 308          /***********************************红外解码**************************************/
- 309          u8 c_timer=0; 
- 310          u8 c_end_flag=0;
- 311          u8 c_start_flag=0;
- 312          xdata u8 nec_buff[34];
- 313          u8 nec_index=0;
- 314          xdata u8 nec_data[4];
- 315          void init_TIMER0()
- 316          {
- 317   1        TCON1 = 0x00;           //
- 318   1        TMOD = 0x00;            //
+ 302   4            }
+ 303   3            else
+ 304   3            {
+ 305   4              count02=0;
+ 306   4              FAN=0;
+ 307   4              last_work_mode=dingshi_start;
+ 308   4            }
+ 309   3          }
+ 310   2          else
+ 311   2          {
+ 312   3            last_work_mode=dingshi_start;
+ 313   3          }
+ 314   2        }
+ 315   1        else
+ 316   1        {
+ 317   2          count02=0;
+ 318   2        }
  319   1        
- 320   1        TH0 = 0xFF;
- 321   1        TL0 = 0x7B;             //100us
- 322   1        IE |= 0x02;             //
- 323   1        TCON |= 0x10;           //
- 324   1          
- 325   1      }
- 326          
- 327          void TIMER0_Rpt(void) interrupt TIMER0_VECTOR  //时基100us
- 328          {
- 329   1        static u32 tt=0;
- 330   1      
- 331   1        c_timer++;
- 332   1        if(c_timer>150)
- 333   1        {
- 334   2          c_end_flag=1;
- 335   2          c_timer=0;
- 336   2        }
- 337   1        if(tt++>600000)
- 338   1        {
- 339   2          tt=0;
- 340   2          if(dingshi_counter>0)
- 341   2          {
- 342   3            if(dingshi_start==1)
- 343   3            {
- 344   4              dingshi_counter--;      
- 345   4            }
- 346   3            
- 347   3          }
- 348   2          if(uv_counter>0)
- 349   2          {
- 350   3            if(uv_start==1)
- 351   3            {
- 352   4              uv_counter--;
- 353   4            }
- 354   3          } 
- 355   2        }
- 356   1        jian_ge++;
- 357   1      } 
- 358          void init_exti0()
- 359          {
- 360   1        P3M5 = 0x69;            //P35设置为带SMT上拉输入
- 361   1        PITS4 |= 0x04;          //INT17下降沿  
- 362   1        PINTE2 = 0x02;
- 363   1        IE2 |= 0x01;              //打开INT17中断
-C51 COMPILER V9.56.0.0   MAIN                                                              10/28/2020 23:19:56 PAGE 7   
+ 320   1      
+ 321   1      
+ 322   1      }
+ 323          
+ 324          
+ 325          /***********************************红外解码**************************************/
+ 326          u8 c_timer=0; 
+ 327          u8 c_end_flag=0;
+ 328          u8 c_start_flag=0;
+ 329          xdata u8 nec_buff[34];
+ 330          u8 nec_index=0;
+ 331          xdata u8 nec_data[4];
+ 332          void init_TIMER0()
+ 333          {
+ 334   1        TCON1 = 0x00;           //
+ 335   1        TMOD = 0x00;            //
+ 336   1        
+ 337   1        TH0 = 0xFF;
+ 338   1        TL0 = 0x7B;             //100us
+ 339   1        IE |= 0x02;             //
+ 340   1        TCON |= 0x10;           //
+ 341   1          
+ 342   1      }
+ 343          
+ 344          void TIMER0_Rpt(void) interrupt TIMER0_VECTOR  //时基100us
+ 345          {
+ 346   1        static u32 tt=0;
+ 347   1      
+ 348   1        c_timer++;
+ 349   1        if(c_timer>150)
+ 350   1        {
+ 351   2          c_end_flag=1;
+ 352   2          c_timer=0;
+ 353   2        }
+ 354   1        if(tt++>600000)
+ 355   1        {
+ 356   2          tt=0;
+ 357   2          if(dingshi_counter>0)
+ 358   2          {
+ 359   3            if(dingshi_start==1)
+ 360   3            {
+ 361   4              dingshi_counter--;      
+ 362   4            }
+ 363   3            
+C51 COMPILER V9.56.0.0   MAIN                                                              10/29/2020 20:54:42 PAGE 7   
 
- 364   1        
- 365   1      }
- 366          
- 367          void ISR_INT16_17(void)  interrupt INT16_17_VECTOR
- 368          {
- 369   1        PINTF2 &=~ 0x02;        //清除INT17中断标志位    
- 370   1        if(c_start_flag)
- 371   1        {
- 372   2          if(c_timer>105)
- 373   2          {
- 374   3            nec_index=0;
- 375   3          }
- 376   2          nec_buff[nec_index]=c_timer;
- 377   2          c_timer=0;
- 378   2          nec_index++;
- 379   2          if(nec_index>33)
- 380   2          {
- 381   3            nec_index=0;
- 382   3          }
- 383   2          c_end_flag=0;
- 384   2        }
- 385   1        else
- 386   1        {
- 387   2          c_start_flag=1;
- 388   2          c_timer=0;
- 389   2        }
- 390   1      }
- 391          void chu_li_nec()
- 392          {
- 393   1        if(nec_data[0]==0 && nec_data[1]==0xff)
- 394   1        {
- 395   2          if(jian_ge<10000)
- 396   2          {
- 397   3            return;
- 398   3          }
- 399   2          jian_ge=0;
- 400   2          if(nec_data[2]==0)
- 401   2          {
- 402   3            if(work_mode==0)
- 403   3            {
- 404   4              work_mode=1;
- 405   4              dingshi_counter=90;
- 406   4            }
- 407   3            else
- 408   3            {
- 409   4              work_mode=0;
- 410   4              dingshi_counter=0;
- 411   4              dingshi_start=0;
- 412   4              uv_start=0;
- 413   4              uv_counter=0;
- 414   4            }
+ 364   3          }
+ 365   2          if(uv_counter>0)
+ 366   2          {
+ 367   3            if(uv_start==1)
+ 368   3            {
+ 369   4              uv_counter--;
+ 370   4            }
+ 371   3          } 
+ 372   2        }
+ 373   1        jian_ge++;
+ 374   1      } 
+ 375          void init_exti0()
+ 376          {
+ 377   1        P3M5 = 0x69;            //P35设置为带SMT上拉输入
+ 378   1        PITS4 |= 0x04;          //INT17下降沿  
+ 379   1        PINTE2 = 0x02;
+ 380   1        IE2 |= 0x01;              //打开INT17中断
+ 381   1        
+ 382   1      }
+ 383          
+ 384          void ISR_INT16_17(void)  interrupt INT16_17_VECTOR
+ 385          {
+ 386   1        PINTF2 &=~ 0x02;        //清除INT17中断标志位    
+ 387   1        if(c_start_flag)
+ 388   1        {
+ 389   2          if(c_timer>105)
+ 390   2          {
+ 391   3            nec_index=0;
+ 392   3          }
+ 393   2          nec_buff[nec_index]=c_timer;
+ 394   2          c_timer=0;
+ 395   2          nec_index++;
+ 396   2          if(nec_index>33)
+ 397   2          {
+ 398   3            nec_index=0;
+ 399   3          }
+ 400   2          c_end_flag=0;
+ 401   2        }
+ 402   1        else
+ 403   1        {
+ 404   2          c_start_flag=1;
+ 405   2          c_timer=0;
+ 406   2        }
+ 407   1      }
+ 408          void chu_li_nec()
+ 409          {
+ 410   1        if(nec_data[0]==0 && nec_data[1]==0xff)
+ 411   1        {
+ 412   2          if(jian_ge<10000)
+ 413   2          {
+ 414   3            return;
  415   3          }
- 416   2          else if(work_mode==1)
- 417   2          {
- 418   3            if(nec_data[2]==0x08)//
- 419   3            {
- 420   4              set_dingshi_time_add();
- 421   4              count0=0;
- 422   4            }
- 423   3            else if(nec_data[2]==0x0A)//
- 424   3            {
- 425   4              set_dingshi_time_red();
-C51 COMPILER V9.56.0.0   MAIN                                                              10/28/2020 23:19:56 PAGE 8   
+ 416   2          jian_ge=0;
+ 417   2          if(nec_data[2]==0)
+ 418   2          {
+ 419   3            if(work_mode==0)
+ 420   3            {
+ 421   4              work_mode=1;
+ 422   4              dingshi_counter=90;
+ 423   4            }
+ 424   3            else
+ 425   3            {
+C51 COMPILER V9.56.0.0   MAIN                                                              10/29/2020 20:54:42 PAGE 8   
 
- 426   4              count0=0;
- 427   4            }
- 428   3            else if(nec_data[2]==0x02)//uv
- 429   3            {
- 430   4              if(uv_start==0)
- 431   4              {
- 432   5                uv_start=1;
- 433   5                uv_counter=20;
- 434   5              }
- 435   4              else
- 436   4              {
- 437   5                uv_start=0;
- 438   5                uv_counter=0;
- 439   5              }
- 440   4              
- 441   4            }
- 442   3          }
- 443   2        }
- 444   1        
- 445   1      }
- 446          extern char putchar (char c);
- 447          void decode_nec()
- 448          {
- 449   1        if(nec_index && c_end_flag)
- 450   1        {
- 451   2          nec_data[0]=(nec_buff[1]<0x0F ? 0 : 1)<<0 |
- 452   2                (nec_buff[2]<0x0F ? 0 : 1)<<1 |
- 453   2                (nec_buff[3]<0x0F ? 0 : 1)<<2 |
- 454   2                (nec_buff[4]<0x0F ? 0 : 1)<<3 |
- 455   2                (nec_buff[5]<0x0F ? 0 : 1)<<4 |
- 456   2                (nec_buff[6]<0x0F ? 0 : 1)<<5 |
- 457   2                (nec_buff[7]<0x0F ? 0 : 1)<<6 |
- 458   2                (nec_buff[8]<0x0F ? 0 : 1)<<7 ;
- 459   2          nec_data[1]=(nec_buff[9]<0x0F ? 0 : 1)<<0 |
- 460   2                (nec_buff[10]<0x0F ? 0 : 1)<<1 |
- 461   2                (nec_buff[11]<0x0F ? 0 : 1)<<2 |
- 462   2                (nec_buff[12]<0x0F ? 0 : 1)<<3 |
- 463   2                (nec_buff[13]<0x0F ? 0 : 1)<<4 |
- 464   2                (nec_buff[14]<0x0F ? 0 : 1)<<5 |
- 465   2                (nec_buff[15]<0x0F ? 0 : 1)<<6 |
- 466   2                (nec_buff[16]<0x0F ? 0 : 1)<<7 ;
- 467   2          nec_data[2]=(nec_buff[17]<0x0F ? 0 : 1)<<0 |
- 468   2                (nec_buff[18]<0x0F ? 0 : 1)<<1 |
- 469   2                (nec_buff[19]<0x0F ? 0 : 1)<<2 |
- 470   2                (nec_buff[20]<0x0F ? 0 : 1)<<3 |
- 471   2                (nec_buff[21]<0x0F ? 0 : 1)<<4 |
- 472   2                (nec_buff[22]<0x0F ? 0 : 1)<<5 |
- 473   2                (nec_buff[23]<0x0F ? 0 : 1)<<6 |
- 474   2                (nec_buff[24]<0x0F ? 0 : 1)<<7 ;
- 475   2          nec_data[3]=(nec_buff[25]<0x0F ? 0 : 1)<<0 |
- 476   2                (nec_buff[26]<0x0F ? 0 : 1)<<1 |
- 477   2                (nec_buff[27]<0x0F ? 0 : 1)<<2 |
- 478   2                (nec_buff[28]<0x0F ? 0 : 1)<<3 |
- 479   2                (nec_buff[29]<0x0F ? 0 : 1)<<4 |
- 480   2                (nec_buff[30]<0x0F ? 0 : 1)<<5 |
- 481   2                (nec_buff[31]<0x0F ? 0 : 1)<<6 |
- 482   2                (nec_buff[32]<0x0F ? 0 : 1)<<7 ;
- 483   2          nec_index=0;
- 484   2          chu_li_nec();
- 485   2          
- 486   2      //    putchar(nec_data[0]);
- 487   2      //    putchar(nec_data[1]);
-C51 COMPILER V9.56.0.0   MAIN                                                              10/28/2020 23:19:56 PAGE 9   
+ 426   4              work_mode=0;
+ 427   4              dingshi_counter=0;
+ 428   4              dingshi_start=0;
+ 429   4              uv_start=0;
+ 430   4              uv_counter=0;
+ 431   4            }
+ 432   3          }
+ 433   2          else if(work_mode==1 && uv_start==0)
+ 434   2          {
+ 435   3            if(nec_data[2]==0x08)//
+ 436   3            {
+ 437   4                        
+ 438   4              set_dingshi_time_add();       
+ 439   4              count0=0;
+ 440   4            }
+ 441   3            else if(nec_data[2]==0x0A)//
+ 442   3            {
+ 443   4                
+ 444   4              set_dingshi_time_red();       
+ 445   4              count0=0;
+ 446   4            }
+ 447   3            
+ 448   3          }
+ 449   2          if(nec_data[2]==0x02)//uv
+ 450   2          {
+ 451   3              if(uv_start==0)
+ 452   3              {
+ 453   4                work_mode=1;
+ 454   4                uv_start=1;
+ 455   4                uv_counter=20;
+ 456   4                dingshi_counter=0;
+ 457   4                dingshi_start=0;
+ 458   4              }
+ 459   3              else
+ 460   3              {         
+ 461   4                work_mode=0;
+ 462   4                dingshi_counter=0;
+ 463   4                dingshi_start=0;
+ 464   4                uv_start=0;
+ 465   4                uv_counter=0;
+ 466   4              }
+ 467   3              
+ 468   3            }
+ 469   2        }
+ 470   1        
+ 471   1      }
+ 472          extern char putchar (char c);
+ 473          void decode_nec()
+ 474          {
+ 475   1        if(nec_index && c_end_flag)
+ 476   1        {
+ 477   2          nec_data[0]=(nec_buff[1]<0x0F ? 0 : 1)<<0 |
+ 478   2                (nec_buff[2]<0x0F ? 0 : 1)<<1 |
+ 479   2                (nec_buff[3]<0x0F ? 0 : 1)<<2 |
+ 480   2                (nec_buff[4]<0x0F ? 0 : 1)<<3 |
+ 481   2                (nec_buff[5]<0x0F ? 0 : 1)<<4 |
+ 482   2                (nec_buff[6]<0x0F ? 0 : 1)<<5 |
+ 483   2                (nec_buff[7]<0x0F ? 0 : 1)<<6 |
+ 484   2                (nec_buff[8]<0x0F ? 0 : 1)<<7 ;
+ 485   2          nec_data[1]=(nec_buff[9]<0x0F ? 0 : 1)<<0 |
+ 486   2                (nec_buff[10]<0x0F ? 0 : 1)<<1 |
+ 487   2                (nec_buff[11]<0x0F ? 0 : 1)<<2 |
+C51 COMPILER V9.56.0.0   MAIN                                                              10/29/2020 20:54:42 PAGE 9   
 
- 488   2      //    putchar(nec_data[2]);
- 489   2      //    putchar(nec_data[3]);
- 490   2          
- 491   2          nec_data[0]=0;
- 492   2          nec_data[1]=0;
- 493   2          nec_data[2]=0;
- 494   2          nec_data[3]=0;
- 495   2        }
- 496   1      }
- 497          
- 498          
- 499          void main()
- 500          {
- 501   1        
- 502   1        SystemInit();           //
- 503   1        //init_printf();
- 504   1        init_display();
- 505   1        init_TIMER0();
- 506   1        init_exti0();
- 507   1        EA = 1;
- 508   1        CTK_Init(); 
- 509   1                    
- 510   1      
- 511   1        //printf("start\n\r");  
- 512   1        while(1)
- 513   1        {
- 514   2      
- 515   2          if(OneCycleScanDone)
- 516   2          {
- 517   3            TouchRawDataFilter();   //
- 518   3            Touch_Signal_Handle();
- 519   3            TouchMultibuttonHandle(); //
- 520   3            OneCycleScanDone = 0;
- 521   3      
- 522   3          }
- 523   2          
- 524   2          key_check();
- 525   2          decode_nec();
- 526   2          Delay_ms(1);
- 527   2          counter++;
- 528   2          display_flash();
- 529   2          work_check();
- 530   2      
- 531   2        } 
- 532   1      }
- 533          
- 534          
- 535          
- 536          
- 537          
- 538          /*************************************ADC************************************************/
- 539          //0~119℃
- 540          u16 code Temp_Table[1]={1
- 541          
- 542          };
- 543          
- 544          void init_ntc_adc()
- 545          {
- 546   1        
- 547   1        P0M2 = 0x01;                //
- 548   1        ADCC0 = 0x80;           //
- 549   1        Delay_50us(1);            //
-C51 COMPILER V9.56.0.0   MAIN                                                              10/28/2020 23:19:56 PAGE 10  
+ 488   2                (nec_buff[12]<0x0F ? 0 : 1)<<3 |
+ 489   2                (nec_buff[13]<0x0F ? 0 : 1)<<4 |
+ 490   2                (nec_buff[14]<0x0F ? 0 : 1)<<5 |
+ 491   2                (nec_buff[15]<0x0F ? 0 : 1)<<6 |
+ 492   2                (nec_buff[16]<0x0F ? 0 : 1)<<7 ;
+ 493   2          nec_data[2]=(nec_buff[17]<0x0F ? 0 : 1)<<0 |
+ 494   2                (nec_buff[18]<0x0F ? 0 : 1)<<1 |
+ 495   2                (nec_buff[19]<0x0F ? 0 : 1)<<2 |
+ 496   2                (nec_buff[20]<0x0F ? 0 : 1)<<3 |
+ 497   2                (nec_buff[21]<0x0F ? 0 : 1)<<4 |
+ 498   2                (nec_buff[22]<0x0F ? 0 : 1)<<5 |
+ 499   2                (nec_buff[23]<0x0F ? 0 : 1)<<6 |
+ 500   2                (nec_buff[24]<0x0F ? 0 : 1)<<7 ;
+ 501   2          nec_data[3]=(nec_buff[25]<0x0F ? 0 : 1)<<0 |
+ 502   2                (nec_buff[26]<0x0F ? 0 : 1)<<1 |
+ 503   2                (nec_buff[27]<0x0F ? 0 : 1)<<2 |
+ 504   2                (nec_buff[28]<0x0F ? 0 : 1)<<3 |
+ 505   2                (nec_buff[29]<0x0F ? 0 : 1)<<4 |
+ 506   2                (nec_buff[30]<0x0F ? 0 : 1)<<5 |
+ 507   2                (nec_buff[31]<0x0F ? 0 : 1)<<6 |
+ 508   2                (nec_buff[32]<0x0F ? 0 : 1)<<7 ;
+ 509   2          nec_index=0;
+ 510   2          chu_li_nec();
+ 511   2          
+ 512   2      //    putchar(nec_data[0]);
+ 513   2      //    putchar(nec_data[1]);
+ 514   2      //    putchar(nec_data[2]);
+ 515   2      //    putchar(nec_data[3]);
+ 516   2          
+ 517   2          nec_data[0]=0;
+ 518   2          nec_data[1]=0;
+ 519   2          nec_data[2]=0;
+ 520   2          nec_data[3]=0;
+ 521   2        }
+ 522   1      }
+ 523          
+ 524          
+ 525          void main()
+ 526          {
+ 527   1        
+ 528   1        SystemInit();           //
+ 529   1        //init_printf();
+ 530   1        init_display();
+ 531   1        init_TIMER0();
+ 532   1        init_exti0();
+ 533   1        EA = 1;
+ 534   1        CTK_Init(); 
+ 535   1                    
+ 536   1      
+ 537   1        //printf("start\n\r");  
+ 538   1        while(1)
+ 539   1        {
+ 540   2      
+ 541   2          if(OneCycleScanDone)
+ 542   2          {
+ 543   3            TouchRawDataFilter();   //
+ 544   3            Touch_Signal_Handle();
+ 545   3            TouchMultibuttonHandle(); //
+ 546   3            OneCycleScanDone = 0;
+ 547   3      
+ 548   3          }
+ 549   2          
+C51 COMPILER V9.56.0.0   MAIN                                                              10/29/2020 20:54:42 PAGE 10  
 
- 550   1        ADCC1 = 2;            //
- 551   1        ADCC2 = 0x4B;           //  
- 552   1      }
- 553          unsigned int get_ntc_adc()
- 554          {
- 555   1        ADCC0 |= 0x40;          //
- 556   1        while(!(ADCC0&0x20));     //
- 557   1        ADCC0 &=~ 0x20;         //
- 558   1        return ADCR;
- 559   1      }
+ 550   2          key_check();
+ 551   2          decode_nec();
+ 552   2          Delay_ms(1);
+ 553   2          counter++;
+ 554   2          display_flash();
+ 555   2          work_check();
+ 556   2      
+ 557   2        } 
+ 558   1      }
+ 559          
  560          
- 561          u16 get_temp()
- 562          {
- 563   1        u16 n=0;
- 564   1        u16 ntc_adc=get_ntc_adc();
- 565   1        
- 566   1        for(n=0;n<120;n++)
- 567   1        {
- 568   2          if(Temp_Table[n]<ntc_adc)
- 569   2          {
- 570   3            break;
- 571   3          }
- 572   2        }
- 573   1        // printf("ntc_adc:%d,wen_du:%d\n", ntc_adc,n);
- 574   1        if(ntc_adc==0)
- 575   1        {
- 576   2          err_code=2;
- 577   2        }
- 578   1        else if(ntc_adc==4095)
- 579   1        {
- 580   2          err_code=1;
- 581   2        }
- 582   1      
- 583   1        return n;
- 584   1      
+ 561          
+ 562          
+ 563          
+ 564          /*************************************ADC************************************************/
+ 565          //0~119℃
+ 566          u16 code Temp_Table[1]={1
+ 567          
+ 568          };
+ 569          
+ 570          void init_ntc_adc()
+ 571          {
+ 572   1        
+ 573   1        P0M2 = 0x01;                //
+ 574   1        ADCC0 = 0x80;           //
+ 575   1        Delay_50us(1);            //
+ 576   1        ADCC1 = 2;            //
+ 577   1        ADCC2 = 0x4B;           //  
+ 578   1      }
+ 579          unsigned int get_ntc_adc()
+ 580          {
+ 581   1        ADCC0 |= 0x40;          //
+ 582   1        while(!(ADCC0&0x20));     //
+ 583   1        ADCC0 &=~ 0x20;         //
+ 584   1        return ADCR;
  585   1      }
  586          
- 587          
- 588          /***************************************************************************/
- 589          //
- 590          #define DISPLAY_A P2_0
- 591          #define DISPLAY_B P2_1
- 592          #define DISPLAY_C P2_2
- 593          #define DISPLAY_D P2_3
- 594          
- 595          //
- 596          #define DISPLAY_COM1 P3_4
- 597          #define DISPLAY_COM3 P2_4
- 598          #define DISPLAY_COM2 P1_4
- 599          #define DISPLAY_COM4 P1_5
- 600          #define DISPLAY_COM5 P1_6
- 601          
- 602          
- 603          void init_display()
- 604          {
- 605   1        P2M0=GPIO_Out_PP;
- 606   1        P2M1=GPIO_Out_PP;
- 607   1        P2M2=GPIO_Out_PP;
- 608   1        P2M3=GPIO_Out_PP;
- 609   1        
- 610   1        P3M4=GPIO_Out_PP;
- 611   1        P2M4=GPIO_Out_PP;
-C51 COMPILER V9.56.0.0   MAIN                                                              10/28/2020 23:19:56 PAGE 11  
+ 587          u16 get_temp()
+ 588          {
+ 589   1        u16 n=0;
+ 590   1        u16 ntc_adc=get_ntc_adc();
+ 591   1        
+ 592   1        for(n=0;n<120;n++)
+ 593   1        {
+ 594   2          if(Temp_Table[n]<ntc_adc)
+ 595   2          {
+ 596   3            break;
+ 597   3          }
+ 598   2        }
+ 599   1        // printf("ntc_adc:%d,wen_du:%d\n", ntc_adc,n);
+ 600   1        if(ntc_adc==0)
+ 601   1        {
+ 602   2          err_code=2;
+ 603   2        }
+ 604   1        else if(ntc_adc==4095)
+ 605   1        {
+ 606   2          err_code=1;
+ 607   2        }
+ 608   1      
+ 609   1        return n;
+ 610   1      
+ 611   1      }
+C51 COMPILER V9.56.0.0   MAIN                                                              10/29/2020 20:54:42 PAGE 11  
 
- 612   1        P1M4=GPIO_Out_PP;
- 613   1        P1M5=GPIO_Out_PP;
- 614   1        P1M6=GPIO_Out_PP;
- 615   1      
- 616   1        //display_off();
- 617   1        DISPLAY_A=0;
- 618   1        DISPLAY_B=0;
- 619   1        DISPLAY_C=0;
- 620   1        DISPLAY_D=0;
- 621   1      
- 622   1        DISPLAY_COM1=1;
- 623   1        DISPLAY_COM2=1;
- 624   1        DISPLAY_COM3=1;
- 625   1        DISPLAY_COM4=1;
- 626   1        DISPLAY_COM5=1;
- 627   1      }
- 628          void display_close()
- 629          {
- 630   1        DISPLAY_A=0;
- 631   1        DISPLAY_B=0;
- 632   1        DISPLAY_C=0;
- 633   1        DISPLAY_D=0;
- 634   1        DISPLAY_COM1=1;
- 635   1        DISPLAY_COM2=1;
- 636   1        DISPLAY_COM3=1;
- 637   1        DISPLAY_COM4=1;
- 638   1        DISPLAY_COM5=1;
- 639   1      }
- 640          void display_1(char c)
- 641          {
- 642   1        switch(c)
- 643   1        {
- 644   2          case 0:
- 645   2            display_close();
- 646   2            DISPLAY_A=1;
- 647   2            DISPLAY_B=1;
- 648   2            DISPLAY_C=1;
- 649   2            DISPLAY_D=1;
- 650   2      
- 651   2            DISPLAY_COM1=0;;
- 652   2            Delay_ms(1);
- 653   2            display_close();
- 654   2            DISPLAY_A=1;
- 655   2            DISPLAY_B=1;
- 656   2            DISPLAY_C=0;
- 657   2            DISPLAY_D=0;
- 658   2      
- 659   2            DISPLAY_COM5=0;
- 660   2            Delay_ms(1);
- 661   2            break;
- 662   2          case 1:
- 663   2            display_close();
- 664   2            DISPLAY_A=0;
- 665   2            DISPLAY_B=1;
- 666   2            DISPLAY_C=1;
- 667   2            DISPLAY_D=0;
- 668   2      
- 669   2            DISPLAY_COM1=0;
- 670   2      
- 671   2            Delay_ms(1);
- 672   2            display_close();
- 673   2            DISPLAY_A=0;
-C51 COMPILER V9.56.0.0   MAIN                                                              10/28/2020 23:19:56 PAGE 12  
+ 612          
+ 613          
+ 614          /***************************************************************************/
+ 615          //
+ 616          #define DISPLAY_A P2_0
+ 617          #define DISPLAY_B P2_1
+ 618          #define DISPLAY_C P2_2
+ 619          #define DISPLAY_D P2_3
+ 620          
+ 621          //
+ 622          #define DISPLAY_COM1 P3_4
+ 623          #define DISPLAY_COM3 P2_4
+ 624          #define DISPLAY_COM2 P1_4
+ 625          #define DISPLAY_COM4 P1_5
+ 626          #define DISPLAY_COM5 P1_6
+ 627          
+ 628          
+ 629          void init_display()
+ 630          {
+ 631   1        P2M0=GPIO_Out_PP;
+ 632   1        P2M1=GPIO_Out_PP;
+ 633   1        P2M2=GPIO_Out_PP;
+ 634   1        P2M3=GPIO_Out_PP;
+ 635   1        
+ 636   1        P3M4=GPIO_Out_PP;
+ 637   1        P2M4=GPIO_Out_PP;
+ 638   1        P1M4=GPIO_Out_PP;
+ 639   1        P1M5=GPIO_Out_PP;
+ 640   1        P1M6=GPIO_Out_PP;
+ 641   1      
+ 642   1        //display_off();
+ 643   1        DISPLAY_A=0;
+ 644   1        DISPLAY_B=0;
+ 645   1        DISPLAY_C=0;
+ 646   1        DISPLAY_D=0;
+ 647   1      
+ 648   1        DISPLAY_COM1=1;
+ 649   1        DISPLAY_COM2=1;
+ 650   1        DISPLAY_COM3=1;
+ 651   1        DISPLAY_COM4=1;
+ 652   1        DISPLAY_COM5=1;
+ 653   1      }
+ 654          void display_close()
+ 655          {
+ 656   1        DISPLAY_A=0;
+ 657   1        DISPLAY_B=0;
+ 658   1        DISPLAY_C=0;
+ 659   1        DISPLAY_D=0;
+ 660   1        DISPLAY_COM1=1;
+ 661   1        DISPLAY_COM2=1;
+ 662   1        DISPLAY_COM3=1;
+ 663   1        DISPLAY_COM4=1;
+ 664   1        DISPLAY_COM5=1;
+ 665   1      }
+ 666          void display_1(char c)
+ 667          {
+ 668   1        switch(c)
+ 669   1        {
+ 670   2          case 0:
+ 671   2            display_close();
+ 672   2            DISPLAY_A=1;
+ 673   2            DISPLAY_B=1;
+C51 COMPILER V9.56.0.0   MAIN                                                              10/29/2020 20:54:42 PAGE 12  
 
- 674   2            DISPLAY_B=0;
- 675   2            DISPLAY_C=0;
- 676   2            DISPLAY_D=0;
- 677   2      
- 678   2            DISPLAY_COM5=0;
- 679   2            Delay_ms(1);
- 680   2            break;
- 681   2          case 2:
- 682   2            display_close();
- 683   2            DISPLAY_A=1;
- 684   2            DISPLAY_B=1;
- 685   2            DISPLAY_C=0;
- 686   2            DISPLAY_D=1;
- 687   2      
- 688   2            DISPLAY_COM1=0;
- 689   2      
- 690   2            Delay_ms(1);
- 691   2            display_close();
- 692   2            DISPLAY_A=1;
- 693   2            DISPLAY_B=0;
- 694   2            DISPLAY_C=1;
- 695   2            DISPLAY_D=0;
+ 674   2            DISPLAY_C=1;
+ 675   2            DISPLAY_D=1;
+ 676   2      
+ 677   2            DISPLAY_COM1=0;;
+ 678   2            Delay_ms(1);
+ 679   2            display_close();
+ 680   2            DISPLAY_A=1;
+ 681   2            DISPLAY_B=1;
+ 682   2            DISPLAY_C=0;
+ 683   2            DISPLAY_D=0;
+ 684   2      
+ 685   2            DISPLAY_COM5=0;
+ 686   2            Delay_ms(1);
+ 687   2            break;
+ 688   2          case 1:
+ 689   2            display_close();
+ 690   2            DISPLAY_A=0;
+ 691   2            DISPLAY_B=1;
+ 692   2            DISPLAY_C=1;
+ 693   2            DISPLAY_D=0;
+ 694   2      
+ 695   2            DISPLAY_COM1=0;
  696   2      
- 697   2            DISPLAY_COM5=0;
- 698   2            Delay_ms(1);
- 699   2            break;
- 700   2          case 3:
- 701   2            display_close();
- 702   2            DISPLAY_A=1;
- 703   2            DISPLAY_B=1;
- 704   2            DISPLAY_C=1;
- 705   2            DISPLAY_D=1;
- 706   2      
- 707   2            DISPLAY_COM1=0;
- 708   2      
- 709   2            Delay_ms(1);
- 710   2            display_close();
- 711   2            DISPLAY_A=0;
- 712   2            DISPLAY_B=0;
- 713   2            DISPLAY_C=1;
- 714   2            DISPLAY_D=0;
+ 697   2            Delay_ms(1);
+ 698   2            display_close();
+ 699   2            DISPLAY_A=0;
+ 700   2            DISPLAY_B=0;
+ 701   2            DISPLAY_C=0;
+ 702   2            DISPLAY_D=0;
+ 703   2      
+ 704   2            DISPLAY_COM5=0;
+ 705   2            Delay_ms(1);
+ 706   2            break;
+ 707   2          case 2:
+ 708   2            display_close();
+ 709   2            DISPLAY_A=1;
+ 710   2            DISPLAY_B=1;
+ 711   2            DISPLAY_C=0;
+ 712   2            DISPLAY_D=1;
+ 713   2      
+ 714   2            DISPLAY_COM1=0;
  715   2      
- 716   2            DISPLAY_COM5=0;
- 717   2            Delay_ms(1);
- 718   2            break;
- 719   2          case 4:
- 720   2            display_close();
- 721   2            DISPLAY_A=0;
- 722   2            DISPLAY_B=1;
- 723   2            DISPLAY_C=1;
- 724   2            DISPLAY_D=0;
- 725   2      
- 726   2            DISPLAY_COM1=0;
- 727   2      
- 728   2            Delay_ms(1);
- 729   2            display_close();
- 730   2            DISPLAY_A=0;
- 731   2            DISPLAY_B=1;
- 732   2            DISPLAY_C=1;
- 733   2            DISPLAY_D=0;
+ 716   2            Delay_ms(1);
+ 717   2            display_close();
+ 718   2            DISPLAY_A=1;
+ 719   2            DISPLAY_B=0;
+ 720   2            DISPLAY_C=1;
+ 721   2            DISPLAY_D=0;
+ 722   2      
+ 723   2            DISPLAY_COM5=0;
+ 724   2            Delay_ms(1);
+ 725   2            break;
+ 726   2          case 3:
+ 727   2            display_close();
+ 728   2            DISPLAY_A=1;
+ 729   2            DISPLAY_B=1;
+ 730   2            DISPLAY_C=1;
+ 731   2            DISPLAY_D=1;
+ 732   2      
+ 733   2            DISPLAY_COM1=0;
  734   2      
- 735   2            DISPLAY_COM5=0;
-C51 COMPILER V9.56.0.0   MAIN                                                              10/28/2020 23:19:56 PAGE 13  
+ 735   2            Delay_ms(1);
+C51 COMPILER V9.56.0.0   MAIN                                                              10/29/2020 20:54:42 PAGE 13  
 
- 736   2            Delay_ms(1);
- 737   2            break;
- 738   2          case 5:
- 739   2            display_close();
- 740   2            DISPLAY_A=1;
- 741   2            DISPLAY_B=0;
- 742   2            DISPLAY_C=1;
- 743   2            DISPLAY_D=1;
- 744   2      
- 745   2            DISPLAY_COM1=0;
- 746   2      
- 747   2            Delay_ms(1);
- 748   2            display_close();
- 749   2            DISPLAY_A=0;
- 750   2            DISPLAY_B=1;
- 751   2            DISPLAY_C=1;
- 752   2            DISPLAY_D=0;
+ 736   2            display_close();
+ 737   2            DISPLAY_A=0;
+ 738   2            DISPLAY_B=0;
+ 739   2            DISPLAY_C=1;
+ 740   2            DISPLAY_D=0;
+ 741   2      
+ 742   2            DISPLAY_COM5=0;
+ 743   2            Delay_ms(1);
+ 744   2            break;
+ 745   2          case 4:
+ 746   2            display_close();
+ 747   2            DISPLAY_A=0;
+ 748   2            DISPLAY_B=1;
+ 749   2            DISPLAY_C=1;
+ 750   2            DISPLAY_D=0;
+ 751   2      
+ 752   2            DISPLAY_COM1=0;
  753   2      
- 754   2            DISPLAY_COM5=0;
- 755   2            Delay_ms(1);
- 756   2            break;
- 757   2          case 6:
- 758   2            display_close();
- 759   2            DISPLAY_A=1;
- 760   2            DISPLAY_B=0;
- 761   2            DISPLAY_C=1;
- 762   2            DISPLAY_D=1;
- 763   2      
- 764   2            DISPLAY_COM1=0;
- 765   2      
- 766   2            Delay_ms(1);
- 767   2            display_close();
- 768   2            DISPLAY_A=1;
- 769   2            DISPLAY_B=1;
- 770   2            DISPLAY_C=1;
- 771   2            DISPLAY_D=0;
+ 754   2            Delay_ms(1);
+ 755   2            display_close();
+ 756   2            DISPLAY_A=0;
+ 757   2            DISPLAY_B=1;
+ 758   2            DISPLAY_C=1;
+ 759   2            DISPLAY_D=0;
+ 760   2      
+ 761   2            DISPLAY_COM5=0;
+ 762   2            Delay_ms(1);
+ 763   2            break;
+ 764   2          case 5:
+ 765   2            display_close();
+ 766   2            DISPLAY_A=1;
+ 767   2            DISPLAY_B=0;
+ 768   2            DISPLAY_C=1;
+ 769   2            DISPLAY_D=1;
+ 770   2      
+ 771   2            DISPLAY_COM1=0;
  772   2      
- 773   2            DISPLAY_COM5=0;
- 774   2            Delay_ms(1);
- 775   2            break;
- 776   2          case 7:
- 777   2            display_close();
- 778   2            DISPLAY_A=1;
- 779   2            DISPLAY_B=1;
- 780   2            DISPLAY_C=1;
- 781   2            DISPLAY_D=0;
- 782   2      
- 783   2            DISPLAY_COM1=0;
- 784   2      
- 785   2            Delay_ms(1);
- 786   2            display_close();
- 787   2            DISPLAY_A=0;
- 788   2            DISPLAY_B=0;
- 789   2            DISPLAY_C=0;
- 790   2            DISPLAY_D=0;
+ 773   2            Delay_ms(1);
+ 774   2            display_close();
+ 775   2            DISPLAY_A=0;
+ 776   2            DISPLAY_B=1;
+ 777   2            DISPLAY_C=1;
+ 778   2            DISPLAY_D=0;
+ 779   2      
+ 780   2            DISPLAY_COM5=0;
+ 781   2            Delay_ms(1);
+ 782   2            break;
+ 783   2          case 6:
+ 784   2            display_close();
+ 785   2            DISPLAY_A=1;
+ 786   2            DISPLAY_B=0;
+ 787   2            DISPLAY_C=1;
+ 788   2            DISPLAY_D=1;
+ 789   2      
+ 790   2            DISPLAY_COM1=0;
  791   2      
- 792   2            DISPLAY_COM5=0;
- 793   2            Delay_ms(1);
- 794   2            break;
- 795   2          case 8:
- 796   2            display_close();
- 797   2            DISPLAY_A=1;
-C51 COMPILER V9.56.0.0   MAIN                                                              10/28/2020 23:19:56 PAGE 14  
+ 792   2            Delay_ms(1);
+ 793   2            display_close();
+ 794   2            DISPLAY_A=1;
+ 795   2            DISPLAY_B=1;
+ 796   2            DISPLAY_C=1;
+ 797   2            DISPLAY_D=0;
+C51 COMPILER V9.56.0.0   MAIN                                                              10/29/2020 20:54:42 PAGE 14  
 
- 798   2            DISPLAY_B=1;
- 799   2            DISPLAY_C=1;
- 800   2            DISPLAY_D=1;
- 801   2      
- 802   2            DISPLAY_COM1=0;
- 803   2      
- 804   2            Delay_ms(1);
- 805   2            display_close();
- 806   2            DISPLAY_A=1;
- 807   2            DISPLAY_B=1;
- 808   2            DISPLAY_C=1;
- 809   2            DISPLAY_D=0;
+ 798   2      
+ 799   2            DISPLAY_COM5=0;
+ 800   2            Delay_ms(1);
+ 801   2            break;
+ 802   2          case 7:
+ 803   2            display_close();
+ 804   2            DISPLAY_A=1;
+ 805   2            DISPLAY_B=1;
+ 806   2            DISPLAY_C=1;
+ 807   2            DISPLAY_D=0;
+ 808   2      
+ 809   2            DISPLAY_COM1=0;
  810   2      
- 811   2            DISPLAY_COM5=0;
- 812   2            Delay_ms(1);
- 813   2            break;
- 814   2          case 9:
- 815   2            display_close();
- 816   2            DISPLAY_A=1;
- 817   2            DISPLAY_B=1;
- 818   2            DISPLAY_C=1;
- 819   2            DISPLAY_D=1;
- 820   2      
- 821   2            DISPLAY_COM1=0;
- 822   2      
- 823   2            Delay_ms(1);
- 824   2            display_close();
- 825   2            DISPLAY_A=0;
- 826   2            DISPLAY_B=1;
- 827   2            DISPLAY_C=1;
- 828   2            DISPLAY_D=0;
+ 811   2            Delay_ms(1);
+ 812   2            display_close();
+ 813   2            DISPLAY_A=0;
+ 814   2            DISPLAY_B=0;
+ 815   2            DISPLAY_C=0;
+ 816   2            DISPLAY_D=0;
+ 817   2      
+ 818   2            DISPLAY_COM5=0;
+ 819   2            Delay_ms(1);
+ 820   2            break;
+ 821   2          case 8:
+ 822   2            display_close();
+ 823   2            DISPLAY_A=1;
+ 824   2            DISPLAY_B=1;
+ 825   2            DISPLAY_C=1;
+ 826   2            DISPLAY_D=1;
+ 827   2      
+ 828   2            DISPLAY_COM1=0;
  829   2      
- 830   2            DISPLAY_COM5=0;
- 831   2            Delay_ms(1);
- 832   2          break;
- 833   2      
- 834   2          default:
- 835   2            display_close();
- 836   2            Delay_ms(2);
- 837   2          break;
- 838   2        }
- 839   1      }
- 840          void display_2(char c)
- 841          {
- 842   1        switch(c)
- 843   1        {
- 844   2          case 0:
- 845   2            display_close();
- 846   2            DISPLAY_A=1;
- 847   2            DISPLAY_B=1;
- 848   2            DISPLAY_C=1;
- 849   2            DISPLAY_D=1;
- 850   2      
- 851   2            DISPLAY_COM3=0;
- 852   2            Delay_ms(1);
- 853   2            display_close();
- 854   2            DISPLAY_A=1;
- 855   2            DISPLAY_B=1;
- 856   2            DISPLAY_C=0;
- 857   2            DISPLAY_D=0;
- 858   2      
- 859   2            DISPLAY_COM4=0;
-C51 COMPILER V9.56.0.0   MAIN                                                              10/28/2020 23:19:56 PAGE 15  
+ 830   2            Delay_ms(1);
+ 831   2            display_close();
+ 832   2            DISPLAY_A=1;
+ 833   2            DISPLAY_B=1;
+ 834   2            DISPLAY_C=1;
+ 835   2            DISPLAY_D=0;
+ 836   2      
+ 837   2            DISPLAY_COM5=0;
+ 838   2            Delay_ms(1);
+ 839   2            break;
+ 840   2          case 9:
+ 841   2            display_close();
+ 842   2            DISPLAY_A=1;
+ 843   2            DISPLAY_B=1;
+ 844   2            DISPLAY_C=1;
+ 845   2            DISPLAY_D=1;
+ 846   2      
+ 847   2            DISPLAY_COM1=0;
+ 848   2      
+ 849   2            Delay_ms(1);
+ 850   2            display_close();
+ 851   2            DISPLAY_A=0;
+ 852   2            DISPLAY_B=1;
+ 853   2            DISPLAY_C=1;
+ 854   2            DISPLAY_D=0;
+ 855   2      
+ 856   2            DISPLAY_COM5=0;
+ 857   2            Delay_ms(1);
+ 858   2          break;
+ 859   2      
+C51 COMPILER V9.56.0.0   MAIN                                                              10/29/2020 20:54:42 PAGE 15  
 
- 860   2            Delay_ms(1);
- 861   2            break;
- 862   2          case 1:
- 863   2            display_close();
- 864   2            DISPLAY_A=0;
- 865   2            DISPLAY_B=1;
- 866   2            DISPLAY_C=1;
- 867   2            DISPLAY_D=0;
- 868   2      
- 869   2            DISPLAY_COM3=0;
- 870   2      
- 871   2            Delay_ms(1);
- 872   2            display_close();
- 873   2            DISPLAY_A=0;
- 874   2            DISPLAY_B=0;
- 875   2            DISPLAY_C=0;
- 876   2            DISPLAY_D=0;
- 877   2      
- 878   2            DISPLAY_COM4=0;
- 879   2            Delay_ms(1);
- 880   2            break;
- 881   2          case 2:
- 882   2            display_close();
- 883   2            DISPLAY_A=1;
- 884   2            DISPLAY_B=1;
- 885   2            DISPLAY_C=0;
- 886   2            DISPLAY_D=1;
- 887   2      
- 888   2            DISPLAY_COM3=0;
- 889   2      
- 890   2            Delay_ms(1);
- 891   2            display_close();
- 892   2            DISPLAY_A=1;
- 893   2            DISPLAY_B=0;
- 894   2            DISPLAY_C=1;
- 895   2            DISPLAY_D=0;
+ 860   2          default:
+ 861   2            display_close();
+ 862   2            Delay_ms(2);
+ 863   2          break;
+ 864   2        }
+ 865   1      }
+ 866          void display_2(char c)
+ 867          {
+ 868   1        switch(c)
+ 869   1        {
+ 870   2          case 0:
+ 871   2            display_close();
+ 872   2            DISPLAY_A=1;
+ 873   2            DISPLAY_B=1;
+ 874   2            DISPLAY_C=1;
+ 875   2            DISPLAY_D=1;
+ 876   2      
+ 877   2            DISPLAY_COM3=0;
+ 878   2            Delay_ms(1);
+ 879   2            display_close();
+ 880   2            DISPLAY_A=1;
+ 881   2            DISPLAY_B=1;
+ 882   2            DISPLAY_C=0;
+ 883   2            DISPLAY_D=0;
+ 884   2      
+ 885   2            DISPLAY_COM4=0;
+ 886   2            Delay_ms(1);
+ 887   2            break;
+ 888   2          case 1:
+ 889   2            display_close();
+ 890   2            DISPLAY_A=0;
+ 891   2            DISPLAY_B=1;
+ 892   2            DISPLAY_C=1;
+ 893   2            DISPLAY_D=0;
+ 894   2      
+ 895   2            DISPLAY_COM3=0;
  896   2      
- 897   2            DISPLAY_COM4=0;
- 898   2            Delay_ms(1);
- 899   2            break;
- 900   2          case 3:
- 901   2            display_close();
- 902   2            DISPLAY_A=1;
- 903   2            DISPLAY_B=1;
- 904   2            DISPLAY_C=1;
- 905   2            DISPLAY_D=1;
- 906   2      
- 907   2            DISPLAY_COM3=0;
- 908   2      
- 909   2            Delay_ms(1);
- 910   2            display_close();
- 911   2            DISPLAY_A=0;
- 912   2            DISPLAY_B=0;
- 913   2            DISPLAY_C=1;
- 914   2            DISPLAY_D=0;
+ 897   2            Delay_ms(1);
+ 898   2            display_close();
+ 899   2            DISPLAY_A=0;
+ 900   2            DISPLAY_B=0;
+ 901   2            DISPLAY_C=0;
+ 902   2            DISPLAY_D=0;
+ 903   2      
+ 904   2            DISPLAY_COM4=0;
+ 905   2            Delay_ms(1);
+ 906   2            break;
+ 907   2          case 2:
+ 908   2            display_close();
+ 909   2            DISPLAY_A=1;
+ 910   2            DISPLAY_B=1;
+ 911   2            DISPLAY_C=0;
+ 912   2            DISPLAY_D=1;
+ 913   2      
+ 914   2            DISPLAY_COM3=0;
  915   2      
- 916   2            DISPLAY_COM4=0;
- 917   2            Delay_ms(1);
- 918   2            break;
- 919   2          case 4:
- 920   2            display_close();
- 921   2            DISPLAY_A=0;
-C51 COMPILER V9.56.0.0   MAIN                                                              10/28/2020 23:19:56 PAGE 16  
+ 916   2            Delay_ms(1);
+ 917   2            display_close();
+ 918   2            DISPLAY_A=1;
+ 919   2            DISPLAY_B=0;
+ 920   2            DISPLAY_C=1;
+ 921   2            DISPLAY_D=0;
+C51 COMPILER V9.56.0.0   MAIN                                                              10/29/2020 20:54:42 PAGE 16  
 
- 922   2            DISPLAY_B=1;
- 923   2            DISPLAY_C=1;
- 924   2            DISPLAY_D=0;
- 925   2      
- 926   2            DISPLAY_COM3=0;
- 927   2      
- 928   2            Delay_ms(1);
- 929   2            display_close();
- 930   2            DISPLAY_A=0;
- 931   2            DISPLAY_B=1;
- 932   2            DISPLAY_C=1;
- 933   2            DISPLAY_D=0;
+ 922   2      
+ 923   2            DISPLAY_COM4=0;
+ 924   2            Delay_ms(1);
+ 925   2            break;
+ 926   2          case 3:
+ 927   2            display_close();
+ 928   2            DISPLAY_A=1;
+ 929   2            DISPLAY_B=1;
+ 930   2            DISPLAY_C=1;
+ 931   2            DISPLAY_D=1;
+ 932   2      
+ 933   2            DISPLAY_COM3=0;
  934   2      
- 935   2            DISPLAY_COM4=0;
- 936   2            Delay_ms(1);
- 937   2            break;
- 938   2          case 5:
- 939   2            display_close();
- 940   2            DISPLAY_A=1;
- 941   2            DISPLAY_B=0;
- 942   2            DISPLAY_C=1;
- 943   2            DISPLAY_D=1;
- 944   2      
- 945   2            DISPLAY_COM3=0;
- 946   2      
- 947   2            Delay_ms(1);
- 948   2            display_close();
- 949   2            DISPLAY_A=0;
- 950   2            DISPLAY_B=1;
- 951   2            DISPLAY_C=1;
- 952   2            DISPLAY_D=0;
+ 935   2            Delay_ms(1);
+ 936   2            display_close();
+ 937   2            DISPLAY_A=0;
+ 938   2            DISPLAY_B=0;
+ 939   2            DISPLAY_C=1;
+ 940   2            DISPLAY_D=0;
+ 941   2      
+ 942   2            DISPLAY_COM4=0;
+ 943   2            Delay_ms(1);
+ 944   2            break;
+ 945   2          case 4:
+ 946   2            display_close();
+ 947   2            DISPLAY_A=0;
+ 948   2            DISPLAY_B=1;
+ 949   2            DISPLAY_C=1;
+ 950   2            DISPLAY_D=0;
+ 951   2      
+ 952   2            DISPLAY_COM3=0;
  953   2      
- 954   2            DISPLAY_COM4=0;
- 955   2            Delay_ms(1);
- 956   2            break;
- 957   2          case 6:
- 958   2            display_close();
- 959   2            DISPLAY_A=1;
- 960   2            DISPLAY_B=0;
- 961   2            DISPLAY_C=1;
- 962   2            DISPLAY_D=1;
- 963   2      
- 964   2            DISPLAY_COM3=0;
- 965   2      
- 966   2            Delay_ms(1);
- 967   2            display_close();
- 968   2            DISPLAY_A=1;
- 969   2            DISPLAY_B=1;
- 970   2            DISPLAY_C=1;
- 971   2            DISPLAY_D=0;
+ 954   2            Delay_ms(1);
+ 955   2            display_close();
+ 956   2            DISPLAY_A=0;
+ 957   2            DISPLAY_B=1;
+ 958   2            DISPLAY_C=1;
+ 959   2            DISPLAY_D=0;
+ 960   2      
+ 961   2            DISPLAY_COM4=0;
+ 962   2            Delay_ms(1);
+ 963   2            break;
+ 964   2          case 5:
+ 965   2            display_close();
+ 966   2            DISPLAY_A=1;
+ 967   2            DISPLAY_B=0;
+ 968   2            DISPLAY_C=1;
+ 969   2            DISPLAY_D=1;
+ 970   2      
+ 971   2            DISPLAY_COM3=0;
  972   2      
- 973   2            DISPLAY_COM4=0;
- 974   2            Delay_ms(1);
- 975   2            break;
- 976   2          case 7:
- 977   2            display_close();
- 978   2            DISPLAY_A=1;
- 979   2            DISPLAY_B=1;
- 980   2            DISPLAY_C=1;
- 981   2            DISPLAY_D=0;
- 982   2      
- 983   2            DISPLAY_COM3=0;
-C51 COMPILER V9.56.0.0   MAIN                                                              10/28/2020 23:19:56 PAGE 17  
+ 973   2            Delay_ms(1);
+ 974   2            display_close();
+ 975   2            DISPLAY_A=0;
+ 976   2            DISPLAY_B=1;
+ 977   2            DISPLAY_C=1;
+ 978   2            DISPLAY_D=0;
+ 979   2      
+ 980   2            DISPLAY_COM4=0;
+ 981   2            Delay_ms(1);
+ 982   2            break;
+ 983   2          case 6:
+C51 COMPILER V9.56.0.0   MAIN                                                              10/29/2020 20:54:42 PAGE 17  
 
- 984   2      
- 985   2            Delay_ms(1);
- 986   2            display_close();
- 987   2            DISPLAY_A=0;
- 988   2            DISPLAY_B=0;
- 989   2            DISPLAY_C=0;
- 990   2            DISPLAY_D=0;
+ 984   2            display_close();
+ 985   2            DISPLAY_A=1;
+ 986   2            DISPLAY_B=0;
+ 987   2            DISPLAY_C=1;
+ 988   2            DISPLAY_D=1;
+ 989   2      
+ 990   2            DISPLAY_COM3=0;
  991   2      
- 992   2            DISPLAY_COM4=0;
- 993   2            Delay_ms(1);
- 994   2            break;
- 995   2          case 8:
- 996   2            display_close();
- 997   2            DISPLAY_A=1;
- 998   2            DISPLAY_B=1;
- 999   2            DISPLAY_C=1;
-1000   2            DISPLAY_D=1;
-1001   2      
-1002   2            DISPLAY_COM3=0;
-1003   2      
-1004   2            Delay_ms(1);
-1005   2            display_close();
-1006   2            DISPLAY_A=1;
-1007   2            DISPLAY_B=1;
-1008   2            DISPLAY_C=1;
-1009   2            DISPLAY_D=0;
+ 992   2            Delay_ms(1);
+ 993   2            display_close();
+ 994   2            DISPLAY_A=1;
+ 995   2            DISPLAY_B=1;
+ 996   2            DISPLAY_C=1;
+ 997   2            DISPLAY_D=0;
+ 998   2      
+ 999   2            DISPLAY_COM4=0;
+1000   2            Delay_ms(1);
+1001   2            break;
+1002   2          case 7:
+1003   2            display_close();
+1004   2            DISPLAY_A=1;
+1005   2            DISPLAY_B=1;
+1006   2            DISPLAY_C=1;
+1007   2            DISPLAY_D=0;
+1008   2      
+1009   2            DISPLAY_COM3=0;
 1010   2      
-1011   2            DISPLAY_COM4=0;
-1012   2            Delay_ms(1);
-1013   2            break;
-1014   2          case 9:
-1015   2            display_close();
-1016   2            DISPLAY_A=1;
-1017   2            DISPLAY_B=1;
-1018   2            DISPLAY_C=1;
-1019   2            DISPLAY_D=1;
-1020   2      
-1021   2            DISPLAY_COM3=0;
-1022   2      
-1023   2            Delay_ms(1);
-1024   2            display_close();
-1025   2            DISPLAY_A=0;
-1026   2            DISPLAY_B=1;
-1027   2            DISPLAY_C=1;
-1028   2            DISPLAY_D=0;
+1011   2            Delay_ms(1);
+1012   2            display_close();
+1013   2            DISPLAY_A=0;
+1014   2            DISPLAY_B=0;
+1015   2            DISPLAY_C=0;
+1016   2            DISPLAY_D=0;
+1017   2      
+1018   2            DISPLAY_COM4=0;
+1019   2            Delay_ms(1);
+1020   2            break;
+1021   2          case 8:
+1022   2            display_close();
+1023   2            DISPLAY_A=1;
+1024   2            DISPLAY_B=1;
+1025   2            DISPLAY_C=1;
+1026   2            DISPLAY_D=1;
+1027   2      
+1028   2            DISPLAY_COM3=0;
 1029   2      
-1030   2            DISPLAY_COM4=0;
-1031   2            Delay_ms(1);
-1032   2          break;
-1033   2      
-1034   2          default:
-1035   2            display_close();
-1036   2            Delay_ms(2);
-1037   2          break;
-1038   2        }
-1039   1      }
-1040          void display_point_(char c)
-1041          {
-1042   1        if(c)
-1043   1        {
-1044   2          display_close();
-1045   2          DISPLAY_D=1;
-C51 COMPILER V9.56.0.0   MAIN                                                              10/28/2020 23:19:56 PAGE 18  
+1030   2            Delay_ms(1);
+1031   2            display_close();
+1032   2            DISPLAY_A=1;
+1033   2            DISPLAY_B=1;
+1034   2            DISPLAY_C=1;
+1035   2            DISPLAY_D=0;
+1036   2      
+1037   2            DISPLAY_COM4=0;
+1038   2            Delay_ms(1);
+1039   2            break;
+1040   2          case 9:
+1041   2            display_close();
+1042   2            DISPLAY_A=1;
+1043   2            DISPLAY_B=1;
+1044   2            DISPLAY_C=1;
+1045   2            DISPLAY_D=1;
+C51 COMPILER V9.56.0.0   MAIN                                                              10/29/2020 20:54:42 PAGE 18  
 
-1046   2          DISPLAY_COM5=0;
-1047   2          Delay_ms(1);
-1048   2          display_close();
-1049   2        }
-1050   1        else
-1051   1        {
-1052   2          display_close();
-1053   2          Delay_ms(1);
-1054   2        }
-1055   1      }
-1056          void display_uv_(char c)
-1057          {
-1058   1        if(c)
-1059   1        {
-1060   2          display_close();
-1061   2          DISPLAY_A=1;
-1062   2          DISPLAY_COM2=0;
-1063   2          Delay_ms(1);
-1064   2          display_close();
-1065   2        }
-1066   1        else
-1067   1        {
-1068   2          display_close();
-1069   2          Delay_ms(1);
-1070   2        }
-1071   1      }
-1072          void display_touch_(char c)
-1073          {
-1074   1        if(c)
-1075   1        {
-1076   2          display_close();
-1077   2          DISPLAY_D=1;
-1078   2          DISPLAY_COM4=0;
+1046   2      
+1047   2            DISPLAY_COM3=0;
+1048   2      
+1049   2            Delay_ms(1);
+1050   2            display_close();
+1051   2            DISPLAY_A=0;
+1052   2            DISPLAY_B=1;
+1053   2            DISPLAY_C=1;
+1054   2            DISPLAY_D=0;
+1055   2      
+1056   2            DISPLAY_COM4=0;
+1057   2            Delay_ms(1);
+1058   2          break;
+1059   2      
+1060   2          default:
+1061   2            display_close();
+1062   2            Delay_ms(2);
+1063   2          break;
+1064   2        }
+1065   1      }
+1066          void display_point_(char c)
+1067          {
+1068   1        if(c)
+1069   1        {
+1070   2          display_close();
+1071   2          DISPLAY_D=1;
+1072   2          DISPLAY_COM5=0;
+1073   2          Delay_ms(1);
+1074   2          display_close();
+1075   2        }
+1076   1        else
+1077   1        {
+1078   2          display_close();
 1079   2          Delay_ms(1);
-1080   2          display_close();
-1081   2        }
-1082   1        else
-1083   1        {
-1084   2          display_close();
-1085   2          Delay_ms(1);
-1086   2        }
-1087   1      }
-1088          void display_flash()
-1089          {
-1090   1        display_1(display_data1);
-1091   1        display_2(display_data2);
-1092   1        display_point_(display_point);
-1093   1        display_uv_(display_uv);
-1094   1        display_touch_(display_touch_led);
-1095   1      }
-1096          
-1097          void  buzzer()
-1098          {
-1099   1        static char inited=0;
-1100   1        int i=0;
-1101   1        if(inited==0)
-1102   1        {
-1103   2          P0M3 = 0xC2;                        //P03设置为推挽输出
-1104   2          PWM3_MAP = 0x03;          //PWM3映射P03口
-1105   2          PWM3P = 0x20;           //PWM周期为0xFF
-1106   2          PWM3D = 0x10;           //PWM占空比设置
-1107   2          PWM3C = 0x97;             //使能PWM3，关闭中断，允许输出，时钟4分频
-C51 COMPILER V9.56.0.0   MAIN                                                              10/28/2020 23:19:56 PAGE 19  
+1080   2        }
+1081   1      }
+1082          void display_uv_(char c)
+1083          {
+1084   1        if(c)
+1085   1        {
+1086   2          display_close();
+1087   2          DISPLAY_A=1;
+1088   2          DISPLAY_COM2=0;
+1089   2          Delay_ms(1);
+1090   2          display_close();
+1091   2        }
+1092   1        else
+1093   1        {
+1094   2          display_close();
+1095   2          Delay_ms(1);
+1096   2        }
+1097   1      }
+1098          void display_touch_(char c)
+1099          {
+1100   1        if(c)
+1101   1        {
+1102   2          display_close();
+1103   2          DISPLAY_D=1;
+1104   2          DISPLAY_COM4=0;
+1105   2          Delay_ms(1);
+1106   2          display_close();
+1107   2        }
+C51 COMPILER V9.56.0.0   MAIN                                                              10/29/2020 20:54:42 PAGE 19  
 
-1108   2          inited=1;
-1109   2        } 
-1110   1        PWM3C = 0x97; 
-1111   1        Delay_ms(200);
-1112   1        PWM3C = 0x07;
-1113   1        
-1114   1        
-1115   1      }
-1116          
-1117          //void init
-1118          /*********************************END OF FILE************************************/
-1119          
-1120          
-1121          
+1108   1        else
+1109   1        {
+1110   2          display_close();
+1111   2          Delay_ms(1);
+1112   2        }
+1113   1      }
+1114          void display_flash()
+1115          {
+1116   1        display_1(display_data1);
+1117   1        display_2(display_data2);
+1118   1        display_point_(display_point);
+1119   1        display_uv_(display_uv);
+1120   1        display_touch_(display_touch_led);
+1121   1      }
 1122          
-1123          
-1124          
-1125          
-1126          
-1127          
-1128          
-1129          
-1130          
-1131          
-1132          
-1133          
-1134          
-1135          
-1136          
-1137          
-1138          
-1139          
-1140          
-1141          
+1123          void  buzzer()
+1124          {
+1125   1        static char inited=0;
+1126   1        int i=0;
+1127   1        if(inited==0)
+1128   1        {
+1129   2          P0M3 = 0xC2;                        //P03设置为推挽输出
+1130   2          PWM3_MAP = 0x03;          //PWM3映射P03口
+1131   2          PWM3P = 0x20;           //PWM周期为0xFF
+1132   2          PWM3D = 0x10;           //PWM占空比设置
+1133   2          PWM3C = 0x97;             //使能PWM3，关闭中断，允许输出，时钟4分频
+1134   2          inited=1;
+1135   2        } 
+1136   1        PWM3C = 0x97; 
+1137   1        Delay_ms(200);
+1138   1        PWM3C = 0x07;
+1139   1        
+1140   1        
+1141   1      }
 1142          
-1143          
-1144          
+1143          //void init
+1144          /*********************************END OF FILE************************************/
 1145          
 1146          
 1147          
@@ -1205,17 +1205,43 @@ line level    source
 1158          
 1159          
 1160          
+1161          
+1162          
+1163          
+1164          
+1165          
+1166          
+1167          
+1168          
+1169          
+C51 COMPILER V9.56.0.0   MAIN                                                              10/29/2020 20:54:42 PAGE 20  
+
+1170          
+1171          
+1172          
+1173          
+1174          
+1175          
+1176          
+1177          
+1178          
+1179          
+1180          
+1181          
+1182          
+1183          
+1184          
+1185          
+1186          
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =   3066    ----
+   CODE SIZE        =   3180    ----
    CONSTANT SIZE    =      2    ----
    XDATA SIZE       =     38    ----
    PDATA SIZE       =   ----    ----
    DATA SIZE        =     62       2
    IDATA SIZE       =   ----    ----
-C51 COMPILER V9.56.0.0   MAIN                                                              10/28/2020 23:19:56 PAGE 20  
-
    BIT SIZE         =   ----    ----
    EDATA SIZE       =   ----    ----
    HDATA SIZE       =   ----    ----
