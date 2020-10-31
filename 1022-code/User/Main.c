@@ -78,10 +78,9 @@ void set_dingshi_time_add()
 }
 void set_dingshi_time_red()
 {
-	dingshi_counter-=30;
-	if(dingshi_counter<30)
+	if(dingshi_counter>30)
 	{
-		dingshi_counter=30;
+		dingshi_counter-=30;
 	}
 }
 
@@ -99,11 +98,17 @@ void display_dingshi_time()
 	display_data2=(dingshi_counter%60)/6;
 	display_point=1;
 }
+void display_uv_time()
+{
+	display_data1=uv_counter/10;
+	display_data2=uv_counter%10;
+	display_point=0;
+}
 
 void display_off()
 {
-	display_data1=0;
-	display_data2=0;
+	display_data1=8;
+	display_data2=8;
 	display_point=0;
 }
 
@@ -198,10 +203,11 @@ void key_check()
 		}
 		else
 		{
-			display_dingshi_time();
+			
 			if(dingshi_counter>0)
 			{
 				dingshi_start=1;
+				display_dingshi_time();
 			}
 			else 
 			{
@@ -215,7 +221,11 @@ void key_check()
 				{
 					uv_start=0;
 					work_mode=0;
-
+					
+				}
+				else if(uv_counter>0)
+				{
+					display_uv_time();
 				}
 				
 			}
@@ -255,7 +265,14 @@ void work_check()
 		}
 		if(uv_start==1 && uv_counter>0)
 		{
-			UV=1;
+			if(count02>0)
+			{
+				UV=0;
+			}
+			else
+			{
+				UV=1;
+			}
 			display_uv=1;
 		}
 		else
@@ -273,13 +290,13 @@ void work_check()
 		display_off();
 	}
 
-	if(last_work_mode!=work_mode)
+	if(last_work_mode!=dingshi_start)
 	{
 		
-		if(last_work_mode==1 && work_mode==0)
+		if(last_work_mode==1 && dingshi_start==0)
 		{
 			count02++;
-			if(count02<10000)
+			if(count02<1000)
 			{
 				FAN=1;
 			}
@@ -287,12 +304,12 @@ void work_check()
 			{
 				count02=0;
 				FAN=0;
-				last_work_mode=work_mode;
+				last_work_mode=dingshi_start;
 			}
 		}
 		else
 		{
-			last_work_mode=work_mode;
+			last_work_mode=dingshi_start;
 		}
 	}
 	else
@@ -413,33 +430,42 @@ void chu_li_nec()
 				uv_counter=0;
 			}
 		}
-		else if(work_mode==1)
+		else if(work_mode==1 && uv_start==0)
 		{
 			if(nec_data[2]==0x08)//
 			{
-				set_dingshi_time_add();
+									
+				set_dingshi_time_add();				
 				count0=0;
 			}
 			else if(nec_data[2]==0x0A)//
 			{
-				set_dingshi_time_red();
+					
+				set_dingshi_time_red();				
 				count0=0;
 			}
-			else if(nec_data[2]==0x02)//uv
-			{
+			
+		}
+		if(nec_data[2]==0x02)//uv
+		{
 				if(uv_start==0)
 				{
+					work_mode=1;
 					uv_start=1;
 					uv_counter=20;
+					dingshi_counter=0;
+					dingshi_start=0;
 				}
 				else
-				{
+				{					
+					work_mode=0;
+					dingshi_counter=0;
+					dingshi_start=0;
 					uv_start=0;
 					uv_counter=0;
 				}
 				
 			}
-		}
 	}
 	
 }
