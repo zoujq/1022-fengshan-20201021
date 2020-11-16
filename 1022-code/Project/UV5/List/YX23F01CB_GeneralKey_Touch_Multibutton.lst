@@ -1,4 +1,4 @@
-C51 COMPILER V9.56.0.0   YX23F01CB_GENERALKEY_TOUCH_MULTIBUTTON                            10/29/2020 20:54:43 PAGE 1   
+C51 COMPILER V9.56.0.0   YX23F01CB_GENERALKEY_TOUCH_MULTIBUTTON                            11/16/2020 23:38:33 PAGE 1   
 
 
 C51 COMPILER V9.56.0.0, COMPILATION OF MODULE YX23F01CB_GENERALKEY_TOUCH_MULTIBUTTON
@@ -62,7 +62,7 @@ line level    source
                 u8  fuc_TempTwo = 0;
                   u8 fuc_i = 0, fuc_j = 0;
                   for (fuc_i=0; fuc_i<fuc_Len-1; fuc_i++)
-C51 COMPILER V9.56.0.0   YX23F01CB_GENERALKEY_TOUCH_MULTIBUTTON                            10/29/2020 20:54:43 PAGE 2   
+C51 COMPILER V9.56.0.0   YX23F01CB_GENERALKEY_TOUCH_MULTIBUTTON                            11/16/2020 23:38:33 PAGE 2   
 
                 {
                       for (fuc_j=0; fuc_j<fuc_Len-1-fuc_i; fuc_j++) 
@@ -126,7 +126,7 @@ line level    source
                   memcpy(fuc_BubbleSortChannel_a,nuc_OpenTouchChannel_a,YXTouchLib_OPENED_TK_AMOUNT);
                   //每次排序都重新更新通道排序
                   BubbleSort(fi_MultibuttonDiffer_a,fuc_BubbleSortChannel_a,YXTouchLib_OPENED_TK_AMOUNT);
-C51 COMPILER V9.56.0.0   YX23F01CB_GENERALKEY_TOUCH_MULTIBUTTON                            10/29/2020 20:54:43 PAGE 3   
+C51 COMPILER V9.56.0.0   YX23F01CB_GENERALKEY_TOUCH_MULTIBUTTON                            11/16/2020 23:38:33 PAGE 3   
 
                   //冒泡排序，将最大的通道放到fuc_BubbleSortChannel_a[YXTouchLib_OPENED_TK_AMOUNT-1]中
                   fc_ChannelLocation = Search(fuc_BubbleSortChannel_a[YXTouchLib_OPENED_TK_AMOUNT-1],CODE_INTERNAL_INDEX,C

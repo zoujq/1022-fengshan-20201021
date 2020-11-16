@@ -235,9 +235,11 @@ void key_check()
 	
 
 }
-#define FAN P1_3
+#define FAN P1_1
 #define UV P0_7
 #define JIARE P0_2
+#define LED1_UV P1_2 
+#define LED2_TOUCH P1_3 
 
 void work_check()
 {
@@ -245,9 +247,12 @@ void work_check()
 	static u16 count02=0;
 	if(inited==0)
 	{
-		P1M3=GPIO_Out_PP;//fan
+		P1M1=GPIO_Out_PP;//fan
 		P0M7=GPIO_Out_PP;//vu
 		P0M2=GPIO_Out_PP;//jiare
+		P1M2=GPIO_Out_PP;//LED uv 
+		P1M3=GPIO_Out_PP;//LED2_TOUCH
+		
 		inited=1;
 	}
 	
@@ -549,7 +554,7 @@ void main()
 		
 	  key_check();
 		decode_nec();
-		Delay_ms(1);
+		Delay_ms(5);
 		counter++;
 		display_flash();
 		work_check();
@@ -596,7 +601,7 @@ u16 get_temp()
 			break;
 		}
 	}
-	// printf("ntc_adc:%d,wen_du:%d\n", ntc_adc,n);
+	// printf(" :%d,wen_du:%d\n", ntc_adc,n);
 	if(ntc_adc==0)
 	{
 		err_code=2;
@@ -613,30 +618,41 @@ u16 get_temp()
 
 /***************************************************************************/
 //
-#define DISPLAY_A P2_0
-#define DISPLAY_B P2_1
-#define DISPLAY_C P2_2
-#define DISPLAY_D P2_3
+//#define DISPLAY_A P2_5  P2_1
+//#define DISPLAY_B P2_4  P3_4
+//#define DISPLAY_C P2_2  P1_4
+//#define DISPLAY_D P2_3  P2_4
+//#define DISPLAY_E P2_1  P2_5
+//#define DISPLAY_F P1_4  P2_2
+//#define DISPLAY_G P3_4  P2_3
+
+#define DISPLAY_A  P2_1
+#define DISPLAY_B  P3_4
+#define DISPLAY_C  P1_4
+#define DISPLAY_D  P2_4
+#define DISPLAY_E  P2_5
+#define DISPLAY_F  P2_2
+#define DISPLAY_G  P2_3
+#define DISPLAY_DP P2_0
 
 //
-#define DISPLAY_COM1 P3_4
-#define DISPLAY_COM3 P2_4
-#define DISPLAY_COM2 P1_4
-#define DISPLAY_COM4 P1_5
-#define DISPLAY_COM5 P1_6
+#define DISPLAY_COM1 P1_7
+#define DISPLAY_COM2 P1_6
+
 
 
 void init_display()
 {
-	P2M0=GPIO_Out_PP;
-	P2M1=GPIO_Out_PP;
+	P2M5=GPIO_Out_PP;
+	P2M4=GPIO_Out_PP;
 	P2M2=GPIO_Out_PP;
 	P2M3=GPIO_Out_PP;
-	
-	P3M4=GPIO_Out_PP;
-	P2M4=GPIO_Out_PP;
+	P2M1=GPIO_Out_PP;
 	P1M4=GPIO_Out_PP;
-	P1M5=GPIO_Out_PP;
+	P3M4=GPIO_Out_PP;
+	P2M0=GPIO_Out_PP;
+	
+	P1M7=GPIO_Out_PP;
 	P1M6=GPIO_Out_PP;
 
 	//display_off();
@@ -644,12 +660,14 @@ void init_display()
 	DISPLAY_B=0;
 	DISPLAY_C=0;
 	DISPLAY_D=0;
+	DISPLAY_E=0;
+	DISPLAY_F=0;
+	DISPLAY_G=0;
+	DISPLAY_DP=0;
 
 	DISPLAY_COM1=1;
 	DISPLAY_COM2=1;
-	DISPLAY_COM3=1;
-	DISPLAY_COM4=1;
-	DISPLAY_COM5=1;
+
 }
 void display_close()
 {
@@ -657,465 +675,110 @@ void display_close()
 	DISPLAY_B=0;
 	DISPLAY_C=0;
 	DISPLAY_D=0;
+	DISPLAY_E=0;
+	DISPLAY_F=0;
+	DISPLAY_G=0;
+	DISPLAY_DP=0;
 	DISPLAY_COM1=1;
 	DISPLAY_COM2=1;
-	DISPLAY_COM3=1;
-	DISPLAY_COM4=1;
-	DISPLAY_COM5=1;
+
 }
-void display_1(char c)
+
+
+void display_1(char c,char b)
 {
+//	display_point
+	
+	
+	DISPLAY_COM1=1;
+	DISPLAY_COM2=1;
+	
 	switch(c)
 	{
 		case 0:
-			display_close();
-			DISPLAY_A=1;
-			DISPLAY_B=1;
-			DISPLAY_C=1;
-			DISPLAY_D=1;
-
-			DISPLAY_COM1=0;;
-			Delay_ms(1);
-			display_close();
-			DISPLAY_A=1;
-			DISPLAY_B=1;
-			DISPLAY_C=0;
-			DISPLAY_D=0;
-
-			DISPLAY_COM5=0;
-			Delay_ms(1);
+			DISPLAY_A=1;	DISPLAY_B=1;	DISPLAY_C=1;	DISPLAY_D=1;	DISPLAY_E=1;	DISPLAY_F=1;	DISPLAY_G=0;
 			break;
 		case 1:
-			display_close();
-			DISPLAY_A=0;
-			DISPLAY_B=1;
-			DISPLAY_C=1;
-			DISPLAY_D=0;
-
-			DISPLAY_COM1=0;
-
-			Delay_ms(1);
-			display_close();
-			DISPLAY_A=0;
-			DISPLAY_B=0;
-			DISPLAY_C=0;
-			DISPLAY_D=0;
-
-			DISPLAY_COM5=0;
-			Delay_ms(1);
+			DISPLAY_A=0;	DISPLAY_B=1;	DISPLAY_C=1;	DISPLAY_D=0;	DISPLAY_E=0;	DISPLAY_F=0;	DISPLAY_G=0;
 			break;
 		case 2:
-			display_close();
-			DISPLAY_A=1;
-			DISPLAY_B=1;
-			DISPLAY_C=0;
-			DISPLAY_D=1;
-
-			DISPLAY_COM1=0;
-
-			Delay_ms(1);
-			display_close();
-			DISPLAY_A=1;
-			DISPLAY_B=0;
-			DISPLAY_C=1;
-			DISPLAY_D=0;
-
-			DISPLAY_COM5=0;
-			Delay_ms(1);
+			DISPLAY_A=1;	DISPLAY_B=1;	DISPLAY_C=0;	DISPLAY_D=1;	DISPLAY_E=1;	DISPLAY_F=0;	DISPLAY_G=1;
 			break;
 		case 3:
-			display_close();
-			DISPLAY_A=1;
-			DISPLAY_B=1;
-			DISPLAY_C=1;
-			DISPLAY_D=1;
-
-			DISPLAY_COM1=0;
-
-			Delay_ms(1);
-			display_close();
-			DISPLAY_A=0;
-			DISPLAY_B=0;
-			DISPLAY_C=1;
-			DISPLAY_D=0;
-
-			DISPLAY_COM5=0;
-			Delay_ms(1);
+			DISPLAY_A=1;	DISPLAY_B=1;	DISPLAY_C=1;	DISPLAY_D=1;	DISPLAY_E=0;	DISPLAY_F=0;	DISPLAY_G=1;
 			break;
 		case 4:
-			display_close();
-			DISPLAY_A=0;
-			DISPLAY_B=1;
-			DISPLAY_C=1;
-			DISPLAY_D=0;
-
-			DISPLAY_COM1=0;
-
-			Delay_ms(1);
-			display_close();
-			DISPLAY_A=0;
-			DISPLAY_B=1;
-			DISPLAY_C=1;
-			DISPLAY_D=0;
-
-			DISPLAY_COM5=0;
-			Delay_ms(1);
+			DISPLAY_A=0;	DISPLAY_B=1;	DISPLAY_C=1;	DISPLAY_D=0;	DISPLAY_E=0;	DISPLAY_F=1;	DISPLAY_G=1;
 			break;
 		case 5:
-			display_close();
-			DISPLAY_A=1;
-			DISPLAY_B=0;
-			DISPLAY_C=1;
-			DISPLAY_D=1;
-
-			DISPLAY_COM1=0;
-
-			Delay_ms(1);
-			display_close();
-			DISPLAY_A=0;
-			DISPLAY_B=1;
-			DISPLAY_C=1;
-			DISPLAY_D=0;
-
-			DISPLAY_COM5=0;
-			Delay_ms(1);
+			DISPLAY_A=1;	DISPLAY_B=0;	DISPLAY_C=1;	DISPLAY_D=1;	DISPLAY_E=0;	DISPLAY_F=1;	DISPLAY_G=1;
 			break;
 		case 6:
-			display_close();
-			DISPLAY_A=1;
-			DISPLAY_B=0;
-			DISPLAY_C=1;
-			DISPLAY_D=1;
-
-			DISPLAY_COM1=0;
-
-			Delay_ms(1);
-			display_close();
-			DISPLAY_A=1;
-			DISPLAY_B=1;
-			DISPLAY_C=1;
-			DISPLAY_D=0;
-
-			DISPLAY_COM5=0;
-			Delay_ms(1);
+			DISPLAY_A=1;	DISPLAY_B=0;	DISPLAY_C=1;	DISPLAY_D=1;	DISPLAY_E=1;	DISPLAY_F=1;	DISPLAY_G=1;
 			break;
 		case 7:
-			display_close();
-			DISPLAY_A=1;
-			DISPLAY_B=1;
-			DISPLAY_C=1;
-			DISPLAY_D=0;
-
-			DISPLAY_COM1=0;
-
-			Delay_ms(1);
-			display_close();
-			DISPLAY_A=0;
-			DISPLAY_B=0;
-			DISPLAY_C=0;
-			DISPLAY_D=0;
-
-			DISPLAY_COM5=0;
-			Delay_ms(1);
+			DISPLAY_A=1;	DISPLAY_B=1;	DISPLAY_C=1;	DISPLAY_D=1;	DISPLAY_E=0;	DISPLAY_F=0;	DISPLAY_G=0;
 			break;
 		case 8:
-			display_close();
-			DISPLAY_A=1;
-			DISPLAY_B=1;
-			DISPLAY_C=1;
-			DISPLAY_D=1;
-
-			DISPLAY_COM1=0;
-
-			Delay_ms(1);
-			display_close();
-			DISPLAY_A=1;
-			DISPLAY_B=1;
-			DISPLAY_C=1;
-			DISPLAY_D=0;
-
-			DISPLAY_COM5=0;
-			Delay_ms(1);
+			DISPLAY_A=1;	DISPLAY_B=1;	DISPLAY_C=1;	DISPLAY_D=1;	DISPLAY_E=1;	DISPLAY_F=1;	DISPLAY_G=0;
 			break;
 		case 9:
-			display_close();
-			DISPLAY_A=1;
-			DISPLAY_B=1;
-			DISPLAY_C=1;
-			DISPLAY_D=1;
-
-			DISPLAY_COM1=0;
-
-			Delay_ms(1);
-			display_close();
-			DISPLAY_A=0;
-			DISPLAY_B=1;
-			DISPLAY_C=1;
-			DISPLAY_D=0;
-
-			DISPLAY_COM5=0;
-			Delay_ms(1);
-		break;
-
+			DISPLAY_A=1;	DISPLAY_B=1;	DISPLAY_C=1;	DISPLAY_D=1;	DISPLAY_E=0;	DISPLAY_F=1;	DISPLAY_G=1;
+			break;
 		default:
-			display_close();
-			Delay_ms(2);
-		break;
+			DISPLAY_A=0;	DISPLAY_B=0;	DISPLAY_C=0;	DISPLAY_D=0;	DISPLAY_E=0;	DISPLAY_F=0;	DISPLAY_G=0;
+			break;
+		
 	}
-}
-void display_2(char c)
-{
-	switch(c)
+	if(b==1)
 	{
-		case 0:
-			display_close();
-			DISPLAY_A=1;
-			DISPLAY_B=1;
-			DISPLAY_C=1;
-			DISPLAY_D=1;
-
-			DISPLAY_COM3=0;
-			Delay_ms(1);
-			display_close();
-			DISPLAY_A=1;
-			DISPLAY_B=1;
-			DISPLAY_C=0;
-			DISPLAY_D=0;
-
-			DISPLAY_COM4=0;
-			Delay_ms(1);
-			break;
-		case 1:
-			display_close();
-			DISPLAY_A=0;
-			DISPLAY_B=1;
-			DISPLAY_C=1;
-			DISPLAY_D=0;
-
-			DISPLAY_COM3=0;
-
-			Delay_ms(1);
-			display_close();
-			DISPLAY_A=0;
-			DISPLAY_B=0;
-			DISPLAY_C=0;
-			DISPLAY_D=0;
-
-			DISPLAY_COM4=0;
-			Delay_ms(1);
-			break;
-		case 2:
-			display_close();
-			DISPLAY_A=1;
-			DISPLAY_B=1;
-			DISPLAY_C=0;
-			DISPLAY_D=1;
-
-			DISPLAY_COM3=0;
-
-			Delay_ms(1);
-			display_close();
-			DISPLAY_A=1;
-			DISPLAY_B=0;
-			DISPLAY_C=1;
-			DISPLAY_D=0;
-
-			DISPLAY_COM4=0;
-			Delay_ms(1);
-			break;
-		case 3:
-			display_close();
-			DISPLAY_A=1;
-			DISPLAY_B=1;
-			DISPLAY_C=1;
-			DISPLAY_D=1;
-
-			DISPLAY_COM3=0;
-
-			Delay_ms(1);
-			display_close();
-			DISPLAY_A=0;
-			DISPLAY_B=0;
-			DISPLAY_C=1;
-			DISPLAY_D=0;
-
-			DISPLAY_COM4=0;
-			Delay_ms(1);
-			break;
-		case 4:
-			display_close();
-			DISPLAY_A=0;
-			DISPLAY_B=1;
-			DISPLAY_C=1;
-			DISPLAY_D=0;
-
-			DISPLAY_COM3=0;
-
-			Delay_ms(1);
-			display_close();
-			DISPLAY_A=0;
-			DISPLAY_B=1;
-			DISPLAY_C=1;
-			DISPLAY_D=0;
-
-			DISPLAY_COM4=0;
-			Delay_ms(1);
-			break;
-		case 5:
-			display_close();
-			DISPLAY_A=1;
-			DISPLAY_B=0;
-			DISPLAY_C=1;
-			DISPLAY_D=1;
-
-			DISPLAY_COM3=0;
-
-			Delay_ms(1);
-			display_close();
-			DISPLAY_A=0;
-			DISPLAY_B=1;
-			DISPLAY_C=1;
-			DISPLAY_D=0;
-
-			DISPLAY_COM4=0;
-			Delay_ms(1);
-			break;
-		case 6:
-			display_close();
-			DISPLAY_A=1;
-			DISPLAY_B=0;
-			DISPLAY_C=1;
-			DISPLAY_D=1;
-
-			DISPLAY_COM3=0;
-
-			Delay_ms(1);
-			display_close();
-			DISPLAY_A=1;
-			DISPLAY_B=1;
-			DISPLAY_C=1;
-			DISPLAY_D=0;
-
-			DISPLAY_COM4=0;
-			Delay_ms(1);
-			break;
-		case 7:
-			display_close();
-			DISPLAY_A=1;
-			DISPLAY_B=1;
-			DISPLAY_C=1;
-			DISPLAY_D=0;
-
-			DISPLAY_COM3=0;
-
-			Delay_ms(1);
-			display_close();
-			DISPLAY_A=0;
-			DISPLAY_B=0;
-			DISPLAY_C=0;
-			DISPLAY_D=0;
-
-			DISPLAY_COM4=0;
-			Delay_ms(1);
-			break;
-		case 8:
-			display_close();
-			DISPLAY_A=1;
-			DISPLAY_B=1;
-			DISPLAY_C=1;
-			DISPLAY_D=1;
-
-			DISPLAY_COM3=0;
-
-			Delay_ms(1);
-			display_close();
-			DISPLAY_A=1;
-			DISPLAY_B=1;
-			DISPLAY_C=1;
-			DISPLAY_D=0;
-
-			DISPLAY_COM4=0;
-			Delay_ms(1);
-			break;
-		case 9:
-			display_close();
-			DISPLAY_A=1;
-			DISPLAY_B=1;
-			DISPLAY_C=1;
-			DISPLAY_D=1;
-
-			DISPLAY_COM3=0;
-
-			Delay_ms(1);
-			display_close();
-			DISPLAY_A=0;
-			DISPLAY_B=1;
-			DISPLAY_C=1;
-			DISPLAY_D=0;
-
-			DISPLAY_COM4=0;
-			Delay_ms(1);
-		break;
-
-		default:
-			display_close();
-			Delay_ms(2);
-		break;
+		DISPLAY_COM1=0;
+		DISPLAY_COM2=1;
 	}
-}
-void display_point_(char c)
-{
-	if(c)
+	else if(b==2)
 	{
-		display_close();
-		DISPLAY_D=1;
-		DISPLAY_COM5=0;
-		Delay_ms(1);
-		display_close();
+		DISPLAY_COM1=1;
+		DISPLAY_COM2=0;
+	}
+	
+	if(display_point)
+	{
+			DISPLAY_DP=1;
 	}
 	else
 	{
-		display_close();
-		Delay_ms(1);
+		  DISPLAY_DP=0;
 	}
 }
 void display_uv_(char c)
 {
 	if(c)
 	{
-		display_close();
-		DISPLAY_A=1;
-		DISPLAY_COM2=0;
-		Delay_ms(1);
-		display_close();
+		LED1_UV=1;
 	}
 	else
 	{
-		display_close();
-		Delay_ms(1);
+		LED1_UV=0;
 	}
 }
 void display_touch_(char c)
 {
 	if(c)
 	{
-		display_close();
-		DISPLAY_D=1;
-		DISPLAY_COM4=0;
-		Delay_ms(1);
-		display_close();
+		LED2_TOUCH=1;
 	}
 	else
 	{
-		display_close();
-		Delay_ms(1);
+		LED2_TOUCH=0;
 	}
 }
 void display_flash()
 {
-	display_1(display_data1);
-	display_2(display_data2);
-	display_point_(display_point);
+
+	display_1(1,2);
+	display_1(display_data1,1);
+	Delay_ms(5);
+	display_1(display_data2,2);
 	display_uv_(display_uv);
 	display_touch_(display_touch_led);
 }

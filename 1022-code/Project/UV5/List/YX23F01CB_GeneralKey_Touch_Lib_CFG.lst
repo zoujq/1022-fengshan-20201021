@@ -1,4 +1,4 @@
-C51 COMPILER V9.56.0.0   YX23F01CB_GENERALKEY_TOUCH_LIB_CFG                                10/29/2020 20:54:42 PAGE 1   
+C51 COMPILER V9.56.0.0   YX23F01CB_GENERALKEY_TOUCH_LIB_CFG                                11/16/2020 23:38:32 PAGE 1   
 
 
 C51 COMPILER V9.56.0.0, COMPILATION OF MODULE YX23F01CB_GENERALKEY_TOUCH_LIB_CFG
@@ -39,34 +39,34 @@ line level    source
               uc8 CODE_INTERNAL_INDEX[TK_CH_MAX] = {2, 7, 11, 12, 13, 14, 15};
               
               #elif (YXTouchLib_IC_BODY == IC_BODY_SOP20_DIP20)
-              #pragma message "IC Body: YX23F01CB-SOP20/DIP20"
-              #define TK_CH_MAX     10
-              uc8 CODE_INTERNAL_INDEX[TK_CH_MAX] = {2, 3, 7, 9, 10, 11, 12, 13, 14, 15};
-              
-              #elif (YXTouchLib_IC_BODY == IC_BODY_SOP24)
+  30          #pragma message "IC Body: YX23F01CB-SOP20/DIP20"
+*** MESSAGE C286 IN LINE 30 OF ..\..\Libraries\YX23F01CB_GeneralKey_Touch_Lib_V1.04\YX23F01CB_GeneralKey_Touch_Lib_CFG.c
+             -: IC Body: YX23F01CB-SOP20/DIP20
+  31          #define TK_CH_MAX     10
+  32          uc8 CODE_INTERNAL_INDEX[TK_CH_MAX] = {2, 3, 7, 9, 10, 11, 12, 13, 14, 15};
+  33          
+  34          #elif (YXTouchLib_IC_BODY == IC_BODY_SOP24)
               #pragma message "IC Body: YX23F01CB-SOP24"
               #define TK_CH_MAX     12
               uc8 CODE_INTERNAL_INDEX[TK_CH_MAX] = {0, 1, 2, 3, 7, 9, 10, 11, 12, 13, 14, 15};
               
               #elif (YXTouchLib_IC_BODY == IC_BODY_SOP28)
-  40          #pragma message "IC Body: YX23F01CB-SOP28"
-*** MESSAGE C286 IN LINE 40 OF ..\..\Libraries\YX23F01CB_GeneralKey_Touch_Lib_V1.04\YX23F01CB_GeneralKey_Touch_Lib_CFG.c
-             -: IC Body: YX23F01CB-SOP28
-  41          #define TK_CH_MAX     16
-  42          uc8 CODE_INTERNAL_INDEX[TK_CH_MAX] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
-  43          
-  44          #else
+              #pragma message "IC Body: YX23F01CB-SOP28"
+              #define TK_CH_MAX     16
+              uc8 CODE_INTERNAL_INDEX[TK_CH_MAX] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
+              
+              #else
               #define TK_CH_MAX     1
               uc8 CODE_INTERNAL_INDEX[TK_CH_MAX] = {0};
               #error "No IC Body,Please reconfigure YXTouchLib_IC_BODY"
               #endif
   49          
   50          //===================================================================================================
-C51 COMPILER V9.56.0.0   YX23F01CB_GENERALKEY_TOUCH_LIB_CFG                                10/29/2020 20:54:42 PAGE 2   
+C51 COMPILER V9.56.0.0   YX23F01CB_GENERALKEY_TOUCH_LIB_CFG                                11/16/2020 23:38:32 PAGE 2   
 
   51          #include "YX23F01CB_GeneralKey_Touch_Lib_V1.04\YX23F01CB_GeneralKey_Touch_Lib_Build_Message.h"
-*** MESSAGE C286 IN LINE 211 OF ..\..\Libraries\YX23F01CB_GeneralKey_Touch_Lib_V1.04\YX23F01CB_GeneralKey_Touch_Lib_Buil
-             -d_Message.h: TK15£ºEnable
+*** MESSAGE C286 IN LINE 67 OF ..\..\Libraries\YX23F01CB_GeneralKey_Touch_Lib_V1.04\YX23F01CB_GeneralKey_Touch_Lib_Build
+             -_Message.h: TK3£ºEnable
 *** MESSAGE C286 IN LINE 223 OF ..\..\Libraries\YX23F01CB_GeneralKey_Touch_Lib_V1.04\YX23F01CB_GeneralKey_Touch_Lib_Buil
              -d_Message.h: CTK²ÉÑùÆµÂÊ£ºFosc/2
 *** MESSAGE C286 IN LINE 232 OF ..\..\Libraries\YX23F01CB_GeneralKey_Touch_Lib_V1.04\YX23F01CB_GeneralKey_Touch_Lib_Buil
@@ -126,7 +126,7 @@ line level    source
   74          }
   75          
   76          #define YXTouchLib_FINGER_THRESHOLD { \
-C51 COMPILER V9.56.0.0   YX23F01CB_GENERALKEY_TOUCH_LIB_CFG                                10/29/2020 20:54:42 PAGE 3   
+C51 COMPILER V9.56.0.0   YX23F01CB_GENERALKEY_TOUCH_LIB_CFG                                11/16/2020 23:38:32 PAGE 3   
 
   77           YXTouchLib_SET0_F_THRESHOLD,  YXTouchLib_SET1_F_THRESHOLD,  YXTouchLib_SET2_F_THRESHOLD,  YXTouchLib_SET3
              -_F_THRESHOLD,  \
@@ -187,10 +187,10 @@ line level    source
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
    CODE SIZE        =   ----    ----
-   CONSTANT SIZE    =    103    ----
-   XDATA SIZE       =     40    ----
+   CONSTANT SIZE    =     97    ----
+   XDATA SIZE       =     34    ----
    PDATA SIZE       =   ----    ----
-C51 COMPILER V9.56.0.0   YX23F01CB_GENERALKEY_TOUCH_LIB_CFG                                10/29/2020 20:54:42 PAGE 4   
+C51 COMPILER V9.56.0.0   YX23F01CB_GENERALKEY_TOUCH_LIB_CFG                                11/16/2020 23:38:32 PAGE 4   
 
    DATA SIZE        =   ----    ----
    IDATA SIZE       =   ----    ----
