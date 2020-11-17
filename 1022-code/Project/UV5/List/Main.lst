@@ -1,4 +1,4 @@
-C51 COMPILER V9.56.0.0   MAIN                                                              11/16/2020 23:38:32 PAGE 1   
+C51 COMPILER V9.56.0.0   MAIN                                                              11/17/2020 18:26:00 PAGE 1   
 
 
 C51 COMPILER V9.56.0.0, COMPILATION OF MODULE MAIN
@@ -62,7 +62,7 @@ line level    source
   52          u32 dingshi_counter=0;
   53          char work_mode=0;
   54          
-C51 COMPILER V9.56.0.0   MAIN                                                              11/16/2020 23:38:32 PAGE 2   
+C51 COMPILER V9.56.0.0   MAIN                                                              11/17/2020 18:26:00 PAGE 2   
 
   55          char uv_start=0;
   56          u32 uv_counter=20;
@@ -126,7 +126,7 @@ line level    source
  114          
  115          void display_none()
  116          {
-C51 COMPILER V9.56.0.0   MAIN                                                              11/16/2020 23:38:32 PAGE 3   
+C51 COMPILER V9.56.0.0   MAIN                                                              11/17/2020 18:26:00 PAGE 3   
 
  117   1        display_data1='+';
  118   1        display_data2='+';
@@ -149,7 +149,7 @@ line level    source
  135   4            }
  136   3            else
  137   3            {
- 138   4              if(dingshi_start==1)
+ 138   4              if(dingshi_start==1 || uv_start==1)
  139   4              {
  140   5                work_mode=0;
  141   5                dingshi_counter=0;
@@ -190,7 +190,7 @@ line level    source
  176   2          {
  177   3            i5=0;
  178   3          }
-C51 COMPILER V9.56.0.0   MAIN                                                              11/16/2020 23:38:32 PAGE 4   
+C51 COMPILER V9.56.0.0   MAIN                                                              11/17/2020 18:26:00 PAGE 4   
 
  179   2          i5++;
  180   2        }
@@ -254,7 +254,7 @@ line level    source
 *** WARNING C280 IN LINE 124 OF ..\..\User\Main.c: 'i3': unreferenced local variable
  238          #define FAN P1_1
  239          #define UV P0_7
-C51 COMPILER V9.56.0.0   MAIN                                                              11/16/2020 23:38:32 PAGE 5   
+C51 COMPILER V9.56.0.0   MAIN                                                              11/17/2020 18:26:00 PAGE 5   
 
  240          #define JIARE P0_2
  241          #define LED1_UV P1_2 
@@ -318,7 +318,7 @@ line level    source
  299   1        {
  300   2          
  301   2          if(last_work_mode==1 && dingshi_start==0)
-C51 COMPILER V9.56.0.0   MAIN                                                              11/16/2020 23:38:32 PAGE 6   
+C51 COMPILER V9.56.0.0   MAIN                                                              11/17/2020 18:26:00 PAGE 6   
 
  302   2          {
  303   3            count02++;
@@ -382,7 +382,7 @@ line level    source
  361   2          tt=0;
  362   2          if(dingshi_counter>0)
  363   2          {
-C51 COMPILER V9.56.0.0   MAIN                                                              11/16/2020 23:38:32 PAGE 7   
+C51 COMPILER V9.56.0.0   MAIN                                                              11/17/2020 18:26:00 PAGE 7   
 
  364   3            if(dingshi_start==1)
  365   3            {
@@ -446,7 +446,7 @@ line level    source
  423   2          {
  424   3            if(work_mode==0)
  425   3            {
-C51 COMPILER V9.56.0.0   MAIN                                                              11/16/2020 23:38:32 PAGE 8   
+C51 COMPILER V9.56.0.0   MAIN                                                              11/17/2020 18:26:00 PAGE 8   
 
  426   4              work_mode=1;
  427   4              dingshi_counter=90;
@@ -510,7 +510,7 @@ line level    source
  485   2                (nec_buff[4]<0x0F ? 0 : 1)<<3 |
  486   2                (nec_buff[5]<0x0F ? 0 : 1)<<4 |
  487   2                (nec_buff[6]<0x0F ? 0 : 1)<<5 |
-C51 COMPILER V9.56.0.0   MAIN                                                              11/16/2020 23:38:32 PAGE 9   
+C51 COMPILER V9.56.0.0   MAIN                                                              11/17/2020 18:26:00 PAGE 9   
 
  488   2                (nec_buff[7]<0x0F ? 0 : 1)<<6 |
  489   2                (nec_buff[8]<0x0F ? 0 : 1)<<7 ;
@@ -574,7 +574,7 @@ line level    source
  547   2          {
  548   3            TouchRawDataFilter();   //
  549   3            Touch_Signal_Handle();
-C51 COMPILER V9.56.0.0   MAIN                                                              11/16/2020 23:38:32 PAGE 10  
+C51 COMPILER V9.56.0.0   MAIN                                                              11/17/2020 18:26:00 PAGE 10  
 
  550   3            TouchMultibuttonHandle(); //
  551   3            OneCycleScanDone = 0;
@@ -638,7 +638,7 @@ line level    source
  609   1        else if(ntc_adc==4095)
  610   1        {
  611   2          err_code=1;
-C51 COMPILER V9.56.0.0   MAIN                                                              11/16/2020 23:38:32 PAGE 11  
+C51 COMPILER V9.56.0.0   MAIN                                                              11/17/2020 18:26:00 PAGE 11  
 
  612   2        }
  613   1      
@@ -702,7 +702,7 @@ line level    source
  671   1      }
  672          void display_close()
  673          {
-C51 COMPILER V9.56.0.0   MAIN                                                              11/16/2020 23:38:32 PAGE 12  
+C51 COMPILER V9.56.0.0   MAIN                                                              11/17/2020 18:26:00 PAGE 12  
 
  674   1        DISPLAY_A=0;
  675   1        DISPLAY_B=0;
@@ -766,7 +766,7 @@ line level    source
  733   1        if(b==1)
  734   1        {
  735   2          DISPLAY_COM1=0;
-C51 COMPILER V9.56.0.0   MAIN                                                              11/16/2020 23:38:32 PAGE 13  
+C51 COMPILER V9.56.0.0   MAIN                                                              11/17/2020 18:26:00 PAGE 13  
 
  736   2          DISPLAY_COM2=1;
  737   2        }
@@ -830,7 +830,7 @@ line level    source
  795   2          PWM3D = 0x10;           //PWM占空比设置
  796   2          PWM3C = 0x97;             //使能PWM3，关闭中断，允许输出，时钟4分频
  797   2          inited=1;
-C51 COMPILER V9.56.0.0   MAIN                                                              11/16/2020 23:38:32 PAGE 14  
+C51 COMPILER V9.56.0.0   MAIN                                                              11/17/2020 18:26:00 PAGE 14  
 
  798   2        } 
  799   1        PWM3C = 0x97; 
@@ -887,14 +887,14 @@ line level    source
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =   2621    ----
+   CODE SIZE        =   2627    ----
    CONSTANT SIZE    =      2    ----
    XDATA SIZE       =     38    ----
    PDATA SIZE       =   ----    ----
    DATA SIZE        =     62       2
    IDATA SIZE       =   ----    ----
    BIT SIZE         =   ----    ----
-C51 COMPILER V9.56.0.0   MAIN                                                              11/16/2020 23:38:32 PAGE 15  
+C51 COMPILER V9.56.0.0   MAIN                                                              11/17/2020 18:26:00 PAGE 15  
 
    EDATA SIZE       =   ----    ----
    HDATA SIZE       =   ----    ----

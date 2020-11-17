@@ -135,7 +135,7 @@ void key_check()
 			}
 			else
 			{
-				if(dingshi_start==1)
+				if(dingshi_start==1 || uv_start==1)
 				{
 					work_mode=0;
 					dingshi_counter=0;
