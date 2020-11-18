@@ -94,9 +94,23 @@ void display_dingshi_set()
 
 void display_dingshi_time()
 {
+	static u16 i6=0;
 	display_data1=dingshi_counter/60;
 	display_data2=(dingshi_counter%60)/6;
-	display_point=1;
+	
+	if(i6==1)
+	{
+		display_point=1;
+	} 
+	else if(i6==50)
+	{					
+		display_point=0;					
+	}
+	else if(i6==100)
+	{
+		i6=0;
+	}
+	i6++;
 }
 void display_uv_time()
 {
@@ -206,8 +220,10 @@ void key_check()
 			
 			if(dingshi_counter>0)
 			{
+				
 				dingshi_start=1;
-				display_dingshi_time();
+				display_dingshi_time();	
+				
 			}
 			else 
 			{
@@ -237,7 +253,7 @@ void key_check()
 }
 #define FAN P1_1
 #define UV P0_7
-#define JIARE P0_2
+#define JIARE P0_3
 #define LED1_UV P1_2 
 #define LED2_TOUCH P1_3 
 
@@ -249,7 +265,7 @@ void work_check()
 	{
 		P1M1=GPIO_Out_PP;//fan
 		P0M7=GPIO_Out_PP;//vu
-		P0M2=GPIO_Out_PP;//jiare
+		P0M3=GPIO_Out_PP;//jiare
 		P1M2=GPIO_Out_PP;//LED uv 
 		P1M3=GPIO_Out_PP;//LED2_TOUCH
 		
@@ -628,32 +644,32 @@ u16 get_temp()
 
 #define DISPLAY_A  P2_1
 #define DISPLAY_B  P3_4
-#define DISPLAY_C  P1_4
-#define DISPLAY_D  P2_4
-#define DISPLAY_E  P2_5
+#define DISPLAY_C  P2_4
+#define DISPLAY_D  P2_5
+#define DISPLAY_E  P0_2
 #define DISPLAY_F  P2_2
 #define DISPLAY_G  P2_3
 #define DISPLAY_DP P2_0
 
 //
-#define DISPLAY_COM1 P1_7
-#define DISPLAY_COM2 P1_6
+#define DISPLAY_COM1 P1_6
+#define DISPLAY_COM2 P1_5
 
 
 
 void init_display()
 {
-	P2M5=GPIO_Out_PP;
+	P2M1=GPIO_Out_PP;
+	P3M4=GPIO_Out_PP;
 	P2M4=GPIO_Out_PP;
+	P2M5=GPIO_Out_PP;
+	P0M2=GPIO_Out_PP;
 	P2M2=GPIO_Out_PP;
 	P2M3=GPIO_Out_PP;
-	P2M1=GPIO_Out_PP;
-	P1M4=GPIO_Out_PP;
-	P3M4=GPIO_Out_PP;
 	P2M0=GPIO_Out_PP;
 	
-	P1M7=GPIO_Out_PP;
 	P1M6=GPIO_Out_PP;
+	P1M5=GPIO_Out_PP;
 
 	//display_off();
 	DISPLAY_A=0;
