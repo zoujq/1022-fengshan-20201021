@@ -1,4 +1,4 @@
-LX51 LINKER/LOCATER V4.66.66.0                                                          11/18/2020  19:39:45  PAGE 1
+LX51 LINKER/LOCATER V4.66.66.0                                                          11/21/2020  10:18:58  PAGE 1
 
 
 LX51 LINKER/LOCATER V4.66.66.0, INVOKED BY:
@@ -67,7 +67,7 @@ BASE        START       END         USED      MEMORY CLASS
 X:000000H   X:000000H   X:0001FFH   000087H   XDATA
 X:000000H   X:000000H   X:0001FFH             HDATA
 C:000000H   C:000000H   C:003FFFH   0017C3H   CODE
-LX51 LINKER/LOCATER V4.66.66.0                                                        11/18/2020  19:39:45  PAGE 2
+LX51 LINKER/LOCATER V4.66.66.0                                                        11/21/2020  10:18:58  PAGE 2
 
 
 C:000000H   C:000000H   C:003FFFH   000064H   CONST
@@ -135,7 +135,7 @@ START     STOP      LENGTH    ALIGN  RELOC    MEMORY CLASS   SEGMENT NAME
 00007EH   000087H   00000AH   BYTE   UNIT     CODE           ?PR?_PUTCHAR?PRINTF_C
 000088H   00008AH   000003H   ---    ---      **GAP**
 00008BH   00008DH   000003H   BYTE   OFFS..   CODE           ?MAIN?0008B
-LX51 LINKER/LOCATER V4.66.66.0                                                        11/18/2020  19:39:45  PAGE 3
+LX51 LINKER/LOCATER V4.66.66.0                                                        11/21/2020  10:18:58  PAGE 3
 
 
 00008EH   000754H   0006C7H   BYTE   UNIT     CODE           ?PR?_RENOVATE?YX23F01CB_GENERALKEY_TOUCH_LIB
@@ -203,7 +203,7 @@ START     STOP      LENGTH    ALIGN  RELOC    MEMORY CLASS   SEGMENT NAME
 00FE96H   00FE9AH   000005H   ---    ---      **GAP**
 00FE9BH   00FE9BH   000001H   BYTE   OFFS..   XDATA          ?XD?MAIN?39
 00FE9CH   00FE9FH   000004H   ---    ---      **GAP**
-LX51 LINKER/LOCATER V4.66.66.0                                                        11/18/2020  19:39:45  PAGE 4
+LX51 LINKER/LOCATER V4.66.66.0                                                        11/21/2020  10:18:58  PAGE 4
 
 
 00FEA0H   00FEA0H   000001H   BYTE   OFFS..   XDATA          ?XD?MAIN?47
@@ -271,7 +271,7 @@ START     STOP      LENGTH    ALIGN  RELOC    MEMORY CLASS   SEGMENT NAME
 00FFA6H   00FFA6H   000001H   BYTE   OFFS..   XDATA          ?XD?MAIN?59
 00FFA7H   00FFA7H   000001H   BYTE   OFFS..   XDATA          ?XD?MAIN?58
 
-LX51 LINKER/LOCATER V4.66.66.0                                                        11/18/2020  19:39:45  PAGE 5
+LX51 LINKER/LOCATER V4.66.66.0                                                        11/21/2020  10:18:58  PAGE 5
 
 
 
@@ -339,7 +339,7 @@ BASELINERESET/YX23F01CB_GENERALKEY_TOUCH+     ----- -----  ----- -----
 
 TOUCH_SIGNAL_HANDLE/YX23F01CB_GENERALKEY+     ----- -----  0008H 0008H
 ... _TOUCH_LIB
-LX51 LINKER/LOCATER V4.66.66.0                                                        11/18/2020  19:39:45  PAGE 6
+LX51 LINKER/LOCATER V4.66.66.0                                                        11/21/2020  10:18:58  PAGE 6
 
 
   +--> SCAN_PAUSE/YX23F01CB_GENERALKEY_TOUCH_LIB
@@ -407,7 +407,7 @@ _DISPLAY_TOUCH_?MAIN                          ----- -----  ----- -----
 WORK_CHECK/MAIN                               ----- -----  ----- -----
   +--> DISPLAY_OFF/MAIN
 
-LX51 LINKER/LOCATER V4.66.66.0                                                        11/18/2020  19:39:45  PAGE 7
+LX51 LINKER/LOCATER V4.66.66.0                                                        11/21/2020  10:18:58  PAGE 7
 
 
 ?C_INITSEG                                    ----- -----  ----- -----
@@ -475,7 +475,7 @@ PUBLIC SYMBOLS OF MODULE:  .\Output\HT1022-干衣机 (?C_STARTUP)
 
 
       VALUE       CLASS    TYPE      PUBLIC SYMBOL NAME
-LX51 LINKER/LOCATER V4.66.66.0                                                        11/18/2020  19:39:45  PAGE 8
+LX51 LINKER/LOCATER V4.66.66.0                                                        11/21/2020  10:18:58  PAGE 8
 
 
       =================================================
@@ -543,7 +543,7 @@ PUBLIC SYMBOLS OF MODULE:  .\Output\HT1022-干衣机 (?C_STARTUP)
       010017E5H   CONST    WORD      CODE_TK_CH_MASK
       0100183AH   CONST    BYTE      CODE_TK_CH_MAX
       010017ECH   CONST    BYTE      CODE_VD_RV
-LX51 LINKER/LOCATER V4.66.66.0                                                        11/18/2020  19:39:45  PAGE 9
+LX51 LINKER/LOCATER V4.66.66.0                                                        11/21/2020  10:18:58  PAGE 9
 
 
       00000055H   DATA     DWORD     count0
@@ -611,7 +611,7 @@ PUBLIC SYMBOLS OF MODULE:  .\Output\HT1022-干衣机 (?C_STARTUP)
 *SFR* 000000FBH   DATA     BYTE      IAP_DATA
 *SFR* 000000A8H   DATA     BYTE      IE
 *SFR* 000000B8H   DATA     BYTE      IE1
-LX51 LINKER/LOCATER V4.66.66.0                                                        11/18/2020  19:39:45  PAGE 10
+LX51 LINKER/LOCATER V4.66.66.0                                                        11/21/2020  10:18:58  PAGE 10
 
 
 *SFR* 000000D8H   DATA     BYTE      IE2
@@ -679,7 +679,7 @@ PUBLIC SYMBOLS OF MODULE:  .\Output\HT1022-干衣机 (?C_STARTUP)
 *SFR* 00000090H.2 DATA     BIT       P1_2
 *SFR* 00000090H.3 DATA     BIT       P1_3
 *SFR* 00000090H.4 DATA     BIT       P1_4
-LX51 LINKER/LOCATER V4.66.66.0                                                        11/18/2020  19:39:45  PAGE 11
+LX51 LINKER/LOCATER V4.66.66.0                                                        11/21/2020  10:18:58  PAGE 11
 
 
 *SFR* 00000090H.5 DATA     BIT       P1_5
@@ -747,7 +747,7 @@ PUBLIC SYMBOLS OF MODULE:  .\Output\HT1022-干衣机 (?C_STARTUP)
 *SFR* 00000098H.4 DATA     BIT       REN
 *SFR* 00000098H   DATA     BIT       RI
 *SFR* 000000D0H.3 DATA     BIT       RS0
-LX51 LINKER/LOCATER V4.66.66.0                                                        11/18/2020  19:39:45  PAGE 12
+LX51 LINKER/LOCATER V4.66.66.0                                                        11/21/2020  10:18:58  PAGE 12
 
 
 *SFR* 000000D0H.4 DATA     BIT       RS1
@@ -815,7 +815,7 @@ PUBLIC SYMBOLS OF MODULE:  .\Output\HT1022-干衣机 (?C_STARTUP)
       0200FEBEH   XDATA    BYTE      TRMV
 *SFR* 00000098H.5 DATA     BIT       TXCOL
       0200FFA0H   XDATA    BYTE      TXD_MAP
-LX51 LINKER/LOCATER V4.66.66.0                                                        11/18/2020  19:39:45  PAGE 13
+LX51 LINKER/LOCATER V4.66.66.0                                                        11/21/2020  10:18:58  PAGE 13
 
 
       0000004FH   DATA     DWORD     uv_counter
@@ -883,7 +883,7 @@ SYMBOL TABLE OF MODULE:  .\Output\HT1022-干衣机 (?C_STARTUP)
       010011A3H   LINE      CODE     ---       #134
       010011A4H   LINE      CODE     ---       #135
       010011A5H   LINE      CODE     ---       #136
-LX51 LINKER/LOCATER V4.66.66.0                                                        11/18/2020  19:39:45  PAGE 14
+LX51 LINKER/LOCATER V4.66.66.0                                                        11/21/2020  10:18:58  PAGE 14
 
 
       010011A7H   LINE      CODE     ---       #140
@@ -951,7 +951,7 @@ SYMBOL TABLE OF MODULE:  .\Output\HT1022-干衣机 (?C_STARTUP)
       0200FE77H   PUBLIC    XDATA    BYTE      DSCR
       00000040H   PUBLIC    DATA     CHAR      display_data2
       0000003CH   PUBLIC    DATA     DWORD     yuyue_counter
-LX51 LINKER/LOCATER V4.66.66.0                                                        11/18/2020  19:39:45  PAGE 15
+LX51 LINKER/LOCATER V4.66.66.0                                                        11/21/2020  10:18:58  PAGE 15
 
 
       0000003BH   PUBLIC    DATA     CHAR      display_data1
@@ -1019,7 +1019,7 @@ SYMBOL TABLE OF MODULE:  .\Output\HT1022-干衣机 (?C_STARTUP)
       0100147FH   PUBLIC    CODE     ---       display_dingshi_set
       01001666H   PUBLIC    CODE     ---       set_dingshi_time_red
       01001569H   PUBLIC    CODE     ---       set_dingshi_time_add
-LX51 LINKER/LOCATER V4.66.66.0                                                        11/18/2020  19:39:45  PAGE 16
+LX51 LINKER/LOCATER V4.66.66.0                                                        11/21/2020  10:18:58  PAGE 16
 
 
       0100159FH   PUBLIC    CODE     ---       set_dingshi_time_plus
@@ -1087,7 +1087,7 @@ SYMBOL TABLE OF MODULE:  .\Output\HT1022-干衣机 (?C_STARTUP)
       00000099H   SFRSYM    DATA     BYTE      SBUF
       00000087H   SFRSYM    DATA     BYTE      PCON
       000000B8H   SFRSYM    DATA     BIT       ESPI
-LX51 LINKER/LOCATER V4.66.66.0                                                        11/18/2020  19:39:45  PAGE 17
+LX51 LINKER/LOCATER V4.66.66.0                                                        11/21/2020  10:18:58  PAGE 17
 
 
       000000E5H   SFRSYM    DATA     BYTE      PWM0DH
@@ -1155,7 +1155,7 @@ SYMBOL TABLE OF MODULE:  .\Output\HT1022-干衣机 (?C_STARTUP)
       0000008EH   SFRSYM    DATA     BYTE      CLKSWR
       000000FCH   SFRSYM    DATA     BYTE      IAP_CMDL
       00000083H   SFRSYM    DATA     BYTE      DPH
-LX51 LINKER/LOCATER V4.66.66.0                                                        11/18/2020  19:39:45  PAGE 18
+LX51 LINKER/LOCATER V4.66.66.0                                                        11/21/2020  10:18:58  PAGE 18
 
 
       000000F8H.6 SFRSYM    DATA     BIT       EXRSTF
@@ -1223,7 +1223,7 @@ SYMBOL TABLE OF MODULE:  .\Output\HT1022-干衣机 (?C_STARTUP)
       ---         BLOCKEND  ---      ---       LVL=0
 
       010012B0H   BLOCK     CODE     ---       LVL=0
-LX51 LINKER/LOCATER V4.66.66.0                                                        11/18/2020  19:39:45  PAGE 19
+LX51 LINKER/LOCATER V4.66.66.0                                                        11/21/2020  10:18:58  PAGE 19
 
 
       010012B0H   BLOCK     CODE     NEAR LAB  LVL=1
@@ -1291,7 +1291,7 @@ SYMBOL TABLE OF MODULE:  .\Output\HT1022-干衣机 (?C_STARTUP)
       01000B6DH   LINE      CODE     ---       #136
       01000B6DH   LINE      CODE     ---       #139
       01000B77H   LINE      CODE     ---       #140
-LX51 LINKER/LOCATER V4.66.66.0                                                        11/18/2020  19:39:45  PAGE 20
+LX51 LINKER/LOCATER V4.66.66.0                                                        11/21/2020  10:18:58  PAGE 20
 
 
       01000B77H   LINE      CODE     ---       #141
@@ -1359,7 +1359,7 @@ SYMBOL TABLE OF MODULE:  .\Output\HT1022-干衣机 (?C_STARTUP)
       01000C6DH   LINE      CODE     ---       #215
       01000C6DH   LINE      CODE     ---       #217
       01000C6EH   LINE      CODE     ---       #219
-LX51 LINKER/LOCATER V4.66.66.0                                                        11/18/2020  19:39:45  PAGE 21
+LX51 LINKER/LOCATER V4.66.66.0                                                        11/21/2020  10:18:58  PAGE 21
 
 
       01000C6EH   LINE      CODE     ---       #221
@@ -1427,7 +1427,7 @@ SYMBOL TABLE OF MODULE:  .\Output\HT1022-干衣机 (?C_STARTUP)
       01001153H   LINE      CODE     ---       #296
       01001153H   LINE      CODE     ---       #297
       01001156H   LINE      CODE     ---       #298
-LX51 LINKER/LOCATER V4.66.66.0                                                        11/18/2020  19:39:45  PAGE 22
+LX51 LINKER/LOCATER V4.66.66.0                                                        11/21/2020  10:18:58  PAGE 22
 
 
       01001158H   LINE      CODE     ---       #300
@@ -1495,7 +1495,7 @@ SYMBOL TABLE OF MODULE:  .\Output\HT1022-干衣机 (?C_STARTUP)
       01000E23H   LINE      CODE     ---       #377
       01000E2FH   LINE      CODE     ---       #378
       01000E41H   LINE      CODE     ---       #379
-LX51 LINKER/LOCATER V4.66.66.0                                                        11/18/2020  19:39:45  PAGE 23
+LX51 LINKER/LOCATER V4.66.66.0                                                        11/21/2020  10:18:58  PAGE 23
 
 
       01000E41H   LINE      CODE     ---       #380
@@ -1563,7 +1563,7 @@ SYMBOL TABLE OF MODULE:  .\Output\HT1022-干衣机 (?C_STARTUP)
       01000FC0H   LINE      CODE     ---       #439
       01000FC0H   LINE      CODE     ---       #440
       01000FC4H   LINE      CODE     ---       #441
-LX51 LINKER/LOCATER V4.66.66.0                                                        11/18/2020  19:39:45  PAGE 24
+LX51 LINKER/LOCATER V4.66.66.0                                                        11/21/2020  10:18:58  PAGE 24
 
 
       01000FC4H   LINE      CODE     ---       #442
@@ -1631,7 +1631,7 @@ SYMBOL TABLE OF MODULE:  .\Output\HT1022-干衣机 (?C_STARTUP)
       010009F0H   LINE      CODE     ---       #543
       ---         BLOCKEND  ---      ---       LVL=0
 
-LX51 LINKER/LOCATER V4.66.66.0                                                        11/18/2020  19:39:45  PAGE 25
+LX51 LINKER/LOCATER V4.66.66.0                                                        11/21/2020  10:18:58  PAGE 25
 
 
       0100135FH   BLOCK     CODE     ---       LVL=0
@@ -1699,7 +1699,7 @@ SYMBOL TABLE OF MODULE:  .\Output\HT1022-干衣机 (?C_STARTUP)
       01001416H   LINE      CODE     ---       #618
       01001416H   LINE      CODE     ---       #619
       01001421H   LINE      CODE     ---       #621
-LX51 LINKER/LOCATER V4.66.66.0                                                        11/18/2020  19:39:45  PAGE 26
+LX51 LINKER/LOCATER V4.66.66.0                                                        11/21/2020  10:18:58  PAGE 26
 
 
       01001425H   LINE      CODE     ---       #622
@@ -1767,7 +1767,7 @@ SYMBOL TABLE OF MODULE:  .\Output\HT1022-干衣机 (?C_STARTUP)
       01000EF0H   LINE      CODE     ---       #714
       01000EF0H   LINE      CODE     ---       #715
       01000EF0H   LINE      CODE     ---       #716
-LX51 LINKER/LOCATER V4.66.66.0                                                        11/18/2020  19:39:45  PAGE 27
+LX51 LINKER/LOCATER V4.66.66.0                                                        11/21/2020  10:18:58  PAGE 27
 
 
       01000EF2H   LINE      CODE     ---       #717
@@ -1835,7 +1835,7 @@ SYMBOL TABLE OF MODULE:  .\Output\HT1022-干衣机 (?C_STARTUP)
       ---         BLOCKEND  ---      ---       LVL=0
 
       010017C1H   BLOCK     CODE     ---       LVL=0
-LX51 LINKER/LOCATER V4.66.66.0                                                        11/18/2020  19:39:45  PAGE 28
+LX51 LINKER/LOCATER V4.66.66.0                                                        11/21/2020  10:18:58  PAGE 28
 
 
       00000007H   SYMBOL    DATA     CHAR      c
@@ -1903,7 +1903,7 @@ SYMBOL TABLE OF MODULE:  .\Output\HT1022-干衣机 (?C_STARTUP)
       000000E1H   SFRSYM    DATA     BYTE      PWMEN
       00000098H.7 SFRSYM    DATA     BIT       FE
       000000E6H   SFRSYM    DATA     BYTE      PWM0DTL
-LX51 LINKER/LOCATER V4.66.66.0                                                        11/18/2020  19:39:45  PAGE 29
+LX51 LINKER/LOCATER V4.66.66.0                                                        11/21/2020  10:18:58  PAGE 29
 
 
       00000098H.5 SFRSYM    DATA     BIT       TXCOL
@@ -1971,7 +1971,7 @@ SYMBOL TABLE OF MODULE:  .\Output\HT1022-干衣机 (?C_STARTUP)
       000000B4H   SFRSYM    DATA     BYTE      ADCC0
       0000008FH   SFRSYM    DATA     BYTE      CLKCON
       000000B5H   SFRSYM    DATA     BYTE      ADCC1
-LX51 LINKER/LOCATER V4.66.66.0                                                        11/18/2020  19:39:45  PAGE 30
+LX51 LINKER/LOCATER V4.66.66.0                                                        11/21/2020  10:18:58  PAGE 30
 
 
       000000E6H   SFRSYM    DATA     WORD      PWM0DT
@@ -2039,7 +2039,7 @@ SYMBOL TABLE OF MODULE:  .\Output\HT1022-干衣机 (?C_STARTUP)
       0000009BH   SFRSYM    DATA     BYTE      SADEN
       0000009AH   SFRSYM    DATA     BYTE      SADDR
       000000D0H.5 SFRSYM    DATA     BIT       F0
-LX51 LINKER/LOCATER V4.66.66.0                                                        11/18/2020  19:39:45  PAGE 31
+LX51 LINKER/LOCATER V4.66.66.0                                                        11/21/2020  10:18:58  PAGE 31
 
 
       000000E2H   SFRSYM    DATA     WORD      PWM0P
@@ -2107,7 +2107,7 @@ SYMBOL TABLE OF MODULE:  .\Output\HT1022-干衣机 (?C_STARTUP)
       000000A0H.1 SFRSYM    DATA     BIT       P2_1
       00000090H.2 SFRSYM    DATA     BIT       P1_2
       00000080H.3 SFRSYM    DATA     BIT       P0_3
-LX51 LINKER/LOCATER V4.66.66.0                                                        11/18/2020  19:39:45  PAGE 32
+LX51 LINKER/LOCATER V4.66.66.0                                                        11/21/2020  10:18:58  PAGE 32
 
 
       000000F8H   SFRSYM    DATA     BYTE      RSTFR
@@ -2175,7 +2175,7 @@ SYMBOL TABLE OF MODULE:  .\Output\HT1022-干衣机 (?C_STARTUP)
       000000A8H.1 SFRSYM    DATA     BIT       ET0
       000000A8H.4 SFRSYM    DATA     BIT       ES1
       000000A9H   SFRSYM    DATA     BYTE      IP0
-LX51 LINKER/LOCATER V4.66.66.0                                                        11/18/2020  19:39:45  PAGE 33
+LX51 LINKER/LOCATER V4.66.66.0                                                        11/21/2020  10:18:58  PAGE 33
 
 
       00000088H.5 SFRSYM    DATA     BIT       TF0
@@ -2243,7 +2243,7 @@ SYMBOL TABLE OF MODULE:  .\Output\HT1022-干衣机 (?C_STARTUP)
       0100172FH   LINE      CODE     ---       #13
       01001732H   LINE      CODE     ---       #15
       01001735H   LINE      CODE     ---       #17
-LX51 LINKER/LOCATER V4.66.66.0                                                        11/18/2020  19:39:45  PAGE 34
+LX51 LINKER/LOCATER V4.66.66.0                                                        11/21/2020  10:18:58  PAGE 34
 
 
       0100173BH   LINE      CODE     ---       #20
@@ -2311,7 +2311,7 @@ SYMBOL TABLE OF MODULE:  .\Output\HT1022-干衣机 (?C_STARTUP)
       000000A8H.7 SFRSYM    DATA     BIT       EA
       000000E7H   SFRSYM    DATA     BYTE      PWM0DTH
       000000CAH   SFRSYM    DATA     WORD      T3
-LX51 LINKER/LOCATER V4.66.66.0                                                        11/18/2020  19:39:45  PAGE 35
+LX51 LINKER/LOCATER V4.66.66.0                                                        11/21/2020  10:18:58  PAGE 35
 
 
       000000ACH   SFRSYM    DATA     BYTE      SPCTL
@@ -2379,7 +2379,7 @@ SYMBOL TABLE OF MODULE:  .\Output\HT1022-干衣机 (?C_STARTUP)
       00000088H   SFRSYM    DATA     BYTE      TCON
       0000009FH   SFRSYM    DATA     BYTE      PINTF2
       000000E4H   SFRSYM    DATA     BYTE      PWM0DL
-LX51 LINKER/LOCATER V4.66.66.0                                                        11/18/2020  19:39:45  PAGE 36
+LX51 LINKER/LOCATER V4.66.66.0                                                        11/21/2020  10:18:58  PAGE 36
 
 
       000000A6H   SFRSYM    DATA     BYTE      IICCON
@@ -2447,7 +2447,7 @@ SYMBOL TABLE OF MODULE:  .\Output\HT1022-干衣机 (?C_STARTUP)
       000000DAH   SFRSYM    DATA     BYTE      PWM0C
       000000C9H   SFRSYM    DATA     BYTE      T3CON
       000000E4H   SFRSYM    DATA     WORD      PWM0D
-LX51 LINKER/LOCATER V4.66.66.0                                                        11/18/2020  19:39:45  PAGE 37
+LX51 LINKER/LOCATER V4.66.66.0                                                        11/21/2020  10:18:58  PAGE 37
 
 
       000000CCH   SFRSYM    DATA     BYTE      T4CON
@@ -2515,7 +2515,7 @@ SYMBOL TABLE OF MODULE:  .\Output\HT1022-干衣机 (?C_STARTUP)
       00000080H.4 SFRSYM    DATA     BIT       P0_4
       000000A0H.3 SFRSYM    DATA     BIT       P2_3
       00000090H.4 SFRSYM    DATA     BIT       P1_4
-LX51 LINKER/LOCATER V4.66.66.0                                                        11/18/2020  19:39:45  PAGE 38
+LX51 LINKER/LOCATER V4.66.66.0                                                        11/21/2020  10:18:58  PAGE 38
 
 
       00000080H.5 SFRSYM    DATA     BIT       P0_5
@@ -2583,7 +2583,7 @@ SYMBOL TABLE OF MODULE:  .\Output\HT1022-干衣机 (?C_STARTUP)
       00000088H.7 SFRSYM    DATA     BIT       TF1
       000000B9H   SFRSYM    DATA     BYTE      IP2
       00000098H.2 SFRSYM    DATA     BIT       RB8
-LX51 LINKER/LOCATER V4.66.66.0                                                        11/18/2020  19:39:45  PAGE 39
+LX51 LINKER/LOCATER V4.66.66.0                                                        11/21/2020  10:18:58  PAGE 39
 
 
       000000B8H.2 SFRSYM    DATA     BIT       ET3
@@ -2651,7 +2651,7 @@ SYMBOL TABLE OF MODULE:  .\Output\HT1022-干衣机 (?C_STARTUP)
       010016BFH   PUBLIC    CODE     ---       Touch_Signal_Handle
       01001530H   PUBLIC    CODE     ---       BaseLineReset
       01000CCAH   PUBLIC    CODE     ---       CTK_Init
-LX51 LINKER/LOCATER V4.66.66.0                                                        11/18/2020  19:39:45  PAGE 40
+LX51 LINKER/LOCATER V4.66.66.0                                                        11/21/2020  10:18:58  PAGE 40
 
 
       010017CAH   PUBLIC    CODE     ---       Scan_Continue
@@ -2719,7 +2719,7 @@ SYMBOL TABLE OF MODULE:  .\Output\HT1022-干衣机 (?C_STARTUP)
       000000AFH   SFRSYM    DATA     BYTE      IICADR
       000000AEH   SFRSYM    DATA     BYTE      IICDAT
       00000099H   SFRSYM    DATA     BYTE      SBUF
-LX51 LINKER/LOCATER V4.66.66.0                                                        11/18/2020  19:39:45  PAGE 41
+LX51 LINKER/LOCATER V4.66.66.0                                                        11/21/2020  10:18:58  PAGE 41
 
 
       00000087H   SFRSYM    DATA     BYTE      PCON
@@ -2787,7 +2787,7 @@ SYMBOL TABLE OF MODULE:  .\Output\HT1022-干衣机 (?C_STARTUP)
       000000F9H   SFRSYM    DATA     WORD      IAP_ADDR
       000000FDH   SFRSYM    DATA     BYTE      IAP_CMDH
       0000008EH   SFRSYM    DATA     BYTE      CLKSWR
-LX51 LINKER/LOCATER V4.66.66.0                                                        11/18/2020  19:39:45  PAGE 42
+LX51 LINKER/LOCATER V4.66.66.0                                                        11/21/2020  10:18:58  PAGE 42
 
 
       000000FCH   SFRSYM    DATA     BYTE      IAP_CMDL
@@ -2855,7 +2855,7 @@ SYMBOL TABLE OF MODULE:  .\Output\HT1022-干衣机 (?C_STARTUP)
       010017CAH   LINE      CODE     ---       #160
       010017CDH   LINE      CODE     ---       #161
       010017CDH   LINE      CODE     ---       #162
-LX51 LINKER/LOCATER V4.66.66.0                                                        11/18/2020  19:39:45  PAGE 43
+LX51 LINKER/LOCATER V4.66.66.0                                                        11/21/2020  10:18:58  PAGE 43
 
 
       010017CFH   LINE      CODE     ---       #163
@@ -2923,7 +2923,7 @@ SYMBOL TABLE OF MODULE:  .\Output\HT1022-干衣机 (?C_STARTUP)
       01000DAFH   LINE      CODE     ---       #228
       01000DB1H   LINE      CODE     ---       #229
       01000DB3H   LINE      CODE     ---       #230
-LX51 LINKER/LOCATER V4.66.66.0                                                        11/18/2020  19:39:45  PAGE 44
+LX51 LINKER/LOCATER V4.66.66.0                                                        11/21/2020  10:18:58  PAGE 44
 
 
       01000DB6H   LINE      CODE     ---       #232
@@ -2991,7 +2991,7 @@ SYMBOL TABLE OF MODULE:  .\Output\HT1022-干衣机 (?C_STARTUP)
       010013E0H   LINE      CODE     ---       #296
       010013EDH   LINE      CODE     ---       #297
       010013EDH   LINE      CODE     ---       #298
-LX51 LINKER/LOCATER V4.66.66.0                                                        11/18/2020  19:39:45  PAGE 45
+LX51 LINKER/LOCATER V4.66.66.0                                                        11/21/2020  10:18:58  PAGE 45
 
 
       010013F0H   LINE      CODE     ---       #299
@@ -3059,7 +3059,7 @@ SYMBOL TABLE OF MODULE:  .\Output\HT1022-干衣机 (?C_STARTUP)
       010001ADH   LINE      CODE     ---       #355
       010001ADH   LINE      CODE     ---       #356
       010001C5H   LINE      CODE     ---       #357
-LX51 LINKER/LOCATER V4.66.66.0                                                        11/18/2020  19:39:45  PAGE 46
+LX51 LINKER/LOCATER V4.66.66.0                                                        11/21/2020  10:18:58  PAGE 46
 
 
       010001D9H   LINE      CODE     ---       #358
@@ -3127,7 +3127,7 @@ SYMBOL TABLE OF MODULE:  .\Output\HT1022-干衣机 (?C_STARTUP)
       01000462H   LINE      CODE     ---       #422
       01000470H   LINE      CODE     ---       #423
       01000488H   LINE      CODE     ---       #424
-LX51 LINKER/LOCATER V4.66.66.0                                                        11/18/2020  19:39:45  PAGE 47
+LX51 LINKER/LOCATER V4.66.66.0                                                        11/21/2020  10:18:58  PAGE 47
 
 
       01000488H   LINE      CODE     ---       #425
@@ -3195,7 +3195,7 @@ SYMBOL TABLE OF MODULE:  .\Output\HT1022-干衣机 (?C_STARTUP)
       00000080H   SFRSYM    DATA     BYTE      P0
       00000090H   SFRSYM    DATA     BYTE      P1
       000000D6H   SFRSYM    DATA     BYTE      CTKRL
-LX51 LINKER/LOCATER V4.66.66.0                                                        11/18/2020  19:39:45  PAGE 48
+LX51 LINKER/LOCATER V4.66.66.0                                                        11/21/2020  10:18:58  PAGE 48
 
 
       000000A0H   SFRSYM    DATA     BYTE      P2
@@ -3263,7 +3263,7 @@ SYMBOL TABLE OF MODULE:  .\Output\HT1022-干衣机 (?C_STARTUP)
       00000096H   SFRSYM    DATA     BYTE      PINTF0
       000000BDH   SFRSYM    DATA     BYTE      WDTC
       00000098H   SFRSYM    DATA     BYTE      SCON
-LX51 LINKER/LOCATER V4.66.66.0                                                        11/18/2020  19:39:45  PAGE 49
+LX51 LINKER/LOCATER V4.66.66.0                                                        11/21/2020  10:18:58  PAGE 49
 
 
       000000A8H.5 SFRSYM    DATA     BIT       EWDT
@@ -3331,7 +3331,7 @@ SYMBOL TABLE OF MODULE:  .\Output\HT1022-干衣机 (?C_STARTUP)
       00000082H   SFRSYM    DATA     BYTE      DPL
       000000ADH   SFRSYM    DATA     BYTE      SPSTAT
       000000B7H   SFRSYM    DATA     BYTE      ADCRH
-LX51 LINKER/LOCATER V4.66.66.0                                                        11/18/2020  19:39:45  PAGE 50
+LX51 LINKER/LOCATER V4.66.66.0                                                        11/21/2020  10:18:58  PAGE 50
 
 
       00000098H.4 SFRSYM    DATA     BIT       REN
@@ -3399,7 +3399,7 @@ SYMBOL TABLE OF MODULE:  .\Output\HT1022-干衣机 (?C_STARTUP)
       000000A0H.5 SFRSYM    DATA     BIT       P2_5
       00000090H.6 SFRSYM    DATA     BIT       P1_6
       00000080H.7 SFRSYM    DATA     BIT       P0_7
-LX51 LINKER/LOCATER V4.66.66.0                                                        11/18/2020  19:39:45  PAGE 51
+LX51 LINKER/LOCATER V4.66.66.0                                                        11/21/2020  10:18:58  PAGE 51
 
 
       000000B0H.5 SFRSYM    DATA     BIT       P3_5
@@ -3467,7 +3467,7 @@ SYMBOL TABLE OF MODULE:  .\Output\HT1022-干衣机 (?C_STARTUP)
       000000B8H.3 SFRSYM    DATA     BIT       ET4
       000000A8H   SFRSYM    DATA     BIT       EX0
       0000008DH   SFRSYM    DATA     BYTE      TH1
-LX51 LINKER/LOCATER V4.66.66.0                                                        11/18/2020  19:39:45  PAGE 52
+LX51 LINKER/LOCATER V4.66.66.0                                                        11/21/2020  10:18:58  PAGE 52
 
 
       00000098H.3 SFRSYM    DATA     BIT       TB8
@@ -3535,7 +3535,7 @@ SYMBOL TABLE OF MODULE:  .\Output\HT1022-干衣机 (?C_STARTUP)
       0100127BH   LINE      CODE     ---       #32
       0100127FH   LINE      CODE     ---       #34
       01001282H   LINE      CODE     ---       #35
-LX51 LINKER/LOCATER V4.66.66.0                                                        11/18/2020  19:39:45  PAGE 53
+LX51 LINKER/LOCATER V4.66.66.0                                                        11/21/2020  10:18:58  PAGE 53
 
 
       01001287H   LINE      CODE     ---       #36
@@ -3603,7 +3603,7 @@ SYMBOL TABLE OF MODULE:  .\Output\HT1022-干衣机 (?C_STARTUP)
       00000090H.5 SFRSYM    DATA     BIT       P1_5
       00000080H.6 SFRSYM    DATA     BIT       P0_6
       000000B0H.4 SFRSYM    DATA     BIT       P3_4
-LX51 LINKER/LOCATER V4.66.66.0                                                        11/18/2020  19:39:45  PAGE 54
+LX51 LINKER/LOCATER V4.66.66.0                                                        11/21/2020  10:18:58  PAGE 54
 
 
       000000A0H.5 SFRSYM    DATA     BIT       P2_5
@@ -3671,7 +3671,7 @@ SYMBOL TABLE OF MODULE:  .\Output\HT1022-干衣机 (?C_STARTUP)
       000000BAH   SFRSYM    DATA     BYTE      IP3
       000000A2H   SFRSYM    DATA     BYTE      INSCON
       000000D8H   SFRSYM    DATA     BIT       EX16_17
-LX51 LINKER/LOCATER V4.66.66.0                                                        11/18/2020  19:39:45  PAGE 55
+LX51 LINKER/LOCATER V4.66.66.0                                                        11/21/2020  10:18:58  PAGE 55
 
 
       000000B8H.3 SFRSYM    DATA     BIT       ET4
@@ -3739,7 +3739,7 @@ SYMBOL TABLE OF MODULE:  .\Output\HT1022-干衣机 (?C_STARTUP)
       01000020H   LINE      CODE     ---       #75
       01000020H   LINE      CODE     ---       #77
       ---         BLOCKEND  ---      ---       LVL=0
-LX51 LINKER/LOCATER V4.66.66.0                                                        11/18/2020  19:39:45  PAGE 56
+LX51 LINKER/LOCATER V4.66.66.0                                                        11/21/2020  10:18:58  PAGE 56
 
 
 
@@ -3807,7 +3807,7 @@ SYMBOL TABLE OF MODULE:  .\Output\HT1022-干衣机 (?C_STARTUP)
       00000080H.3 SFRSYM    DATA     BIT       P0_3
       000000F8H   SFRSYM    DATA     BYTE      RSTFR
       000000A0H.2 SFRSYM    DATA     BIT       P2_2
-LX51 LINKER/LOCATER V4.66.66.0                                                        11/18/2020  19:39:45  PAGE 57
+LX51 LINKER/LOCATER V4.66.66.0                                                        11/21/2020  10:18:58  PAGE 57
 
 
       00000090H.3 SFRSYM    DATA     BIT       P1_3
@@ -3875,7 +3875,7 @@ SYMBOL TABLE OF MODULE:  .\Output\HT1022-干衣机 (?C_STARTUP)
       000000A9H   SFRSYM    DATA     BYTE      IP0
       00000088H.5 SFRSYM    DATA     BIT       TF0
       000000A8H.3 SFRSYM    DATA     BIT       ET1
-LX51 LINKER/LOCATER V4.66.66.0                                                        11/18/2020  19:39:45  PAGE 58
+LX51 LINKER/LOCATER V4.66.66.0                                                        11/21/2020  10:18:58  PAGE 58
 
 
       000000AAH   SFRSYM    DATA     BYTE      IP1
@@ -3943,7 +3943,7 @@ SYMBOL TABLE OF MODULE:  .\Output\HT1022-干衣机 (?C_STARTUP)
       000000D0H.6 SFRSYM    DATA     BIT       AC
       000000A8H.7 SFRSYM    DATA     BIT       EA
       000000E7H   SFRSYM    DATA     BYTE      PWM0DTH
-LX51 LINKER/LOCATER V4.66.66.0                                                        11/18/2020  19:39:45  PAGE 59
+LX51 LINKER/LOCATER V4.66.66.0                                                        11/21/2020  10:18:58  PAGE 59
 
 
       000000CAH   SFRSYM    DATA     WORD      T3
@@ -4011,7 +4011,7 @@ SYMBOL TABLE OF MODULE:  .\Output\HT1022-干衣机 (?C_STARTUP)
       00000089H   SFRSYM    DATA     BYTE      TMOD
       00000088H   SFRSYM    DATA     BYTE      TCON
       0000009FH   SFRSYM    DATA     BYTE      PINTF2
-LX51 LINKER/LOCATER V4.66.66.0                                                        11/18/2020  19:39:45  PAGE 60
+LX51 LINKER/LOCATER V4.66.66.0                                                        11/21/2020  10:18:58  PAGE 60
 
 
       000000E4H   SFRSYM    DATA     BYTE      PWM0DL
@@ -4079,7 +4079,7 @@ SYMBOL TABLE OF MODULE:  .\Output\HT1022-干衣机 (?C_STARTUP)
       000000B6H   SFRSYM    DATA     BYTE      ADCRL
       000000DAH   SFRSYM    DATA     BYTE      PWM0C
       000000C9H   SFRSYM    DATA     BYTE      T3CON
-LX51 LINKER/LOCATER V4.66.66.0                                                        11/18/2020  19:39:45  PAGE 61
+LX51 LINKER/LOCATER V4.66.66.0                                                        11/21/2020  10:18:58  PAGE 61
 
 
       000000E4H   SFRSYM    DATA     WORD      PWM0D
