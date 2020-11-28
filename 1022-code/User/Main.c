@@ -29,34 +29,27 @@ void key_check();
 void display_flash();
 //================================================================================
 
-char display_data1=0;
-char display_data2=0;
+char display_data1='X';
+char display_data2='X';
 char display_point=0;
-char display_uv=0;
+char display_uv_led=0;
 char display_touch_led=0;
-u32 yuyue_counter=0;
 
-u32 counter=0;
-
-int set_temp=90;
-char display_mode=0;
-char yuyue_start=0;
-
-char kid_lock=0;
-char led_buff=0;
-u16 current_temp=0;
-char err_code=0;
-char start_work=0;
 
 char dingshi_start=0;
 u32 dingshi_counter=0;
-char work_mode=0;
-
 char uv_start=0;
-u32 uv_counter=20;
-char last_work_mode=0;
-u32 count0=0;
-u32 jian_ge=0;
+u32 uv_counter=0;
+char work_mode=0;
+char last_hoted=0;
+u32 nec_jian_ge=0;
+u32 op_over_count=0;
+
+char feng_gan_stop_flag=0;
+u32 fan_delay_counter=0;
+
+
+
 //================================================================================
 
 void set_dingshi_time_plus()
@@ -82,12 +75,29 @@ void set_dingshi_time_red()
 	{
 		dingshi_counter-=30;
 	}
+	else
+	{
+		dingshi_counter=30;
+	}
 }
 
 void display_dingshi_set()
 {
 	display_data1=dingshi_counter/60;
-	display_data2=(dingshi_counter%60)/6;
+	display_data2=(dingshi_counter)%60;
+	if(display_data2>30)
+	{
+		display_data1+=1;
+		display_data2=0;
+	}
+	else if(display_data2>0)
+	{
+		display_data2=5;
+	}
+	else
+	{
+		display_data2=0;
+	}
 	display_point=1;
 }
 
@@ -96,7 +106,20 @@ void display_dingshi_time()
 {
 	static u16 i6=0;
 	display_data1=dingshi_counter/60;
-	display_data2=(dingshi_counter%60)/6;
+	display_data2=(dingshi_counter)%60;
+	if(display_data2>30)
+	{
+		display_data1+=1;
+		display_data2=0;
+	}
+	else if(display_data2>0)
+	{
+		display_data2=5;
+	}
+	else
+	{
+		display_data2=0;
+	}
 	
 	if(i6==1)
 	{
@@ -116,13 +139,14 @@ void display_uv_time()
 {
 	display_data1=uv_counter/10;
 	display_data2=uv_counter%10;
-	display_point=0;
+	display_point=0;	
+	
 }
 
 void display_off()
 {
-	display_data1=8;
-	display_data2=8;
+	display_data1='X';
+	display_data2='X';
 	display_point=0;
 }
 
@@ -135,7 +159,6 @@ void display_none()
 void key_check()
 {
 	static u16 ON_TK=0;
-	static u16 i3=0;
 	if(TouchKeyFlag )
 	{		
 		if(ON_TK==0)
@@ -143,9 +166,8 @@ void key_check()
 			ON_TK=1;
 			if(work_mode==0)
 			{
-				work_mode=1;
+				work_mode=1;				
 				dingshi_counter=90;
-
 			}
 			else
 			{
@@ -160,11 +182,14 @@ void key_check()
 				}
 				else
 				{
-					set_dingshi_time_plus();	
-					display_dingshi_set();					
+					if(uv_counter==0)
+					{
+						set_dingshi_time_plus();	
+						display_dingshi_set();		
+					}						
 				}
 			}
-			count0=0;
+			op_over_count=0;
 		}
 		
 	}
@@ -172,83 +197,6 @@ void key_check()
 	{
 		ON_TK=0;
 	}
-
-	if(work_mode==0)
-	{
-		static u16 i5=0;
-		count0=0;	
-		display_off();		
-		if(i5==1)
-		{
-			display_touch_led=0x01;
-		} 
-		else if(i5==60)
-		{					
-			display_touch_led=0x00;					
-		}
-		else if(i5==120)
-		{
-			i5=0;
-		}
-		i5++;
-	}
-	else
-	{
-		display_touch_led=1;
-		if(count0<340)
-		{
-			count0++;
-			if(count0%50==0)
-			{
-				static char i=0;
-				if(i==0)
-				{
-					display_dingshi_set();					
-					i=1;
-				}
-				else
-				{
-					display_none();
-					i=0;
-				}
-				
-			}
-
-		}
-		else
-		{
-			
-			if(dingshi_counter>0)
-			{
-				
-				dingshi_start=1;
-				display_dingshi_time();	
-				
-			}
-			else 
-			{
-				dingshi_start=0;
-				if(uv_start==0)
-				{
-					uv_start=1;
-					uv_counter=20;
-				}
-				else if(uv_counter==0)
-				{
-					uv_start=0;
-					work_mode=0;
-					
-				}
-				else if(uv_counter>0)
-				{
-					display_uv_time();
-				}
-				
-			}
-		}
-
-	}
-	
 
 }
 #define FAN P1_1
@@ -272,74 +220,153 @@ void work_check()
 		inited=1;
 	}
 	
-	if(work_mode==1 )
+	if(work_mode==0)
 	{
-		if(dingshi_start==1)
+		static u16 i5=0;
+				
+		if(i5==1)
 		{
-			FAN=1;
-			JIARE=1;
+			display_touch_led=0x01;
+		} 
+		else if(i5==60)
+		{					
+			display_touch_led=0x00;					
 		}
-		else
+		else if(i5==120)
 		{
-			FAN=0;
-			JIARE=0;
+			i5=0;
 		}
-		if(uv_start==1 && uv_counter>0)
-		{
-			if(count02>0)
-			{
-				UV=0;
-			}
-			else
-			{
-				UV=1;
-			}
-			display_uv=1;
-		}
-		else
-		{
-			UV=0;
-			display_uv=0;
-		}
-	}
-	else
-	{
+		i5++;
+		
+		op_over_count=0;	
+		display_uv_led=0;
+		display_off();		
 		FAN=0;
 		JIARE=0;
 		UV=0;
-		display_uv=0;
-		display_off();
-	}
-
-	if(last_work_mode!=dingshi_start)
-	{
+		dingshi_counter=0;
+		dingshi_start=0;
+		uv_start=0;
+		uv_counter=0;
 		
-		if(last_work_mode==1 && dingshi_start==0)
-		{
-			count02++;
-			if(count02<1000)
-			{
-				FAN=1;
-			}
-			else
-			{
-				count02=0;
-				FAN=0;
-				last_work_mode=dingshi_start;
-			}
-		}
-		else
-		{
-			last_work_mode=dingshi_start;
-		}
 	}
 	else
 	{
-		count02=0;
+		display_touch_led=1;
+		if(op_over_count<300)
+		{			
+			op_over_count++;
+			FAN=0;
+			JIARE=0;
+			UV=0;
+			dingshi_start=0;
+			uv_start=0;
+			if(op_over_count==1 || op_over_count==100 || op_over_count==200 )
+			{				
+					if(dingshi_counter>0)
+					{
+						display_dingshi_set();
+					}						
+					else
+					{
+						display_uv_time();
+					}
+			}
+			else if(op_over_count==50 || op_over_count==150 || op_over_count==250)
+			{
+				display_none();
+			}
+			if(op_over_count==300)
+			{
+					if(dingshi_counter>0)
+					{
+						display_dingshi_set();
+						dingshi_start=1;
+					}						
+					else
+					{
+						display_uv_time();
+						uv_start=1;
+					}
+			}
+		
+			
+		}
+		else
+		{
+			if(dingshi_counter>0)
+			{
+				FAN=1;
+				JIARE=1;
+				display_dingshi_time();
+			}
+			else
+			{
+				FAN=0;
+				JIARE=0;
+			}
+			if(feng_gan_stop_flag==1)
+			{
+				uv_start=1;
+				uv_counter=20;
+				feng_gan_stop_flag=0;
+				fan_delay_counter=10;
+			}
+			if(uv_counter>0)
+			{
+				if(fan_delay_counter>0)
+				{
+					static u16 i51=0;
+					UV=0;
+					if(i51==1)
+					{
+						display_uv_led=0x01;
+					} 
+					else if(i51==60)
+					{					
+						display_uv_led=0x00;					
+					}
+					else if(i51==120)
+					{
+						i51=0;
+					}
+					i51++;					
+				}
+				else
+				{
+					UV=1;
+					display_uv_led=1;
+				}
+				
+				display_uv_time();
+			}
+			else
+			{
+				UV=0;
+				display_uv_led=0;
+			}
+			
+		}		
+		
+	}
+	if(last_hoted!=dingshi_start)
+	{
+		if(last_hoted==1 && dingshi_start==0)
+		{
+			fan_delay_counter=15700;
+			last_hoted=dingshi_start;
+		}
+		else
+		{
+			last_hoted=dingshi_start;
+		}
+	}
+	if(fan_delay_counter>0)
+	{
+		fan_delay_counter--;
+		FAN=1;
 	}
 	
-
-
 }
 
 
@@ -375,23 +402,36 @@ void TIMER0_Rpt(void) interrupt TIMER0_VECTOR  //时基100us
   if(tt++>600000)
 	{
 		tt=0;
-		if(dingshi_counter>0)
-		{
-			if(dingshi_start==1)
+		if(work_mode==1)		
+		{			
+			if(dingshi_counter>0)
 			{
-				dingshi_counter--;			
+				if(dingshi_start==1)
+				{
+					dingshi_counter--;	
+					if(dingshi_counter==0)
+					{
+						feng_gan_stop_flag=1;
+						dingshi_start=0;
+					}
+				}
+				
 			}
-			
-		}
-		if(uv_counter>0)
-		{
-			if(uv_start==1)
+			if(uv_counter>0)
 			{
-				uv_counter--;
+				if(uv_start==1 && fan_delay_counter==0)
+				{
+					uv_counter--;
+					if(uv_counter==0)
+					{
+						uv_start=0;
+						work_mode=0;
+					}
+				}
 			}
-		}	
+		}		
 	}
-	jian_ge++;
+	nec_jian_ge++;
 }	
 void init_exti0()
 {
@@ -430,11 +470,11 @@ void chu_li_nec()
 {
 	if(nec_data[0]==0 && nec_data[1]==0xff)
 	{
-		if(jian_ge<10000)
+		if(nec_jian_ge<3000)
 		{
 			return;
 		}
-		jian_ge=0;
+		nec_jian_ge=0;
 		if(nec_data[2]==0)
 		{
 			if(work_mode==0)
@@ -453,17 +493,20 @@ void chu_li_nec()
 		}
 		else if(work_mode==1 && uv_start==0)
 		{
-			if(nec_data[2]==0x08)//
+			if(uv_counter==0)
 			{
-									
-				set_dingshi_time_add();				
-				count0=0;
-			}
-			else if(nec_data[2]==0x0A)//
-			{
-					
-				set_dingshi_time_red();				
-				count0=0;
+				if(nec_data[2]==0x08)//
+				{
+										
+					set_dingshi_time_add();				
+					op_over_count=0;
+				}
+				else if(nec_data[2]==0x0A)//
+				{
+						
+					set_dingshi_time_red();				
+					op_over_count=0;
+				}
 			}
 			
 		}
@@ -472,10 +515,11 @@ void chu_li_nec()
 				if(uv_start==0)
 				{
 					work_mode=1;
-					uv_start=1;
+					uv_start=0;
 					uv_counter=20;
 					dingshi_counter=0;
 					dingshi_start=0;
+					op_over_count=0;
 				}
 				else
 				{					
@@ -543,93 +587,12 @@ void decode_nec()
 }
 
 
-void main()
-{
-	
-	SystemInit();						//
-	//init_printf();
-	init_display();
- 	init_TIMER0();
- 	init_exti0();
-	EA = 1;
-	CTK_Init();	
-							
-
-	//printf("start\n\r");	
-	while(1)
-	{
-
-		if(OneCycleScanDone)
-		{
-			TouchRawDataFilter();		//
-			Touch_Signal_Handle();
-			TouchMultibuttonHandle();	//
-			OneCycleScanDone = 0;
-
-		}
-		
-	  key_check();
-		decode_nec();
-		Delay_ms(5);
-		counter++;
-		display_flash();
-		work_check();
-
-	}	
-}
 
 
 
 
 
 /*************************************ADC************************************************/
-//0~119℃
-u16 code Temp_Table[1]={1
-
-};
-
-void init_ntc_adc()
-{
-	
-	P0M2 = 0x01;				        //
-	ADCC0 = 0x80;						//
-	Delay_50us(1);						//
-	ADCC1 = 2;						//
-	ADCC2 = 0x4B;						//	
-}
-unsigned int get_ntc_adc()
-{
-	ADCC0 |= 0x40;					//
-	while(!(ADCC0&0x20));			//
-	ADCC0 &=~ 0x20;					//
-	return ADCR;
-}
-
-u16 get_temp()
-{
-	u16 n=0;
-	u16 ntc_adc=get_ntc_adc();
-	
-	for(n=0;n<120;n++)
-	{
-		if(Temp_Table[n]<ntc_adc)
-		{
-			break;
-		}
-	}
-	// printf(" :%d,wen_du:%d\n", ntc_adc,n);
-	if(ntc_adc==0)
-	{
-		err_code=2;
-	}
-	else if(ntc_adc==4095)
-	{
-		err_code=1;
-	}
-
-	return n;
-
-}
 
 
 /***************************************************************************/
@@ -790,12 +753,10 @@ void display_touch_(char c)
 }
 void display_flash()
 {
-
-	display_1(1,2);
 	display_1(display_data1,1);
-	Delay_ms(5);
+	Delay_ms(4);
 	display_1(display_data2,2);
-	display_uv_(display_uv);
+	display_uv_(display_uv_led);
 	display_touch_(display_touch_led);
 }
 
@@ -820,13 +781,46 @@ void  buzzer()
 }
 
 //void init
+
+
+
+
+void main()
+{
+	
+	SystemInit();						//
+	//init_printf();
+	init_display();
+ 	init_TIMER0();
+ 	init_exti0();
+	EA = 1;
+	CTK_Init();	
+							
+
+	//printf("start\n\r");	
+	while(1)
+	{
+
+		if(OneCycleScanDone)
+		{
+			TouchRawDataFilter();		//
+			Touch_Signal_Handle();
+			TouchMultibuttonHandle();	//
+			OneCycleScanDone = 0;
+
+		}
+		
+	  key_check();
+		decode_nec();
+		Delay_ms(4);
+		display_flash();
+		work_check();
+
+	}	
+}
+
+
 /*********************************END OF FILE************************************/
-
-
-
-
-
-
 
 
 
