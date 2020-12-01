@@ -47,6 +47,7 @@ u32 op_over_count=0;
 
 char feng_gan_stop_flag=0;
 u32 fan_delay_counter=0;
+u32 nec_ir_counter=0;
 
 
 
@@ -474,6 +475,13 @@ void chu_li_nec()
 		{
 			return;
 		}
+		if(nec_data[2]==2)
+		{
+			if(nec_jian_ge<50000)
+			{
+				return;
+			}
+		}
 		nec_jian_ge=0;
 		if(nec_data[2]==0)
 		{
@@ -512,25 +520,25 @@ void chu_li_nec()
 		}
 		if(nec_data[2]==0x02)//uv
 		{
-				if(uv_start==0)
-				{
-					work_mode=1;
-					uv_start=0;
-					uv_counter=20;
-					dingshi_counter=0;
-					dingshi_start=0;
-					op_over_count=0;
-				}
-				else
-				{					
-					work_mode=0;
-					dingshi_counter=0;
-					dingshi_start=0;
-					uv_start=0;
-					uv_counter=0;
-				}
-				
+			if(uv_start==0)
+			{
+				work_mode=1;
+				uv_start=0;
+				uv_counter=20;
+				dingshi_counter=0;
+				dingshi_start=0;
+				op_over_count=0;
 			}
+			else
+			{					
+				work_mode=0;
+				dingshi_counter=0;
+				dingshi_start=0;
+				uv_start=0;
+				uv_counter=0;
+			}
+				
+		}
 	}
 	
 }
@@ -572,12 +580,25 @@ void decode_nec()
 					(nec_buff[31]<0x0F ? 0 : 1)<<6 |
 					(nec_buff[32]<0x0F ? 0 : 1)<<7 ;
 		nec_index=0;
-		chu_li_nec();
+		if(nec_data[0]==0 && nec_data[1]==0xff && nec_data[2]==2)
+		{
+			nec_ir_counter++;
+			if(nec_ir_counter>8)
+			{				
+				chu_li_nec();
+			}
+		}
+		else
+		{
+			chu_li_nec();
+		}
 		
-//		putchar(nec_data[0]);
-//		putchar(nec_data[1]);
-//		putchar(nec_data[2]);
-//		putchar(nec_data[3]);
+		
+		// putchar(0x56);
+		// putchar(nec_data[0]);
+		// putchar(nec_data[1]);
+		// putchar(nec_data[2]);
+		// putchar(nec_data[3]);
 		
 		nec_data[0]=0;
 		nec_data[1]=0;
@@ -612,7 +633,7 @@ void decode_nec()
 #define DISPLAY_E  P0_2
 #define DISPLAY_F  P2_2
 #define DISPLAY_G  P2_3
-#define DISPLAY_DP P2_0
+#define DISPLAY_DP P2_0//P2_0//  printf("%s\n", );
 
 //
 #define DISPLAY_COM1 P1_6
@@ -787,9 +808,9 @@ void  buzzer()
 
 void main()
 {
-	
+	u32 ts=0;
 	SystemInit();						//
-	//init_printf();
+	// init_printf();
 	init_display();
  	init_TIMER0();
  	init_exti0();
@@ -810,11 +831,40 @@ void main()
 
 		}
 		
-	  key_check();
+	  	key_check();
 		decode_nec();
 		Delay_ms(4);
 		display_flash();
 		work_check();
+
+		if(ts++>200)
+		{
+			ts=0;
+			nec_ir_counter=0;
+			// char work_mode=0;
+			// char dingshi_start=0;
+			// u32 dingshi_counter=0;
+			// char uv_start=0;
+			// u32 uv_counter=0;
+			
+			// char last_hoted=0;
+			// u32 op_over_count=0;
+
+			// char feng_gan_stop_flag=0;
+			// u32 fan_delay_counter=0;
+
+			// putchar(work_mode);
+			// putchar(dingshi_start);
+			// putchar(dingshi_counter&0xff);
+			// putchar(uv_start);
+			// putchar(uv_counter&0xff);
+			// putchar(last_hoted);
+			// putchar(op_over_count&0xff);
+			// putchar(feng_gan_stop_flag);
+			// putchar(fan_delay_counter&0xff);
+			// putchar('\n');
+
+		}
 
 	}	
 }
