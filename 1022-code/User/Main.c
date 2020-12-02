@@ -47,7 +47,6 @@ u32 op_over_count=0;
 
 char feng_gan_stop_flag=0;
 u32 fan_delay_counter=0;
-u32 nec_ir_counter=0;
 
 
 
@@ -437,7 +436,7 @@ void TIMER0_Rpt(void) interrupt TIMER0_VECTOR  //时基100us
 void init_exti0()
 {
 	P3M5 = 0x69;			      //P35设置为带SMT上拉输入
-	PITS4 |= 0x04;					//INT17下降沿	
+	PITS4 = 0x04;					//INT17下降沿	
 	PINTE2 = 0x02;
 	IE2 |= 0x01;							//打开INT17中断
 	
@@ -446,9 +445,8 @@ void init_exti0()
 void ISR_INT16_17(void)  interrupt INT16_17_VECTOR
 {
 	PINTF2 &=~ 0x02;				//清除INT17中断标志位		
-	if(c_start_flag)
-	{
-		if(c_timer>105)
+
+		if(c_timer>50)
 		{
 			nec_index=0;
 		}
@@ -460,12 +458,8 @@ void ISR_INT16_17(void)  interrupt INT16_17_VECTOR
 			nec_index=0;
 		}
 		c_end_flag=0;
-	}
-	else
-	{
-		c_start_flag=1;
 		c_timer=0;
-	}
+
 }
 void chu_li_nec()
 {
@@ -474,13 +468,6 @@ void chu_li_nec()
 		if(nec_jian_ge<3000)
 		{
 			return;
-		}
-		if(nec_data[2]==2)
-		{
-			if(nec_jian_ge<50000)
-			{
-				return;
-			}
 		}
 		nec_jian_ge=0;
 		if(nec_data[2]==0)
@@ -579,31 +566,26 @@ void decode_nec()
 					(nec_buff[30]<0x0F ? 0 : 1)<<5 |
 					(nec_buff[31]<0x0F ? 0 : 1)<<6 |
 					(nec_buff[32]<0x0F ? 0 : 1)<<7 ;
-		nec_index=0;
-		if(nec_data[0]==0 && nec_data[1]==0xff && nec_data[2]==2)
-		{
-			nec_ir_counter++;
-			if(nec_ir_counter>8)
-			{				
-				chu_li_nec();
-			}
-		}
-		else
-		{
+			nec_index=0;
 			chu_li_nec();
+
+		
+		
+//		putchar(0x56);
+//		putchar(nec_data[0]);
+//		putchar(nec_data[1]);
+//	  putchar(nec_data[2]);
+//		putchar(nec_data[3]);
+		
+		{
+			int i=0;
+			for(i=0;i<33;i++)
+			{
+				nec_buff[i]=0;
+			}
+			
 		}
-		
-		
-		// putchar(0x56);
-		// putchar(nec_data[0]);
-		// putchar(nec_data[1]);
-		// putchar(nec_data[2]);
-		// putchar(nec_data[3]);
-		
-		nec_data[0]=0;
-		nec_data[1]=0;
-		nec_data[2]=0;
-		nec_data[3]=0;
+
 	}
 }
 
@@ -734,21 +716,23 @@ void display_1(char c,char b)
 	{
 		DISPLAY_COM1=0;
 		DISPLAY_COM2=1;
+		if(display_point)
+		{
+				DISPLAY_DP=1;
+		}
+		else
+		{
+				DISPLAY_DP=0;
+		}
 	}
 	else if(b==2)
 	{
 		DISPLAY_COM1=1;
 		DISPLAY_COM2=0;
+		DISPLAY_DP=0;
 	}
 	
-	if(display_point)
-	{
-			DISPLAY_DP=1;
-	}
-	else
-	{
-		  DISPLAY_DP=0;
-	}
+	
 }
 void display_uv_(char c)
 {
@@ -810,7 +794,7 @@ void main()
 {
 	u32 ts=0;
 	SystemInit();						//
-	// init_printf();
+	//init_printf();
 	init_display();
  	init_TIMER0();
  	init_exti0();
@@ -837,34 +821,33 @@ void main()
 		display_flash();
 		work_check();
 
-		if(ts++>200)
-		{
-			ts=0;
-			nec_ir_counter=0;
-			// char work_mode=0;
-			// char dingshi_start=0;
-			// u32 dingshi_counter=0;
-			// char uv_start=0;
-			// u32 uv_counter=0;
-			
-			// char last_hoted=0;
-			// u32 op_over_count=0;
+//		if(ts++>200)
+//		{
+//			ts=0;
+//			// char work_mode=0;
+//			// char dingshi_start=0;
+//			// u32 dingshi_counter=0;
+//			// char uv_start=0;
+//			// u32 uv_counter=0;
+//			
+//			// char last_hoted=0;
+//			// u32 op_over_count=0;
 
-			// char feng_gan_stop_flag=0;
-			// u32 fan_delay_counter=0;
+//			// char feng_gan_stop_flag=0;
+//			// u32 fan_delay_counter=0;
 
-			// putchar(work_mode);
-			// putchar(dingshi_start);
-			// putchar(dingshi_counter&0xff);
-			// putchar(uv_start);
-			// putchar(uv_counter&0xff);
-			// putchar(last_hoted);
-			// putchar(op_over_count&0xff);
-			// putchar(feng_gan_stop_flag);
-			// putchar(fan_delay_counter&0xff);
-			// putchar('\n');
+//			// putchar(work_mode);
+//			// putchar(dingshi_start);
+//			// putchar(dingshi_counter&0xff);
+//			// putchar(uv_start);
+//			// putchar(uv_counter&0xff);
+//			// putchar(last_hoted);
+//			// putchar(op_over_count&0xff);
+//			// putchar(feng_gan_stop_flag);
+//			// putchar(fan_delay_counter&0xff);
+//			// putchar('\n');
 
-		}
+//		}
 
 	}	
 }
