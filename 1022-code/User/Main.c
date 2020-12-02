@@ -22,7 +22,7 @@ extern void init_printf();
 void init_ntc_adc();
 void init_display();
 unsigned int get_ntc_adc();
-void  buzzer();
+void  buzzer(char type);
 u16 get_temp();
 void init_TIMER0();
 void key_check();
@@ -164,6 +164,7 @@ void key_check()
 		if(ON_TK==0)
 		{
 			ON_TK=1;
+			buzzer(1);
 			if(work_mode==0)
 			{
 				work_mode=1;				
@@ -171,6 +172,7 @@ void key_check()
 			}
 			else
 			{
+
 				if(dingshi_start==1 || uv_start==1)
 				{
 					work_mode=0;
@@ -278,6 +280,7 @@ void work_check()
 			}
 			if(op_over_count==300)
 			{
+					buzzer(2);
 					if(dingshi_counter>0)
 					{
 						display_dingshi_set();
@@ -426,6 +429,7 @@ void TIMER0_Rpt(void) interrupt TIMER0_VECTOR  //时基100us
 					{
 						uv_start=0;
 						work_mode=0;
+						buzzer(3);
 					}
 				}
 			}
@@ -472,6 +476,7 @@ void chu_li_nec()
 		nec_jian_ge=0;
 		if(nec_data[2]==0)
 		{
+			buzzer(1);
 			if(work_mode==0)
 			{
 				work_mode=1;
@@ -486,8 +491,9 @@ void chu_li_nec()
 				uv_counter=0;
 			}
 		}
-		else if(work_mode==1 && uv_start==0)
+		else if(work_mode==1 && uv_counter==0)
 		{
+			buzzer(1);
 			if(uv_counter==0)
 			{
 				if(nec_data[2]==0x08)//
@@ -507,6 +513,7 @@ void chu_li_nec()
 		}
 		if(nec_data[2]==0x02)//uv
 		{
+			buzzer(1);
 			if(uv_start==0)
 			{
 				work_mode=1;
@@ -765,22 +772,49 @@ void display_flash()
 	display_touch_(display_touch_led);
 }
 
-void  buzzer()
+void  buzzer(char type)
 {
-	static char inited=0;
-	int i=0;
-	if(inited==0)
-	{
-		P0M3 = 0xC2;                        //P03设置为推挽输出
-		PWM3_MAP = 0x03;					//PWM3映射P03口
+	static int t0=0;
+	
+
+	if(type==1)
+	{	
+		P1M4 = 0xC2;                        //P03设置为推挽输出
+		PWM3_MAP = 0x14;					//PWM3映射P03口
 		PWM3P = 0x20;						//PWM周期为0xFF
 		PWM3D = 0x10;						//PWM占空比设置
 		PWM3C = 0x97; 						//使能PWM3，关闭中断，允许输出，时钟4分频
-		inited=1;
-	}	
-	PWM3C = 0x97;	
-	Delay_ms(200);
-	PWM3C = 0x07;
+		t0=10;
+	}
+	else if(type==2)
+	{
+		P1M4 = 0xC2;                        //P03设置为推挽输出
+		PWM3_MAP = 0x14;					//PWM3映射P03口
+		PWM3P = 0x20;						//PWM周期为0xFF
+		PWM3D = 0x10;						//PWM占空比设置
+		PWM3C = 0x97; 						//使能PWM3，关闭中断，允许输出，时钟4分频
+		t0=20;
+	}
+	else if(type==3)
+	{
+		P1M4 = 0xC2;                        //P03设置为推挽输出
+		PWM3_MAP = 0x14;					//PWM3映射P03口
+		PWM3P = 0x20;						//PWM周期为0xFF
+		PWM3D = 0x10;						//PWM占空比设置
+		PWM3C = 0x97; 						//使能PWM3，关闭中断，允许输出，时钟4分频
+		t0=50;
+	}
+	if(t0>0)
+	{	
+		t0--;
+		
+		if(t0==0)
+		{
+			PWM3C = 0x07;
+			P1M4=GPIO_In_AN;
+		}
+		
+	}
 	
 	
 }
@@ -801,7 +835,7 @@ void main()
 	EA = 1;
 	CTK_Init();	
 							
-
+	buzzer(3);
 	//printf("start\n\r");	
 	while(1)
 	{
@@ -820,6 +854,7 @@ void main()
 		Delay_ms(4);
 		display_flash();
 		work_check();
+		buzzer(0);
 
 //		if(ts++>200)
 //		{
